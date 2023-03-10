@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  ScheduleApp
+//  CalmedScheduleApp
 //
-//  Created by Sam Sung on 2023/03/08.
+//  Created by Sam Sung on 2023/03/09.
 //
 
 import UIKit
@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "ScheduleApp")
+        let container = NSPersistentContainer(name: "CalmedScheduleApp")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.

@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             
             // 탭바 이름들 설정
-            //vc1.title = "Main"
+//            vc2.title = ""
 
             
             // 탭바로 사용하기 위한 뷰 컨트롤러들 설정 ( 탭바는 최대 5개까지 가능 )
@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             items[0].image = UIImage(systemName: "person.circle")
             items[1].image = UIImage(systemName: "person.circle")
             
-            // 기본루트뷰를 탭바컨트롤러로 설정⭐️⭐️⭐️
+            // 기본루트뷰를 탭바컨트롤러로 설정⭐️
             window?.rootViewController = tabBarVC
             window?.makeKeyAndVisible()
         }

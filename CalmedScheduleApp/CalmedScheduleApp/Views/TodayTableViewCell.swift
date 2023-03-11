@@ -10,6 +10,7 @@ import UIKit
 class TodayTableViewCell: UITableViewCell {
     
     private let colorHelper = ColorHelper()
+
     
     // MARK: - UI 구현
     
@@ -62,6 +63,7 @@ class TodayTableViewCell: UITableViewCell {
         return view
     }()
     
+
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -69,12 +71,6 @@ class TodayTableViewCell: UITableViewCell {
 
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0))
-        
-  
-    }
     
     // MARK: - initializer
     // 생성 시점에 뷰 위에 객체들 올리기

@@ -9,24 +9,32 @@ import UIKit
 
 final class ViewController: UIViewController, UITabBarDelegate {
     let colorHelper = ColorHelper()
-    let mainView = MainView()
+    var mainView = MainView()
     
     override func loadView() {
         view = mainView
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
+
+    
+    // MARK: - addTarget
+    
+
+    
+    @objc func firstButtonTapped() {
+        print("first button tapped")
+    }
+    @objc func secondButtonTapped() {
+        print("second button tapped")
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("viewDidDisappear 호출됨")
-    }
-    
-    // MARK: - set TabBar
-
         
     }
-    
-
+}

@@ -21,14 +21,16 @@ final class OneDayViewController: UIViewController, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         print("뷰 나타날 것")
+        
         setupTableView()
         setupNaviBar()
     }
     
     
+
     // MARK: - set NaviBar
     func setupNaviBar() {
-        title = "Today"
+        self.title = "Today"
         
         // 네비게이션바 설정
         let appearance = UINavigationBarAppearance()
@@ -54,14 +56,12 @@ final class OneDayViewController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         
         tableView.backgroundColor = colorHelper.backgroundColor
-        tableView.rowHeight = 120
-        tableView.clipsToBounds = true
+        tableView.rowHeight = 105
         tableView.layer.cornerRadius = 5
         setupTableViewConstraints()
         // 셀의 등록과정
         tableView.register(TodayTableViewCell.self, forCellReuseIdentifier: "TodoCell")
-        
-        
+    
     }
     
     // MARK: - TableView Autolayout
@@ -83,7 +83,9 @@ final class OneDayViewController: UIViewController, UITableViewDelegate {
     
     
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("뷰 사라짐")
+    }
     
     
 }
@@ -91,25 +93,26 @@ final class OneDayViewController: UIViewController, UITableViewDelegate {
 
 extension OneDayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 8
     }
     
     
     
+    // create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // (힙에 올라간)재사용 가능한 셀을 꺼내서 사용하는 메서드 (애플이 미리 잘 만들어 놓음)
-        // (사전에 셀을 등록하는 과정이 내부 메커니즘에 존재)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodayTableViewCell
-    
-    
-    //        cell.mainImageView.image = moviesArray[indexPath.row].movieImage
-    //        cell.movieNameLabel.text = moviesArray[indexPath.row].movieName
-    //        cell.descriptionLabel.text = moviesArray[indexPath.row].movieDescription
-    //        cell.selectionStyle = .none
+        
+        let cell: UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "TodoCell")!
+        
+        // note that indexPath.section is used rather than indexPath.row
+        
+        // add border and color
+        cell.layer.borderColor = colorHelper.backgroundColor.cgColor
+        cell.layer.borderWidth = 5
+        cell.layer.cornerRadius = 5
+        cell.clipsToBounds = true
         
         return cell
     }
-    
 
     
 }
@@ -123,7 +126,6 @@ extension ViewController: UITableViewDelegate {
         let detailVC = DetailViewController()
 //        detailVC.movieData = moviesArray[indexPath.row]
         //show(detailVC, sender: nil)
-        print("셀이 선택됨")
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }

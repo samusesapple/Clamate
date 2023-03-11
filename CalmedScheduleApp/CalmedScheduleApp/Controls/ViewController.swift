@@ -10,20 +10,26 @@ import UIKit
 final class ViewController: UIViewController, UITabBarDelegate {
     let colorHelper = ColorHelper()
     var mainView = MainView()
+    // 모델(저장 데이터를 관리하는 코어데이터)
+    let toDoManager = CoreDataManager.shared
     
     override func loadView() {
         view = mainView
         
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
 
     
-    // MARK: - addTarget
     
-
+    
+    
+    
+    // MARK: - addTarget
     
     @objc func firstButtonTapped() {
         print("first button tapped")

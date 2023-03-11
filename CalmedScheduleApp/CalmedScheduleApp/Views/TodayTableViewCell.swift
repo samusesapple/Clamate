@@ -11,7 +11,18 @@ final class TodayTableViewCell: UITableViewCell {
     
     private let colorHelper = ColorHelper()
 
-    
+    var toDoData: TodoData? {
+        didSet {
+            configureUIwithData()
+        }
+    }
+    // 데이터를 가지고 적절한 UI 표시하기
+    func configureUIwithData() {
+        todoMainLabel.text = toDoData?.todoTitle
+        timeLabel.text = toDoData?.dateString
+        
+    }
+
     // MARK: - UI 구현
     
     lazy var timeLabel: UILabel = {

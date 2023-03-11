@@ -59,7 +59,8 @@ class EditView: UIView {
         tf.spellCheckingType = .no
         tf.clearButtonMode = .whileEditing
         tf.clearsOnBeginEditing = false
-        tf.attributedPlaceholder = NSAttributedString(string: "일정의 제목을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        tf.attributedPlaceholder = NSAttributedString(string: "일정의 제목을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : ColorHelper().cancelBackgroundColor])
+        tf.becomeFirstResponder()
         return tf
     }()
     
@@ -185,6 +186,7 @@ class EditView: UIView {
     
     lazy var detailTextView: UITextView = {
        let tv = UITextView()
+        tv.text = "(선택) 추가 내용을 입력해주세요."
         tv.font = UIFont(descriptor: .preferredFontDescriptor(withTextStyle: .title3), size: 17)
         tv.textAlignment = .left
         tv.backgroundColor = .clear
@@ -193,7 +195,6 @@ class EditView: UIView {
         tv.autocapitalizationType = .none
         tv.autocorrectionType = .no
         tv.spellCheckingType = .no
-        tv.clearsOnInsertion = true
         
         return tv
     }()

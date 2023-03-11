@@ -56,7 +56,7 @@ final class OneDayViewController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         
         tableView.backgroundColor = colorHelper.backgroundColor
-        tableView.rowHeight = 105
+        tableView.rowHeight = 100
         tableView.layer.cornerRadius = 5
         setupTableViewConstraints()
         // 셀의 등록과정
@@ -71,8 +71,8 @@ final class OneDayViewController: UIViewController, UITableViewDelegate {
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
     }
@@ -101,14 +101,13 @@ extension OneDayViewController: UITableViewDataSource {
     // create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell: UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "TodoCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodayTableViewCell
         
-        // note that indexPath.section is used rather than indexPath.row
         
         // add border and color
         cell.layer.borderColor = colorHelper.backgroundColor.cgColor
         cell.layer.borderWidth = 5
-        cell.layer.cornerRadius = 5
+        cell.layer.cornerRadius = 10
         cell.clipsToBounds = true
         
         return cell

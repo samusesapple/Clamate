@@ -20,16 +20,18 @@ class TodayTableViewCell: UITableViewCell {
         label.textColor = colorHelper.fontColor
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var todoMainLabel: UILabel = {
         let label = UILabel()
-         label.text = "일정의 제목 입니다."
+         label.text = "일정의 제목이 표시 됩니다."
          label.textColor = colorHelper.fontColor
          label.textAlignment = .left
          label.font = UIFont.systemFont(ofSize: 16)
          label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
          return label
      }()
     
@@ -56,12 +58,6 @@ class TodayTableViewCell: UITableViewCell {
         button.layer.shadowRadius = 2.5
         return button
     }()
-
-    lazy var buttonView: UIView = {
-        let view = UIView()
-        view.addSubview(editButton)
-        return view
-    }()
     
 
     
@@ -84,25 +80,17 @@ class TodayTableViewCell: UITableViewCell {
         contentView.layer.shadowRadius = 1.5
         
         contentView.addSubview(labelView)
-        contentView.addSubview(buttonView)
-
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    // MARK: - updateConstraints()
-    override func updateConstraints() {
+        contentView.addSubview(editButton)
         
         labelViewAutolayout()
         timeLabelAutolayout()
         mainLabelAutolayout()
-        buttonViewAutolayout()
         buttonAutolayout()
         
-        super.updateConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     
@@ -131,21 +119,12 @@ class TodayTableViewCell: UITableViewCell {
         todoMainLabel.leadingAnchor.constraint(equalTo: labelView.leadingAnchor, constant: 0).isActive = true
     }
     
-    func buttonViewAutolayout() {
-        buttonView.translatesAutoresizingMaskIntoConstraints = false
-        buttonView.topAnchor.constraint(equalTo: labelView.bottomAnchor, constant: customSpacing).isActive = true
-        buttonView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: customLeadingAnchor).isActive = true
-        buttonView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -customLeadingAnchor).isActive = true
-        buttonView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
-    }
-    
     func buttonAutolayout() {
         editButton.translatesAutoresizingMaskIntoConstraints = false
-        editButton.trailingAnchor.constraint(equalTo: buttonView.trailingAnchor, constant: 0).isActive = true
-        editButton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 0).isActive = true
+        editButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        editButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
         editButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         editButton.widthAnchor.constraint(equalToConstant: 57).isActive = true
-        
     }
     
     

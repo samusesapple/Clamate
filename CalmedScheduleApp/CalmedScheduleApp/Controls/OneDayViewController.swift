@@ -79,6 +79,7 @@ final class OneDayViewController: UIViewController, UITableViewDelegate {
     
     @objc func addTapped() {
         print("add button tapped")
+        present(DetailViewController(), animated: true)
     }
     
     

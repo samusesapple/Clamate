@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodayTableViewCell: UITableViewCell {
+final class TodayTableViewCell: UITableViewCell {
     
     private let colorHelper = ColorHelper()
 

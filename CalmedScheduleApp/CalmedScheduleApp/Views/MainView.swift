@@ -8,7 +8,7 @@
 import UIKit
 
 
-class MainView: UIView {
+final class MainView: UIView {
     
     private let colorHelper = ColorHelper()
     
@@ -113,7 +113,7 @@ class MainView: UIView {
     // MARK: - set Autolayout
     func labelAutolayout() {
         labelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
-        labelStack.topAnchor.constraint(equalTo: self.topAnchor, constant: 140).isActive = true
+        labelStack.topAnchor.constraint(equalTo: self.firstBaselineAnchor, constant: 100).isActive = true
         labelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
     }
     
@@ -122,14 +122,14 @@ class MainView: UIView {
         scheduleButton1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
         scheduleButton1.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
         scheduleButton1.topAnchor.constraint(equalTo: labelStack.bottomAnchor, constant: 20).isActive = true
-        scheduleButton1.heightAnchor.constraint(equalToConstant: 160).isActive = true
+        scheduleButton1.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
     func button2Autolayout() {
         scheduleButton2.translatesAutoresizingMaskIntoConstraints = false
         scheduleButton2.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
         scheduleButton2.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
         scheduleButton2.topAnchor.constraint(equalTo: scheduleButton1.bottomAnchor, constant: 30).isActive = true
-        scheduleButton2.heightAnchor.constraint(equalToConstant: 160).isActive = true
+        scheduleButton2.bottomAnchor.constraint(equalTo: self.lastBaselineAnchor, constant: -100).isActive = true
     }
     
 }

@@ -179,16 +179,32 @@ class EditView: UIView {
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.5
         view.layer.shadowRadius = 2.5
-        //view.addSubview(titleTextField)
+        view.addSubview(detailTextView)
         return view
     }()
+    
+    lazy var detailTextView: UITextView = {
+       let tv = UITextView()
+        tv.font = UIFont(descriptor: .preferredFontDescriptor(withTextStyle: .title3), size: 17)
+        tv.textAlignment = .left
+        tv.backgroundColor = .clear
+        tv.textColor = colorHelper.fontColor
+        tv.tintColor = colorHelper.fontColor
+        tv.autocapitalizationType = .none
+        tv.autocorrectionType = .no
+        tv.spellCheckingType = .no
+        tv.clearsOnInsertion = true
+        
+        return tv
+    }()
+    
     
     
     
     // buttons
     lazy var doneButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = colorHelper.buttonColor
+        button.backgroundColor = colorHelper.yesButtonColor
         button.layer.cornerRadius = 5
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
@@ -337,14 +353,6 @@ class EditView: UIView {
         timeStackView.heightAnchor.constraint(equalToConstant: customHeightAnchor).isActive = true
     }
     
-    func detailAutolayout() {
-        detailFieldView.translatesAutoresizingMaskIntoConstraints = false
-        detailFieldView.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: customTopAnchor).isActive = true
-        detailFieldView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
-        detailFieldView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
-        detailFieldView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-    }
-    
     func buttonAutolayout() {
         doneLabel.translatesAutoresizingMaskIntoConstraints = false
         doneLabel.centerXAnchor.constraint(equalTo: doneButton.centerXAnchor, constant: 0).isActive = true
@@ -364,4 +372,17 @@ class EditView: UIView {
         buttonStackView.bottomAnchor.constraint(equalTo: self.lastBaselineAnchor, constant: -100).isActive = true
     }
 
+    func detailAutolayout() {
+        detailFieldView.translatesAutoresizingMaskIntoConstraints = false
+        detailFieldView.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: customTopAnchor).isActive = true
+        detailFieldView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
+        detailFieldView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
+        detailFieldView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor, constant: -customTopAnchor).isActive = true
+        
+        detailTextView.translatesAutoresizingMaskIntoConstraints = false
+        detailTextView.topAnchor.constraint(equalTo: detailFieldView.topAnchor, constant: 3).isActive = true
+        detailTextView.leadingAnchor.constraint(equalTo: detailFieldView.leadingAnchor, constant: 8).isActive = true
+        detailTextView.trailingAnchor.constraint(equalTo: detailFieldView.trailingAnchor, constant: -8).isActive = true
+        detailTextView.bottomAnchor.constraint(equalTo: detailFieldView.bottomAnchor, constant: -6).isActive = true
+    }
 }

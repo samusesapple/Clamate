@@ -32,6 +32,7 @@ final class TodayTableViewCell: UITableViewCell {
          label.font = UIFont.systemFont(ofSize: 16)
          label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
          return label
      }()
     

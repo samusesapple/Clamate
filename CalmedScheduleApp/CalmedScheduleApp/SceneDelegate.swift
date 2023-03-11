@@ -36,12 +36,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             tabBarVC.setViewControllers([vc1, vc2], animated: false)
             tabBarVC.modalPresentationStyle = .fullScreen
             tabBarVC.tabBar.backgroundColor = ColorHelper().buttonColor
-            tabBarVC.tabBar.barStyle = .black
+            tabBarVC.tabBar.barStyle = .default
+            tabBarVC.tabBar.layer.cornerRadius = 15
+            tabBarVC.tabBar.layer.shadowColor = UIColor.black.cgColor
+            tabBarVC.tabBar.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+            tabBarVC.tabBar.layer.shadowOpacity = 0.5
+            tabBarVC.tabBar.layer.shadowRadius = 2.5
             
             // 탭바 이미지 설정 (이미지는 애플이 제공하는 것으로 사용)
             guard let items = tabBarVC.tabBar.items else { return }
-            items[0].image = UIImage(systemName: "person.circle")
+            let item1 = items[0]
+            item1.image = UIImage(systemName: "person.circle")
+    
+            let item2 = items[1]
             items[1].image = UIImage(systemName: "person.circle")
+            
             
             // 기본루트뷰를 탭바컨트롤러로 설정⭐️
             window?.rootViewController = tabBarVC

@@ -79,7 +79,7 @@ final class OneDayViewController: UIViewController, UITableViewDelegate {
     
     @objc func addTapped() {
         print("add button tapped")
-        present(DetailViewController(), animated: true)
+        present(AddViewController(), animated: true)
     }
     
     
@@ -94,7 +94,7 @@ final class OneDayViewController: UIViewController, UITableViewDelegate {
 
 extension OneDayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 3
     }
     
     
@@ -105,15 +105,21 @@ extension OneDayViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodayTableViewCell
         
         
-        // add border and color
+        
         cell.layer.borderColor = colorHelper.backgroundColor.cgColor
         cell.layer.borderWidth = 5
         cell.layer.cornerRadius = 10
         cell.clipsToBounds = true
         
+        cell.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        
         return cell
     }
 
+    @objc func editButtonTapped() {
+        print("edit button tapped")
+        present(EditViewController(), animated: true)
+    }
     
 }
 
@@ -124,8 +130,9 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 다음화면으로 이동
         let detailVC = DetailViewController()
-//        detailVC.movieData = moviesArray[indexPath.row]
+        //        detailVC.movieData = moviesArray[indexPath.row]
         //show(detailVC, sender: nil)
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    
 }

@@ -1,23 +1,24 @@
 //
-//  DetailViewController.swift
+//  AddViewController.swift
 //  CalmedScheduleApp
 //
-//  Created by Sam Sung on 2023/03/10.
+//  Created by Sam Sung on 2023/03/11.
 //
 
 import UIKit
 
-final class DetailViewController: UIViewController {
-    
+class AddViewController: UIViewController {
+
+    let addView = AddView()
     
     override func loadView() {
-
+        view = addView
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+
     }
     
 

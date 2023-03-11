@@ -23,7 +23,10 @@
 		F1198AC929BC1707009E23AD /* TodoData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198AC529BC1707009E23AD /* TodoData+CoreDataProperties.swift */; };
 		F1198ACE29BC1755009E23AD /* UserData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198ACC29BC1755009E23AD /* UserData+CoreDataClass.swift */; };
 		F1198ACF29BC1755009E23AD /* UserData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198ACD29BC1755009E23AD /* UserData+CoreDataProperties.swift */; };
-		F1198AD729BC37E9009E23AD /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198AD629BC37E9009E23AD /* DetailView.swift */; };
+		F1198AD729BC37E9009E23AD /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198AD629BC37E9009E23AD /* AddView.swift */; };
+		F1198AD929BC63AC009E23AD /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198AD829BC63AC009E23AD /* AddViewController.swift */; };
+		F1198ADB29BC6612009E23AD /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198ADA29BC6612009E23AD /* EditViewController.swift */; };
+		F1198ADD29BC6622009E23AD /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198ADC29BC6622009E23AD /* EditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +48,10 @@
 		F1198AC529BC1707009E23AD /* TodoData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F1198ACC29BC1755009E23AD /* UserData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F1198ACD29BC1755009E23AD /* UserData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F1198AD629BC37E9009E23AD /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		F1198AD629BC37E9009E23AD /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		F1198AD829BC63AC009E23AD /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		F1198ADA29BC6612009E23AD /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		F1198ADC29BC6622009E23AD /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +107,9 @@
 			children = (
 				F1198A9C29B9DBB4009E23AD /* ViewController.swift */,
 				F1198AB929BADBB2009E23AD /* OneDayViewController.swift */,
+				F1198AD829BC63AC009E23AD /* AddViewController.swift */,
 				F1198ABE29BB14FA009E23AD /* DetailViewController.swift */,
+				F1198ADA29BC6612009E23AD /* EditViewController.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -111,7 +119,8 @@
 			children = (
 				F1198A9E29B9DBB4009E23AD /* Main.storyboard */,
 				F1198AB229B9DC96009E23AD /* MainView.swift */,
-				F1198AD629BC37E9009E23AD /* DetailView.swift */,
+				F1198AD629BC37E9009E23AD /* AddView.swift */,
+				F1198ADC29BC6622009E23AD /* EditView.swift */,
 				F1198ABC29BB0217009E23AD /* TodayTableViewCell.swift */,
 			);
 			path = Views;
@@ -204,12 +213,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1198ACE29BC1755009E23AD /* UserData+CoreDataClass.swift in Sources */,
+				F1198ADD29BC6622009E23AD /* EditView.swift in Sources */,
 				F1198ABF29BB14FA009E23AD /* DetailViewController.swift in Sources */,
 				F1198A9D29B9DBB4009E23AD /* ViewController.swift in Sources */,
-				F1198AD729BC37E9009E23AD /* DetailView.swift in Sources */,
+				F1198AD729BC37E9009E23AD /* AddView.swift in Sources */,
 				F1198A9929B9DBB4009E23AD /* AppDelegate.swift in Sources */,
+				F1198AD929BC63AC009E23AD /* AddViewController.swift in Sources */,
 				F1198AA329B9DBB4009E23AD /* CalmedScheduleApp.xcdatamodeld in Sources */,
 				F1198ABA29BADBB2009E23AD /* OneDayViewController.swift in Sources */,
+				F1198ADB29BC6612009E23AD /* EditViewController.swift in Sources */,
 				F1198AB329B9DC96009E23AD /* MainView.swift in Sources */,
 				F1198A9B29B9DBB4009E23AD /* SceneDelegate.swift in Sources */,
 				F1198AB629B9DCBF009E23AD /* ColorHelper.swift in Sources */,

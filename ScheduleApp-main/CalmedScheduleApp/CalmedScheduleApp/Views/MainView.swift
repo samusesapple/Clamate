@@ -94,7 +94,7 @@ final class MainView: UIView {
     }()
     
     // MARK: - stackVeiw
-    var customSpacingAnchor: CGFloat = 50
+    var customSpacingAnchor: CGFloat = 40
     
     lazy var labelStack: UIStackView = {
         var stView = UIStackView(arrangedSubviews: [greetingLabel, dateLabel])
@@ -145,7 +145,7 @@ final class MainView: UIView {
     // MARK: - set Autolayout
     func labelAutolayout() {
         labelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
-        labelStack.topAnchor.constraint(equalTo: self.firstBaselineAnchor, constant: 50).isActive = true
+        labelStack.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: customSpacingAnchor).isActive = true
         labelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
     }
     
@@ -167,15 +167,9 @@ final class MainView: UIView {
         weatherViewStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
         weatherViewStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
         weatherViewStack.topAnchor.constraint(equalTo: weatherLabel.bottomAnchor, constant: 8).isActive = true
-        weatherViewStack.heightAnchor.constraint(equalToConstant: 230).isActive = true
+        weatherViewStack.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -customSpacingAnchor).isActive = true
     }
-
-    
     
 }
 
-//        weatherView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
-//        weatherView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
-//        weatherView.topAnchor.constraint(equalTo: scheduleView.bottomAnchor, constant: 30).isActive = true
-//        weatherView.bottomAnchor.constraint(equalTo: self.lastBaselineAnchor, constant: -100).isActive = true
 

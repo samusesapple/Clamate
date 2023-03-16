@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailView: UIView {
+final class DetailView: UIView {
 
     private let colorHelper = ColorHelper()
     

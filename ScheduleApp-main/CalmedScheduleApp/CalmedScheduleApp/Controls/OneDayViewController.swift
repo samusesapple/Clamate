@@ -11,7 +11,7 @@ final class OneDayViewController: UIViewController {
     
     private let colorHelper = ColorHelper()
     lazy var tableView = UITableView()
-    let toDoManager = CoreDataManager.shared
+    weak var toDoManager = CoreDataManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +101,7 @@ final class OneDayViewController: UIViewController {
 extension OneDayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
   
-        return toDoManager.getToDoListFromCoreData().count
+        return toDoManager!.getToDoListFromCoreData().count
     }
     
     
@@ -110,8 +110,8 @@ extension OneDayViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodayTableViewCell
         
-        let toDoData = toDoManager.getToDoListFromCoreData()
-        cell.toDoData = toDoData[indexPath.row]
+        let toDoData = toDoManager?.getToDoListFromCoreData()
+        cell.toDoData = toDoData?[indexPath.row]
         
         cell.layer.borderColor = colorHelper.backgroundColor.cgColor
         cell.layer.borderWidth = 5
@@ -133,8 +133,8 @@ extension OneDayViewController: UITableViewDataSource {
             target.layer.shadowColor = UIColor.black.cgColor
             target.layer.shadowOpacity = 0.7
         }
-        let targetTodo = toDoManager.getToDoListFromCoreData()[target.tag]
-        var todoStatus = toDoManager.getToDoListFromCoreData()[target.tag].done
+        let targetTodo = (toDoManager?.getToDoListFromCoreData()[target.tag])!
+        var todoStatus = toDoManager!.getToDoListFromCoreData()[target.tag].done
 
         // 버튼 색 및 그림자 변화
         target.layer.shadowOpacity = 0
@@ -161,7 +161,7 @@ extension OneDayViewController: UITableViewDataSource {
         func deleteTodo() {
             todoStatus = true
             if todoStatus == true {
-                toDoManager.deleteToDo(data: targetTodo) {
+                toDoManager!.deleteToDo(data: targetTodo) {
                     print("데이터 삭제됨")
                     self.tableView.reloadData()
                 }
@@ -178,8 +178,8 @@ extension OneDayViewController: UITableViewDelegate {
         print("\(indexPath)번째 셀이 선택됨")
         // 다음화면으로 이동
         let detailVC = DetailViewController()
-        let data = toDoManager.getToDoListFromCoreData()
-        detailVC.toDoData = data[indexPath.row]
+        let data = toDoManager?.getToDoListFromCoreData()
+        detailVC.toDoData = data?[indexPath.row]
 
 
         navigationController?.present(detailVC, animated: true)

@@ -7,11 +7,10 @@
 
 import UIKit
 
-class AddViewController: UIViewController {
+final class AddViewController: UIViewController {
     
     let addView = AddView()
-    
-    let toDoManager = CoreDataManager.shared
+    weak var toDoManager = CoreDataManager.shared
     
     
     
@@ -73,7 +72,7 @@ class AddViewController: UIViewController {
         let success = UIAlertAction(title: "확인", style: .default) { action in
             print("'저장 확인'버튼이 눌렸습니다.")
             // 코어데이터 추가
-            self.toDoManager.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {
+            self.toDoManager?.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {
                 print("저장완료")
                 // 다시 전화면으로 돌아가기
                 self.navigationController?.popViewController(animated: true)

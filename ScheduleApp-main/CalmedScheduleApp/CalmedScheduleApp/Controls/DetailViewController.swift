@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     let detailView = DetailView()
     let colorHelper = ColorHelper()
     let todoManager = CoreDataManager.shared

@@ -421,9 +421,9 @@ final class AddView: UIView {
         detailFieldView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor, constant: -customTopAnchor).isActive = true
         
         detailTextView.translatesAutoresizingMaskIntoConstraints = false
-        detailTextView.topAnchor.constraint(equalTo: detailFieldView.topAnchor, constant: 3).isActive = true
-        detailTextView.leadingAnchor.constraint(equalTo: detailFieldView.leadingAnchor, constant: 8).isActive = true
-        detailTextView.trailingAnchor.constraint(equalTo: detailFieldView.trailingAnchor, constant: -8).isActive = true
+        detailTextView.topAnchor.constraint(equalTo: detailFieldView.topAnchor, constant: 5).isActive = true
+        detailTextView.leadingAnchor.constraint(equalTo: detailFieldView.leadingAnchor, constant: 10).isActive = true
+        detailTextView.trailingAnchor.constraint(equalTo: detailFieldView.trailingAnchor, constant: -10).isActive = true
         detailTextView.bottomAnchor.constraint(equalTo: detailFieldView.bottomAnchor, constant: -6).isActive = true
     }
     

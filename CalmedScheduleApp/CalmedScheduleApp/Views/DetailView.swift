@@ -12,6 +12,7 @@ class DetailView: UIView {
     private let colorHelper = ColorHelper()
     
     var todoArray: [TodoData] = []
+
     
     // MARK: - UI 생성
     
@@ -21,7 +22,7 @@ class DetailView: UIView {
         label.textAlignment = .center
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = "Edit"
+        label.text = "Detail"
         return label
     }()
     
@@ -51,7 +52,7 @@ class DetailView: UIView {
     
     lazy var titleTextField: UITextField = {
         let tf = UITextField()
-        tf.text = todoArray[0].todoTitle
+        tf.text = ""
         tf.textAlignment = .left
         tf.backgroundColor = .clear
         tf.frame.size.height = 18
@@ -113,9 +114,19 @@ class DetailView: UIView {
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.5
         view.layer.shadowRadius = 2.5
+        view.addSubview(dateSelectlabel)
         return view
     }()
 
+    lazy var dateSelectlabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.text = "Date"
+        label.textColor = colorHelper.fontColor
+        label.font = .boldSystemFont(ofSize: 17)
+        return label
+    }()
     
     lazy var dateStackView: UIStackView = {
             let stView = UIStackView(arrangedSubviews: [dateView, dateSelectView])
@@ -160,7 +171,18 @@ class DetailView: UIView {
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.5
         view.layer.shadowRadius = 2.5
+        view.addSubview(timeSelectlabel)
         return view
+    }()
+    
+    lazy var timeSelectlabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.text = "Time"
+        label.textColor = colorHelper.fontColor
+        label.font = .boldSystemFont(ofSize: 17)
+        return label
     }()
 
     lazy var timeStackView: UIStackView = {
@@ -189,7 +211,7 @@ class DetailView: UIView {
     
     lazy var detailTextView: UITextView = {
        let tv = UITextView()
-        tv.text = todoArray[0].todoDetailText
+        tv.text = " "
         tv.font = UIFont(descriptor: .preferredFontDescriptor(withTextStyle: .title3), size: 17)
         tv.textAlignment = .left
         tv.backgroundColor = .clear
@@ -206,10 +228,33 @@ class DetailView: UIView {
     
     
     // buttons
-    lazy var editButton: UIButton = {
+    lazy var okButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = colorHelper.yesButtonColor
         button.layer.cornerRadius = 5
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowRadius = 2.5
+        button.addSubview(okLabel)
+        return button
+    }()
+    
+    lazy var okLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.text = "OK"
+        label.textColor = colorHelper.fontColor
+        label.font = .boldSystemFont(ofSize: 17)
+        return label
+    }()
+    
+    lazy var editButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = colorHelper.cancelBackgroundColor
+        button.layer.cornerRadius = 5
+        button.frame.size = CGSize(width: 100, height: 48)
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         button.layer.shadowOpacity = 0.5
@@ -223,36 +268,13 @@ class DetailView: UIView {
         label.backgroundColor = .clear
         label.textAlignment = .center
         label.text = "EDIT"
-        label.textColor = colorHelper.fontColor
-        label.font = .boldSystemFont(ofSize: 17)
-        return label
-    }()
-    
-    lazy var backButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = colorHelper.cancelBackgroundColor
-        button.layer.cornerRadius = 5
-        button.frame.size = CGSize(width: 100, height: 48)
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        button.layer.shadowOpacity = 0.5
-        button.layer.shadowRadius = 2.5
-        button.addSubview(backLabel)
-        return button
-    }()
-    
-    lazy var backLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.textAlignment = .center
-        label.text = "BACK"
         label.textColor = colorHelper.cancelTextColor
         label.font = .boldSystemFont(ofSize: 17)
         return label
     }()
 
     lazy var buttonStackView: UIStackView = {
-            let stView = UIStackView(arrangedSubviews: [backButton, editButton])
+            let stView = UIStackView(arrangedSubviews: [editButton, okButton])
             stView.axis = .horizontal
             stView.spacing = 26
             stView.alignment = .fill
@@ -335,6 +357,10 @@ class DetailView: UIView {
         dateLabel.centerXAnchor.constraint(equalTo: dateView.centerXAnchor, constant: 1).isActive = true
         dateLabel.centerYAnchor.constraint(equalTo: dateView.centerYAnchor, constant: -1).isActive = true
         
+        dateSelectlabel.translatesAutoresizingMaskIntoConstraints = false
+        dateSelectlabel.centerXAnchor.constraint(equalTo: dateSelectView.centerXAnchor, constant: -10).isActive = true
+        dateSelectlabel.centerYAnchor.constraint(equalTo: dateSelectView.centerYAnchor).isActive = true
+        
         dateStackView.translatesAutoresizingMaskIntoConstraints = false
         dateStackView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: customTopAnchor).isActive = true
         dateStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
@@ -350,6 +376,11 @@ class DetailView: UIView {
         timeLabel.centerXAnchor.constraint(equalTo: timeView.centerXAnchor, constant: 1).isActive = true
         timeLabel.centerYAnchor.constraint(equalTo: timeView.centerYAnchor, constant: -1).isActive = true
         
+        timeSelectlabel.translatesAutoresizingMaskIntoConstraints = false
+        timeSelectlabel.centerXAnchor.constraint(equalTo: timeSelectView.centerXAnchor, constant: -10).isActive = true
+        timeSelectlabel.centerYAnchor.constraint(equalTo: timeSelectView.centerYAnchor).isActive = true
+        
+        
         timeStackView.translatesAutoresizingMaskIntoConstraints = false
         timeStackView.topAnchor.constraint(equalTo: dateStackView.bottomAnchor, constant: 7).isActive = true
         timeStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
@@ -358,16 +389,16 @@ class DetailView: UIView {
     }
     
     func buttonAutolayout() {
+        okLabel.translatesAutoresizingMaskIntoConstraints = false
+        okLabel.centerXAnchor.constraint(equalTo: okButton.centerXAnchor, constant: 0).isActive = true
+        okLabel.centerYAnchor.constraint(equalTo: okButton.centerYAnchor, constant: 0).isActive = true
+        
         editLabel.translatesAutoresizingMaskIntoConstraints = false
         editLabel.centerXAnchor.constraint(equalTo: editButton.centerXAnchor, constant: 0).isActive = true
         editLabel.centerYAnchor.constraint(equalTo: editButton.centerYAnchor, constant: 0).isActive = true
         
-        backLabel.translatesAutoresizingMaskIntoConstraints = false
-        backLabel.centerXAnchor.constraint(equalTo: backButton.centerXAnchor, constant: 0).isActive = true
-        backLabel.centerYAnchor.constraint(equalTo: backButton.centerYAnchor, constant: 0).isActive = true
-        
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        editButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.heightAnchor.constraint(equalToConstant: 48).isActive = true

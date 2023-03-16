@@ -22,9 +22,17 @@ extension TodoData {
     @NSManaged public var todoDetailText: String?
     @NSManaged public var done: Bool
 
-    var dateString: String? {
+    var shortDateString: String? {
         let myFormatter = DateFormatter()
-        myFormatter.dateFormat = "yyyy-MM-dd"
+        myFormatter.dateFormat = "yyyy-MM-dd (EEE)"
+        guard let date = self.todoDate else { return "" }
+        let savedDateString = myFormatter.string(from: date)
+        return savedDateString
+    }
+    
+    var longDateString: String? {
+        let myFormatter = DateFormatter()
+        myFormatter.dateFormat = "yyyy년 M월 dd일 (EEE)"
         guard let date = self.todoDate else { return "" }
         let savedDateString = myFormatter.string(from: date)
         return savedDateString
@@ -32,7 +40,7 @@ extension TodoData {
     
     var timeString: String? {
         let myFormatter = DateFormatter()
-        myFormatter.dateFormat = "a h:mm"
+        myFormatter.dateFormat = "a hh:mm"
         guard let time = self.todoTime else { return "" }
         let savedTimeString = myFormatter.string(from: time)
         return savedTimeString

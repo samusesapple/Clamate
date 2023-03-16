@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class OneDayViewController: UIViewController, UITableViewDelegate {
+final class OneDayViewController: UIViewController {
     
     private let colorHelper = ColorHelper()
     lazy var tableView = UITableView()
@@ -86,6 +86,8 @@ final class OneDayViewController: UIViewController, UITableViewDelegate {
     
     @objc func deleteTapped() {
         print("delete button tapped")
+        present(DetailViewController(), animated: true)
+
 
     }
     
@@ -94,11 +96,7 @@ final class OneDayViewController: UIViewController, UITableViewDelegate {
     }
     
     
-    // MARK: - set Alert
-    
-    
 }
-
 
 extension OneDayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,8 +141,8 @@ extension OneDayViewController: UITableViewDataSource {
         target.layer.shadowColor = .none
         target.backgroundColor = .gray
         // 얼럿창 생성
-        let alert = UIAlertController(title: "일정 완료", message: "일정을 완료 하시겠습니까? \n (경고: 완료 된 일정은 목록에서 삭제됩니다.)", preferredStyle: .alert)
-        // 얼럿창에 들어갈 액션 선택지 생성
+        let alert = UIAlertController(title: "일정을 완료 하시겠습니까?", message: "완료 된 일정은 목록에서 삭제됩니다.", preferredStyle: .actionSheet)
+        // 얼럿창의 액션 선택지 생성
         let success = UIAlertAction(title: "예", style: .default) { action in
             print("'예'버튼이 눌렸습니다.")
             deleteTodo()
@@ -170,28 +168,22 @@ extension OneDayViewController: UITableViewDataSource {
             }
         }
     }
-    
-    
-    
-    
-    
 }
     
 
-extension ViewController: UITableViewDelegate {
-    
+extension OneDayViewController: UITableViewDelegate {
     
     // 셀이 선택이 되었을때 어떤 동작을 할 것인지 뷰컨트롤러에게 물어봄
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath)번째 셀이 선택됨")
-//        // 다음화면으로 이동
-//        let detailVC = DetailViewController()
-//        let data = toDoManager.getToDoListFromCoreData()
-//        detailVC.todoArray = data[indexPath]
-//        show(detailVC, sender: nil)
-//
-//
-//        navigationController?.present(editVC, animated: true)
+        // 다음화면으로 이동
+        let detailVC = DetailViewController()
+        let data = toDoManager.getToDoListFromCoreData()
+        detailVC.toDoData = data[indexPath.row]
+
+
+        navigationController?.present(detailVC, animated: true)
     }
     
 }
+

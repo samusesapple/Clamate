@@ -13,6 +13,14 @@ final class ViewController: UIViewController, UITabBarDelegate {
     // 모델(저장 데이터를 관리하는 코어데이터)
     let toDoManager = CoreDataManager.shared
     
+    var shortDateString: String? {
+        let myFormatter = DateFormatter()
+        myFormatter.dateFormat = "yyyy-MM-dd (EEE)"
+        let date = Date()
+        let savedDateString = myFormatter.string(from: date)
+        return savedDateString
+    }
+    
     override func loadView() {
         view = mainView
         
@@ -21,11 +29,15 @@ final class ViewController: UIViewController, UITabBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUIwithData()
     }
+    
 
     
-    
+    // MARK: - set UI with Data
+    func setUIwithData() {
+        mainView.dateLabel.text = shortDateString
+    }
     
     
     

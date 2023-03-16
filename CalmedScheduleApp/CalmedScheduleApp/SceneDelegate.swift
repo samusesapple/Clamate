@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             // 탭바로 사용하기 위한 뷰 컨트롤러들 설정 ( 탭바는 최대 5개까지 가능 )
             tabBarVC.setViewControllers([vc1, vc2], animated: false)
-            tabBarVC.tabBar.barTintColor = .tintColor
+            tabBarVC.tabBar.barTintColor = ColorHelper().buttonColor
             tabBarVC.modalPresentationStyle = .fullScreen
             tabBarVC.tabBar.backgroundColor = ColorHelper().buttonColor
             tabBarVC.tabBar.barStyle = .default

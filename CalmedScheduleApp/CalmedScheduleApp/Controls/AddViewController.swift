@@ -46,26 +46,44 @@ class AddViewController: UIViewController {
         addView.titleTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
     }
     
-    // MARK: - addTarget for button
-
-    
-    
+    // MARK: - addTarget for buttons
     @objc func addButtonTapped() {
-
+        
         let titleText = addView.titleTextField.text
-        let detailText = addView.titleTextField.text
+        let detailText = addView.detailTextView.text
         let todoDate = addView.datePicker.date
         let todoTime = addView.timePicker.date
-        
-        
         guard let text = titleText, !text.isEmpty && text != " " else {
+            // 저장실패 얼럿 생성
+            let failureAlert = UIAlertController(title: "추가 실패", message: "일정의 제목을 입력해주세요.", preferredStyle: .alert)
+            
+            let failure = UIAlertAction(title: "돌아가기", style: .cancel) { action in
+                print("저장 실패")
+            }
+            failureAlert.addAction(failure)
+            // 저장실패 얼럿 띄우기
+            self.present(failureAlert, animated: true, completion: nil)
+            
             return
         }
-        toDoManager.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {
-            print("저장완료")
-            // 다시 전화면으로 돌아가기
-            self.navigationController?.popViewController(animated: true)
-        })
+        
+        // 저장 완료 얼럿 생성
+        let successAlert = UIAlertController(title: "추가 완료", message: "일정이 추가 되었습니다.", preferredStyle: .alert)
+  
+        let success = UIAlertAction(title: "확인", style: .default) { action in
+            print("'저장 확인'버튼이 눌렸습니다.")
+            // 코어데이터 추가
+            self.toDoManager.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {
+                print("저장완료")
+                // 다시 전화면으로 돌아가기
+                self.navigationController?.popViewController(animated: true)
+            })
+        }
+        successAlert.addAction(success)
+        // 저장 완료 얼럿 실행
+        self.present(successAlert, animated: true, completion: nil)
+
+        
     }
     
     
@@ -76,7 +94,6 @@ class AddViewController: UIViewController {
 }
 
 
-
 // MARK: - extension
 extension AddViewController: UITextViewDelegate {
     // 입력을 시작할때
@@ -84,7 +101,7 @@ extension AddViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "(선택) 추가 내용을 입력해주세요." {
             textView.text = nil
-            textView.textColor = ColorHelper().fontColor
+            textView.textColor = ColorHelper().cancelBackgroundColor
         }
     }
     

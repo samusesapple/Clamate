@@ -27,61 +27,92 @@ final class MainView: UIView {
     lazy var dateLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .clear
-        label.textAlignment = .left
+        label.textAlignment = .right
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "2023-12-22"
+        label.text = "영하 1도, 강수 30%"
         return label
+    }()
+    
+    lazy var scheduleView: UIView = {
+       var view = UIView()
+        view.backgroundColor = colorHelper.buttonColor
+        view.frame.size = CGSize(width: 300, height: 160)
+        view.layer.cornerRadius = 5
+  
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        view.layer.shadowOpacity = 0.7
+        view.layer.shadowRadius = 2.5
+        return view
     }()
     
     lazy var weatherLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .clear
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "영하 1도, 강수 30%"
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 3
+        label.text = "Weather"
         return label
     }()
     
-    lazy var scheduleButton1: UIButton = {
-       var button = UIButton()
-        button.backgroundColor = colorHelper.buttonColor
-        button.frame.size = CGSize(width: 300, height: 160)
-        button.layer.cornerRadius = 5
-  
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        button.layer.shadowOpacity = 0.7
-        button.layer.shadowRadius = 2.5
-        return button
-    }()
-    
-    lazy var scheduleButton2: UIButton = {
-       var button = UIButton()
-        button.backgroundColor = colorHelper.buttonColor
-        button.layer.cornerRadius = 5
+    lazy var weatherView1: UIView = {
+       var view = UIView()
+        view.backgroundColor = colorHelper.buttonColor
+        view.layer.cornerRadius = 5
 
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        button.layer.shadowOpacity = 0.7
-        button.layer.shadowRadius = 2.5
-        return button
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        view.layer.shadowOpacity = 0.7
+        view.layer.shadowRadius = 2.5
+        return view
     }()
     
+    lazy var weatherView2: UIView = {
+       var view = UIView()
+        view.backgroundColor = colorHelper.buttonColor
+        view.layer.cornerRadius = 5
+
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        view.layer.shadowOpacity = 0.7
+        view.layer.shadowRadius = 2.5
+        return view
+    }()
+    
+    lazy var weatherView3: UIView = {
+       var view = UIView()
+        view.backgroundColor = colorHelper.buttonColor
+        view.layer.cornerRadius = 5
+
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        view.layer.shadowOpacity = 0.7
+        view.layer.shadowRadius = 2.5
+        return view
+    }()
     
     // MARK: - stackVeiw
-    var customSpacingAnchor: CGFloat = 32
+    var customSpacingAnchor: CGFloat = 50
     
     lazy var labelStack: UIStackView = {
-        var stView = UIStackView(arrangedSubviews: [greetingLabel, dateLabel, weatherLabel])
+        var stView = UIStackView(arrangedSubviews: [greetingLabel, dateLabel])
         stView.backgroundColor = .clear
         stView.spacing = customSpacingAnchor
         stView.axis = .vertical
         stView.alignment = .fill
         stView.translatesAutoresizingMaskIntoConstraints = false
+        return stView
+    }()
+    
+    lazy var weatherViewStack: UIStackView = {
+        var stView = UIStackView(arrangedSubviews: [weatherView1, weatherView2, weatherView3])
+        stView.backgroundColor = .clear
+        stView.spacing = 10
+        stView.distribution = .fillEqually
+        stView.axis = .vertical
+        stView.alignment = .fill
         return stView
     }()
     
@@ -102,34 +133,49 @@ final class MainView: UIView {
     func configureUI() {
         self.backgroundColor = colorHelper.backgroundColor
         addSubview(labelStack)
-        addSubview(scheduleButton1)
-        addSubview(scheduleButton2)
+        addSubview(scheduleView)
+        addSubview(weatherLabel)
+        addSubview(weatherViewStack)
         labelAutolayout()
-        button1Autolayout()
-        button2Autolayout()
+        scheduleViewAutolayout()
+        weatherAutolayout()
     }
     
     
     // MARK: - set Autolayout
     func labelAutolayout() {
         labelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
-        labelStack.topAnchor.constraint(equalTo: self.firstBaselineAnchor, constant: 100).isActive = true
+        labelStack.topAnchor.constraint(equalTo: self.firstBaselineAnchor, constant: 50).isActive = true
         labelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
     }
     
-    func button1Autolayout() {
-        scheduleButton1.translatesAutoresizingMaskIntoConstraints = false
-        scheduleButton1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
-        scheduleButton1.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
-        scheduleButton1.topAnchor.constraint(equalTo: labelStack.bottomAnchor, constant: 20).isActive = true
-        scheduleButton1.heightAnchor.constraint(equalToConstant: 100).isActive = true
-    }
-    func button2Autolayout() {
-        scheduleButton2.translatesAutoresizingMaskIntoConstraints = false
-        scheduleButton2.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
-        scheduleButton2.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
-        scheduleButton2.topAnchor.constraint(equalTo: scheduleButton1.bottomAnchor, constant: 30).isActive = true
-        scheduleButton2.bottomAnchor.constraint(equalTo: self.lastBaselineAnchor, constant: -100).isActive = true
+    func scheduleViewAutolayout() {
+        scheduleView.translatesAutoresizingMaskIntoConstraints = false
+        scheduleView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
+        scheduleView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
+        scheduleView.topAnchor.constraint(equalTo: labelStack.bottomAnchor, constant: 8).isActive = true
+        scheduleView.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
+    func weatherAutolayout() {
+        weatherLabel.translatesAutoresizingMaskIntoConstraints = false
+        weatherLabel.topAnchor.constraint(equalTo: scheduleView.bottomAnchor, constant: customSpacingAnchor).isActive = true
+        weatherLabel.leadingAnchor.constraint(equalTo: scheduleView.leadingAnchor).isActive = true
+        
+        
+        weatherViewStack.translatesAutoresizingMaskIntoConstraints = false
+        weatherViewStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
+        weatherViewStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
+        weatherViewStack.topAnchor.constraint(equalTo: weatherLabel.bottomAnchor, constant: 8).isActive = true
+        weatherViewStack.heightAnchor.constraint(equalToConstant: 230).isActive = true
+    }
+
+    
+    
 }
+
+//        weatherView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
+//        weatherView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
+//        weatherView.topAnchor.constraint(equalTo: scheduleView.bottomAnchor, constant: 30).isActive = true
+//        weatherView.bottomAnchor.constraint(equalTo: self.lastBaselineAnchor, constant: -100).isActive = true
+

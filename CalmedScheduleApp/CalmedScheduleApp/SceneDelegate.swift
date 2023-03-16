@@ -30,10 +30,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             // 탭바 이름들 설정
 //            vc2.title = ""
-
+            
             
             // 탭바로 사용하기 위한 뷰 컨트롤러들 설정 ( 탭바는 최대 5개까지 가능 )
             tabBarVC.setViewControllers([vc1, vc2], animated: false)
+            tabBarVC.tabBar.barTintColor = .tintColor
             tabBarVC.modalPresentationStyle = .fullScreen
             tabBarVC.tabBar.backgroundColor = ColorHelper().buttonColor
             tabBarVC.tabBar.barStyle = .default
@@ -42,6 +43,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             tabBarVC.tabBar.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
             tabBarVC.tabBar.layer.shadowOpacity = 0.5
             tabBarVC.tabBar.layer.shadowRadius = 2.5
+            tabBarVC.tabBar.unselectedItemTintColor = ColorHelper().cancelTextColor
+            tabBarVC.tabBar.tintColor = ColorHelper().cancelBackgroundColor
             
             // 탭바 이미지 설정 (이미지는 애플이 제공하는 것으로 사용)
             guard let items = tabBarVC.tabBar.items else { return }
@@ -49,7 +52,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             item1.image = UIImage(systemName: "person.circle")
     
             let item2 = items[1]
-            items[1].image = UIImage(systemName: "person.circle")
+            item2.image = UIImage(systemName: "person.circle")
             
             
             // 기본루트뷰를 탭바컨트롤러로 설정⭐️

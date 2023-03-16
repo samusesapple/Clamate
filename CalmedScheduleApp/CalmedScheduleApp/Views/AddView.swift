@@ -11,6 +11,7 @@ final class AddView: UIView {
     
     private let colorHelper = ColorHelper()
     
+
     // MARK: - UI 생성
     
     lazy var mainLabel: UILabel = {
@@ -58,8 +59,9 @@ final class AddView: UIView {
         tf.autocorrectionType = .no
         tf.spellCheckingType = .no
         tf.clearButtonMode = .whileEditing
+        tf.becomeFirstResponder()
         tf.clearsOnBeginEditing = false
-        tf.attributedPlaceholder = NSAttributedString(string: "일정의 제목을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        tf.attributedPlaceholder = NSAttributedString(string: "일정의 제목을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : ColorHelper().cancelBackgroundColor])
         return tf
     }()
     
@@ -109,9 +111,23 @@ final class AddView: UIView {
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.5
         view.layer.shadowRadius = 2.5
+        view.addSubview(datePicker)
         return view
     }()
-
+    
+    lazy var datePicker: UIDatePicker = {
+       let dp = UIDatePicker()
+        dp.datePickerMode = .date
+        dp.minimumDate = .now
+        dp.timeZone = .current
+        dp.preferredDatePickerStyle = .compact
+        dp.backgroundColor = .clear
+        dp.locale = Locale(identifier: "ko_KR")
+        dp.tintColor = colorHelper.fontColor
+        dp.contentHorizontalAlignment = .left
+        dp.date = .now
+        return dp
+    }()
     
     lazy var dateStackView: UIStackView = {
             let stView = UIStackView(arrangedSubviews: [dateView, dateSelectView])
@@ -156,9 +172,23 @@ final class AddView: UIView {
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.5
         view.layer.shadowRadius = 2.5
+        view.addSubview(timePicker)
         return view
     }()
-
+    
+    lazy var timePicker: UIDatePicker = {
+       let tp = UIDatePicker()
+        tp.datePickerMode = .time
+        tp.timeZone = .current
+        tp.preferredDatePickerStyle = .compact
+        tp.backgroundColor = .clear
+        tp.locale = Locale(identifier: "ko_KR")
+        tp.tintColor = colorHelper.fontColor
+        tp.contentHorizontalAlignment = .left
+        tp.timeZone = .current
+        return tp
+    }()
+    
     lazy var timeStackView: UIStackView = {
             let stView = UIStackView(arrangedSubviews: [timeView, timeSelectView])
             stView.axis = .horizontal
@@ -335,6 +365,12 @@ final class AddView: UIView {
         dateStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
         dateStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         dateStackView.heightAnchor.constraint(equalToConstant: customHeightAnchor).isActive = true
+        
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.centerXAnchor.constraint(equalTo: dateSelectView.centerXAnchor, constant: 0).isActive = true
+        datePicker.centerYAnchor.constraint(equalTo: dateSelectView.centerYAnchor, constant: 0)
+        .isActive = true
+        datePicker.widthAnchor.constraint(equalToConstant: 210).isActive = true
     }
     
     func timeAutolayout() {
@@ -350,6 +386,12 @@ final class AddView: UIView {
         timeStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
         timeStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         timeStackView.heightAnchor.constraint(equalToConstant: customHeightAnchor).isActive = true
+        
+        timePicker.translatesAutoresizingMaskIntoConstraints = false
+        timePicker.centerXAnchor.constraint(equalTo: timeSelectView.centerXAnchor, constant: 0).isActive = true
+        timePicker.centerYAnchor.constraint(equalTo: timeSelectView.centerYAnchor, constant: 0)
+        .isActive = true
+        timePicker.widthAnchor.constraint(equalToConstant: 210).isActive = true
     }
     
     func buttonAutolayout() {

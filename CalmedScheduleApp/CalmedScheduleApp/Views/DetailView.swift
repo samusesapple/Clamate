@@ -7,9 +7,11 @@
 
 import UIKit
 
-class EditView: UIView {
+class DetailView: UIView {
 
     private let colorHelper = ColorHelper()
+    
+    var todoArray: [TodoData] = []
     
     // MARK: - UI 생성
     
@@ -49,6 +51,7 @@ class EditView: UIView {
     
     lazy var titleTextField: UITextField = {
         let tf = UITextField()
+        tf.text = todoArray[0].todoTitle
         tf.textAlignment = .left
         tf.backgroundColor = .clear
         tf.frame.size.height = 18
@@ -186,7 +189,7 @@ class EditView: UIView {
     
     lazy var detailTextView: UITextView = {
        let tv = UITextView()
-        tv.text = "(선택) 추가 내용을 입력해주세요."
+        tv.text = todoArray[0].todoDetailText
         tv.font = UIFont(descriptor: .preferredFontDescriptor(withTextStyle: .title3), size: 17)
         tv.textAlignment = .left
         tv.backgroundColor = .clear
@@ -203,7 +206,7 @@ class EditView: UIView {
     
     
     // buttons
-    lazy var doneButton: UIButton = {
+    lazy var editButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = colorHelper.yesButtonColor
         button.layer.cornerRadius = 5
@@ -211,21 +214,21 @@ class EditView: UIView {
         button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         button.layer.shadowOpacity = 0.5
         button.layer.shadowRadius = 2.5
-        button.addSubview(doneLabel)
+        button.addSubview(editLabel)
         return button
     }()
     
-    lazy var doneLabel: UILabel = {
+    lazy var editLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         label.textAlignment = .center
-        label.text = "ADD"
+        label.text = "EDIT"
         label.textColor = colorHelper.fontColor
         label.font = .boldSystemFont(ofSize: 17)
         return label
     }()
     
-    lazy var cancelButton: UIButton = {
+    lazy var backButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = colorHelper.cancelBackgroundColor
         button.layer.cornerRadius = 5
@@ -234,22 +237,22 @@ class EditView: UIView {
         button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         button.layer.shadowOpacity = 0.5
         button.layer.shadowRadius = 2.5
-        button.addSubview(cancelLabel)
+        button.addSubview(backLabel)
         return button
     }()
     
-    lazy var cancelLabel: UILabel = {
+    lazy var backLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         label.textAlignment = .center
-        label.text = "CANCEL"
+        label.text = "BACK"
         label.textColor = colorHelper.cancelTextColor
         label.font = .boldSystemFont(ofSize: 17)
         return label
     }()
 
     lazy var buttonStackView: UIStackView = {
-            let stView = UIStackView(arrangedSubviews: [cancelButton, doneButton])
+            let stView = UIStackView(arrangedSubviews: [backButton, editButton])
             stView.axis = .horizontal
             stView.spacing = 26
             stView.alignment = .fill
@@ -269,7 +272,7 @@ class EditView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     
     // MARK: - configureUI method
     func configureUI() {
@@ -355,16 +358,16 @@ class EditView: UIView {
     }
     
     func buttonAutolayout() {
-        doneLabel.translatesAutoresizingMaskIntoConstraints = false
-        doneLabel.centerXAnchor.constraint(equalTo: doneButton.centerXAnchor, constant: 0).isActive = true
-        doneLabel.centerYAnchor.constraint(equalTo: doneButton.centerYAnchor, constant: 0).isActive = true
+        editLabel.translatesAutoresizingMaskIntoConstraints = false
+        editLabel.centerXAnchor.constraint(equalTo: editButton.centerXAnchor, constant: 0).isActive = true
+        editLabel.centerYAnchor.constraint(equalTo: editButton.centerYAnchor, constant: 0).isActive = true
         
-        cancelLabel.translatesAutoresizingMaskIntoConstraints = false
-        cancelLabel.centerXAnchor.constraint(equalTo: cancelButton.centerXAnchor, constant: 0).isActive = true
-        cancelLabel.centerYAnchor.constraint(equalTo: cancelButton.centerYAnchor, constant: 0).isActive = true
+        backLabel.translatesAutoresizingMaskIntoConstraints = false
+        backLabel.centerXAnchor.constraint(equalTo: backButton.centerXAnchor, constant: 0).isActive = true
+        backLabel.centerYAnchor.constraint(equalTo: backButton.centerYAnchor, constant: 0).isActive = true
         
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.heightAnchor.constraint(equalToConstant: 48).isActive = true

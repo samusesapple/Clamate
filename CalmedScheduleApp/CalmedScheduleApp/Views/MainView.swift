@@ -30,7 +30,7 @@ final class MainView: UIView {
         label.textAlignment = .left
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "2023년 3월 8일"
+        label.text = "2023-12-22"
         return label
     }()
     

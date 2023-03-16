@@ -16,18 +16,21 @@ final class TodayTableViewCell: UITableViewCell {
             configureUIwithData()
         }
     }
+    
+    var todoStatus: Bool = false
+    
     // 데이터를 가지고 적절한 UI 표시하기
     func configureUIwithData() {
         todoMainLabel.text = toDoData?.todoTitle
-        timeLabel.text = toDoData?.dateString
-        
+        timeLabel.text = toDoData?.timeString
+        toDoData?.done = todoStatus
     }
 
     // MARK: - UI 구현
     
     lazy var timeLabel: UILabel = {
        let label = UILabel()
-        label.text = "PM 23:30"
+        label.text = "PM 00:01"
         label.textColor = colorHelper.fontColor
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 16)
@@ -55,9 +58,9 @@ final class TodayTableViewCell: UITableViewCell {
         return view
     }()
     
-    lazy var editButton: UIButton = {
+    lazy var doneButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Edit", for: .normal)
+        button.setTitle("Done", for: .normal)
         button.backgroundColor = colorHelper.buttonColor
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.titleLabel?.textColor = colorHelper.fontColor
@@ -92,7 +95,7 @@ final class TodayTableViewCell: UITableViewCell {
         contentView.layer.shadowRadius = 1.5
         
         contentView.addSubview(labelView)
-        contentView.addSubview(editButton)
+        contentView.addSubview(doneButton)
         
         labelViewAutolayout()
         timeLabelAutolayout()
@@ -132,11 +135,11 @@ final class TodayTableViewCell: UITableViewCell {
     }
     
     func buttonAutolayout() {
-        editButton.translatesAutoresizingMaskIntoConstraints = false
-        editButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        editButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
-        editButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        editButton.widthAnchor.constraint(equalToConstant: 57).isActive = true
+        doneButton.translatesAutoresizingMaskIntoConstraints = false
+        doneButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        doneButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        doneButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        doneButton.widthAnchor.constraint(equalToConstant: 57).isActive = true
     }
     
     

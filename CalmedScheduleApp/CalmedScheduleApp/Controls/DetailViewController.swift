@@ -2,22 +2,26 @@
 //  DetailViewController.swift
 //  CalmedScheduleApp
 //
-//  Created by Sam Sung on 2023/03/10.
+//  Created by Sam Sung on 2023/03/15.
 //
 
 import UIKit
 
-final class DetailViewController: UIViewController {
+class DetailViewController: UIViewController {
+    let detailView = DetailView()
+    
+    var todoArray: ArraySlice<TodoData> = []
+    
     
     
     override func loadView() {
-
+        view = detailView
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
     }
     
 

@@ -33,16 +33,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             // 탭바로 사용하기 위한 뷰 컨트롤러들 설정 ( 탭바는 최대 5개까지 가능 )
             tabBarVC.setViewControllers([vc1, vc2], animated: false)
-            tabBarVC.tabBar.barTintColor = ColorHelper().buttonColor
+            tabBarVC.tabBar.barTintColor = ColorHelper().backgroundColor
             tabBarVC.modalPresentationStyle = .fullScreen
-            tabBarVC.tabBar.backgroundColor = ColorHelper().buttonColor
+            tabBarVC.tabBar.backgroundColor = ColorHelper().backgroundColor
             tabBarVC.tabBar.barStyle = .default
             tabBarVC.tabBar.layer.cornerRadius = 15
             tabBarVC.tabBar.layer.shadowColor = UIColor.black.cgColor
             tabBarVC.tabBar.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
             tabBarVC.tabBar.layer.shadowOpacity = 0.5
             tabBarVC.tabBar.layer.shadowRadius = 2.5
-            tabBarVC.tabBar.unselectedItemTintColor = ColorHelper().cancelTextColor
+            tabBarVC.tabBar.unselectedItemTintColor = ColorHelper().buttonColor
             tabBarVC.tabBar.tintColor = ColorHelper().cancelBackgroundColor
             
             // 탭바 이미지 설정 (이미지는 애플이 제공하는 것으로 사용)

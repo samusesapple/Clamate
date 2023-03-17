@@ -8,6 +8,7 @@
 import UIKit
 
 final class AddViewController: UIViewController {
+    private let colorHelper = ColorHelper()
     
     let addView = AddView()
     weak var toDoManager = CoreDataManager.shared
@@ -47,6 +48,10 @@ final class AddViewController: UIViewController {
     
     // MARK: - addTarget for buttons
     @objc func addButtonTapped() {
+        // 버튼 색 및 그림자 변화
+        addView.addButton.layer.shadowOpacity = 0
+        addView.addButton.layer.shadowColor = .none
+        addView.addButton.backgroundColor = .lightGray
         
         let titleText = addView.titleTextField.text
         let detailText = addView.detailTextView.text
@@ -58,6 +63,9 @@ final class AddViewController: UIViewController {
             
             let failure = UIAlertAction(title: "돌아가기", style: .cancel) { action in
                 print("저장 실패")
+                self.addView.addButton.backgroundColor = self.colorHelper.yesButtonColor
+                self.addView.addButton.layer.shadowColor = UIColor.black.cgColor
+                self.addView.addButton.layer.shadowOpacity = 0.5
             }
             failureAlert.addAction(failure)
             // 저장실패 얼럿 띄우기
@@ -88,6 +96,9 @@ final class AddViewController: UIViewController {
     
     @objc func cancelButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+        addView.cancelButton.layer.shadowOpacity = 0
+        addView.cancelButton.layer.shadowColor = .none
+        addView.cancelButton.backgroundColor = .lightGray
     }
     
 }

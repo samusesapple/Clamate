@@ -94,7 +94,7 @@ final class MainView: UIView {
     }()
     
     // MARK: - stackVeiw
-    var customSpacingAnchor: CGFloat = 40
+    var customSpacingAnchor: CGFloat = 45
     
     lazy var labelStack: UIStackView = {
         var stView = UIStackView(arrangedSubviews: [greetingLabel, dateLabel])
@@ -144,17 +144,17 @@ final class MainView: UIView {
     
     // MARK: - set Autolayout
     func labelAutolayout() {
-        labelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
-        labelStack.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: customSpacingAnchor).isActive = true
-        labelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
+        labelStack.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
+        labelStack.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 25).isActive = true
+        labelStack.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
     }
     
     func scheduleViewAutolayout() {
         scheduleView.translatesAutoresizingMaskIntoConstraints = false
-        scheduleView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
-        scheduleView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
+        scheduleView.leadingAnchor.constraint(equalTo: labelStack.leadingAnchor).isActive = true
+        scheduleView.trailingAnchor.constraint(equalTo: labelStack.trailingAnchor).isActive = true
         scheduleView.topAnchor.constraint(equalTo: labelStack.bottomAnchor, constant: 8).isActive = true
-        scheduleView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        scheduleView.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
     
     func weatherAutolayout() {
@@ -164,10 +164,15 @@ final class MainView: UIView {
         
         
         weatherViewStack.translatesAutoresizingMaskIntoConstraints = false
-        weatherViewStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40).isActive = true
-        weatherViewStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40).isActive = true
+        weatherView1.translatesAutoresizingMaskIntoConstraints = false
+        weatherView2.translatesAutoresizingMaskIntoConstraints = false
+        weatherView3.translatesAutoresizingMaskIntoConstraints = false
+        weatherView1.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        weatherView2.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        weatherView3.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        weatherViewStack.leadingAnchor.constraint(equalTo: labelStack.leadingAnchor).isActive = true
+        weatherViewStack.trailingAnchor.constraint(equalTo: labelStack.trailingAnchor).isActive = true
         weatherViewStack.topAnchor.constraint(equalTo: weatherLabel.bottomAnchor, constant: 8).isActive = true
-        weatherViewStack.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -customSpacingAnchor).isActive = true
     }
     
 }

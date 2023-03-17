@@ -12,6 +12,10 @@ final class MainView: UIView {
     
     private let colorHelper = ColorHelper()
     
+    var tempStatus: CGFloat = 0
+    var moistStatus: CGFloat = 0
+    var dustStatus: CGFloat = 0
+    
     lazy var greetingLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .clear
@@ -57,9 +61,9 @@ final class MainView: UIView {
         return label
     }()
     
-    lazy var weatherView1: UIView = {
+    lazy var tempView: UIView = {
        var view = UIView()
-        view.backgroundColor = colorHelper.buttonColor
+        view.backgroundColor = colorHelper.tempViewColor
         view.layer.cornerRadius = 5
 
         view.layer.shadowColor = UIColor.black.cgColor
@@ -69,9 +73,19 @@ final class MainView: UIView {
         return view
     }()
     
-    lazy var weatherView2: UIView = {
+    lazy var tempLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.textColor = colorHelper.fontColor
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.text = "현재 기온"
+        return label
+    }()
+    
+    lazy var dustView: UIView = {
        var view = UIView()
-        view.backgroundColor = colorHelper.buttonColor
+        view.backgroundColor = colorHelper.dustViewColor
         view.layer.cornerRadius = 5
 
         view.layer.shadowColor = UIColor.black.cgColor
@@ -81,9 +95,19 @@ final class MainView: UIView {
         return view
     }()
     
-    lazy var weatherView3: UIView = {
+    lazy var dustLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.textColor = colorHelper.fontColor
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.text = "미세먼지"
+        return label
+    }()
+    
+    lazy var moistView: UIView = {
        var view = UIView()
-        view.backgroundColor = colorHelper.buttonColor
+        view.backgroundColor = colorHelper.moistViewColor
         view.layer.cornerRadius = 5
 
         view.layer.shadowColor = UIColor.black.cgColor
@@ -91,6 +115,16 @@ final class MainView: UIView {
         view.layer.shadowOpacity = 0.7
         view.layer.shadowRadius = 2.5
         return view
+    }()
+    
+    lazy var moistLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.textColor = colorHelper.fontColor
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.text = "강수량"
+        return label
     }()
     
     // MARK: - stackVeiw
@@ -106,14 +140,16 @@ final class MainView: UIView {
         return stView
     }()
     
-    lazy var weatherViewStack: UIStackView = {
-        var stView = UIStackView(arrangedSubviews: [weatherView1, weatherView2, weatherView3])
-        stView.backgroundColor = .clear
-        stView.spacing = 10
-        stView.distribution = .fillEqually
-        stView.axis = .vertical
-        stView.alignment = .fill
-        return stView
+    lazy var weatherView: UIView = {
+        var view = UIView()
+        view.backgroundColor = .clear
+        view.addSubview(tempView)
+        view.addSubview(dustView)
+        view.addSubview(moistView)
+        view.addSubview(tempLabel)
+        view.addSubview(dustLabel)
+        view.addSubview(moistLabel)
+        return view
     }()
     
     // MARK: - initializer
@@ -135,7 +171,7 @@ final class MainView: UIView {
         addSubview(labelStack)
         addSubview(scheduleView)
         addSubview(weatherLabel)
-        addSubview(weatherViewStack)
+        addSubview(weatherView)
         labelAutolayout()
         scheduleViewAutolayout()
         weatherAutolayout()
@@ -163,16 +199,56 @@ final class MainView: UIView {
         weatherLabel.leadingAnchor.constraint(equalTo: scheduleView.leadingAnchor).isActive = true
         
         
-        weatherViewStack.translatesAutoresizingMaskIntoConstraints = false
-        weatherView1.translatesAutoresizingMaskIntoConstraints = false
-        weatherView2.translatesAutoresizingMaskIntoConstraints = false
-        weatherView3.translatesAutoresizingMaskIntoConstraints = false
-        weatherView1.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        weatherView2.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        weatherView3.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        weatherViewStack.leadingAnchor.constraint(equalTo: labelStack.leadingAnchor).isActive = true
-        weatherViewStack.trailingAnchor.constraint(equalTo: labelStack.trailingAnchor).isActive = true
-        weatherViewStack.topAnchor.constraint(equalTo: weatherLabel.bottomAnchor, constant: 8).isActive = true
+        weatherView.translatesAutoresizingMaskIntoConstraints = false
+        weatherView.topAnchor.constraint(equalTo: weatherLabel.bottomAnchor, constant: 8).isActive = true
+        weatherView.leadingAnchor.constraint(equalTo: labelStack.leadingAnchor).isActive = true
+        weatherView.trailingAnchor.constraint(equalTo: labelStack.trailingAnchor).isActive = true
+        weatherView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -customSpacingAnchor).isActive = true
+        
+        tempView.translatesAutoresizingMaskIntoConstraints = false
+        tempLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        dustView.translatesAutoresizingMaskIntoConstraints = false
+        dustLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        moistView.translatesAutoresizingMaskIntoConstraints = false
+        moistLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        //현재기온
+        tempView.bottomAnchor.constraint(equalTo: weatherView.bottomAnchor).isActive = true
+        tempView.leadingAnchor.constraint(equalTo: weatherView.leadingAnchor).isActive = true
+        tempView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        tempLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        tempLabel.bottomAnchor.constraint(equalTo: tempView.topAnchor, constant: -5).isActive = true
+        tempLabel.leadingAnchor.constraint(equalTo: tempView.leadingAnchor).isActive = true
+        tempLabel.trailingAnchor.constraint(equalTo: tempView.trailingAnchor).isActive = true
+        
+        //미세먼지
+        dustView.bottomAnchor.constraint(equalTo: weatherView.bottomAnchor).isActive = true
+        dustView.leadingAnchor.constraint(equalTo: tempView.trailingAnchor, constant: 10).isActive = true
+        dustView.widthAnchor.constraint(equalTo: tempView.widthAnchor).isActive = true
+        
+        dustLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        dustLabel.bottomAnchor.constraint(equalTo: dustView.topAnchor, constant: -5).isActive = true
+        dustLabel.leadingAnchor.constraint(equalTo: dustView.leadingAnchor).isActive = true
+        dustLabel.trailingAnchor.constraint(equalTo: dustView.trailingAnchor).isActive = true
+        
+        // 강수량
+        moistView.bottomAnchor.constraint(equalTo: weatherView.bottomAnchor).isActive = true
+        moistView.leadingAnchor.constraint(equalTo: dustView.trailingAnchor, constant: 10).isActive = true
+        moistView.widthAnchor.constraint(equalTo: tempView.widthAnchor).isActive = true
+        
+        moistLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        moistLabel.bottomAnchor.constraint(equalTo: moistView.topAnchor, constant: -5).isActive = true
+        moistLabel.leadingAnchor.constraint(equalTo: moistView.leadingAnchor).isActive = true
+        moistLabel.trailingAnchor.constraint(equalTo: moistView.trailingAnchor).isActive = true
+        
+        // 현재기온 + 미세먼지 + 강수량 높이
+        tempView.heightAnchor.constraint(equalToConstant: 60 + tempStatus).isActive = true
+        dustView.heightAnchor.constraint(equalToConstant: 60 + dustStatus).isActive = true
+        moistView.heightAnchor.constraint(equalToConstant: 60 + moistStatus).isActive = true
+
     }
     
 }

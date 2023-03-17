@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F106F72529C4476E007BCF0B /* WeatherDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72429C4476E007BCF0B /* WeatherDataManager.swift */; };
 		F1198A9929B9DBB4009E23AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9829B9DBB4009E23AD /* AppDelegate.swift */; };
 		F1198A9B29B9DBB4009E23AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9A29B9DBB4009E23AD /* SceneDelegate.swift */; };
 		F1198A9D29B9DBB4009E23AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9C29B9DBB4009E23AD /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F106F72429C4476E007BCF0B /* WeatherDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataManager.swift; sourceTree = "<group>"; };
 		F1198A9529B9DBB4009E23AD /* CalmedScheduleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalmedScheduleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1198A9829B9DBB4009E23AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1198A9A29B9DBB4009E23AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				F1198ADE29BC8072009E23AD /* CoreDataManager.swift */,
+				F106F72429C4476E007BCF0B /* WeatherDataManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				F1198A9929B9DBB4009E23AD /* AppDelegate.swift in Sources */,
 				F1198ADF29BC8072009E23AD /* CoreDataManager.swift in Sources */,
 				F1198AD929BC63AC009E23AD /* AddViewController.swift in Sources */,
+				F106F72529C4476E007BCF0B /* WeatherDataManager.swift in Sources */,
 				F1198AA329B9DBB4009E23AD /* CalmedScheduleApp.xcdatamodeld in Sources */,
 				F1198ABA29BADBB2009E23AD /* OneDayViewController.swift in Sources */,
 				F1198AB329B9DC96009E23AD /* MainView.swift in Sources */,

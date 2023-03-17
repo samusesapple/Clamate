@@ -48,10 +48,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // 탭바 이미지 설정 (이미지는 애플이 제공하는 것으로 사용)
             guard let items = tabBarVC.tabBar.items else { return }
             let item1 = items[0]
-            item1.image = UIImage(systemName: "person.circle")
+            item1.image = UIImage(systemName: "circle")
+            item1.selectedImage = UIImage(systemName: "circle.fill")
     
             let item2 = items[1]
-            item2.image = UIImage(systemName: "person.circle")
+            item2.image = UIImage(systemName: "circle")
+            item2.selectedImage = UIImage(systemName: "circle.inset.filled")
             
             // 기본루트뷰를 탭바컨트롤러로 설정⭐️
             window?.rootViewController = tabBarVC

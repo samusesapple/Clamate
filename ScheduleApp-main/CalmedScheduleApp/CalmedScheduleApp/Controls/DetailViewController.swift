@@ -34,7 +34,7 @@ final class DetailViewController: UIViewController {
         detailView.dateSelectlabel.text = toDoData?.longDateString
         detailView.timeSelectlabel.text = toDoData?.timeString
         detailView.detailTextView.text = toDoData?.todoDetailText
-        if detailView.detailTextView.text == "" {
+        if detailView.detailTextView.text == "" || detailView.detailTextView.text == "(선택) 추가 내용을 입력해주세요." {
             detailView.detailTextView.text = "작성된 추가 내용이 없습니다."
             detailView.detailTextView.textColor = colorHelper.cancelBackgroundColor
         }

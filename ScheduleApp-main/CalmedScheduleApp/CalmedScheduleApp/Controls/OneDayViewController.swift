@@ -30,18 +30,18 @@ final class OneDayViewController: UIViewController {
 
     // MARK: - set NaviBar
     func setupNaviBar() {
-        self.title = "Today"
-        
         // 네비게이션바 설정
+        self.navigationItem.title = "Today"
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()  // 불투명으로
         appearance.backgroundColor = colorHelper.backgroundColor
         appearance.titleTextAttributes = [.foregroundColor: colorHelper.fontColor]
+        appearance.largeTitleTextAttributes = [.foregroundColor: colorHelper.fontColor]
         
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
         // Bar 버튼 추가
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
@@ -58,12 +58,11 @@ final class OneDayViewController: UIViewController {
         tableView.delegate = self
         
         tableView.backgroundColor = colorHelper.backgroundColor
-        tableView.rowHeight = 120
+        tableView.rowHeight = 110
         tableView.layer.cornerRadius = 5
         setupTableViewConstraints()
-        // 셀의 등록과정
+        // 셀 등록
         tableView.register(TodayTableViewCell.self, forCellReuseIdentifier: "TodoCell")
-    
     }
     
     // MARK: - TableView Autolayout
@@ -73,8 +72,8 @@ final class OneDayViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
     }
@@ -88,7 +87,6 @@ final class OneDayViewController: UIViewController {
         print("delete button tapped")
         present(DetailViewController(), animated: true)
 
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -100,11 +98,8 @@ final class OneDayViewController: UIViewController {
 
 extension OneDayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-  
         return toDoManager!.getToDoListFromCoreData().count
     }
-    
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -121,8 +116,6 @@ extension OneDayViewController: UITableViewDataSource {
         cell.doneButton.tag = indexPath.row
         cell.doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
 
-        
-        
         return cell
     }
     
@@ -173,14 +166,13 @@ extension OneDayViewController: UITableViewDataSource {
 
 extension OneDayViewController: UITableViewDelegate {
     
-    // 셀이 선택이 되었을때 어떤 동작을 할 것인지 뷰컨트롤러에게 물어봄
+    // 셀이 선택이 되었을때 동작
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath)번째 셀이 선택됨")
         // 다음화면으로 이동
         let detailVC = DetailViewController()
         let data = toDoManager?.getToDoListFromCoreData()
         detailVC.toDoData = data?[indexPath.row]
-
 
         navigationController?.present(detailVC, animated: true)
     }

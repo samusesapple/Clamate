@@ -13,17 +13,6 @@ final class AddView: UIView {
     
 
     // MARK: - UI 생성
-    
-    lazy var mainLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.textAlignment = .center
-        label.textColor = colorHelper.fontColor
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = "New !"
-        return label
-    }()
-    
     // title
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -302,7 +291,6 @@ final class AddView: UIView {
     // MARK: - configureUI method
     func configureUI() {
         self.backgroundColor = colorHelper.backgroundColor
-        addSubview(mainLabel)
         addSubview(titleStackView)
         addSubview(dateStackView)
         addSubview(timeStackView)
@@ -319,7 +307,6 @@ final class AddView: UIView {
     let customHeightAnchor: CGFloat = 48
     
     func setAutolayout() {
-        mainLabelAutolayout()
         titleTFAutolayout()
         dateAutolayout()
         timeAutolayout()
@@ -327,16 +314,9 @@ final class AddView: UIView {
         buttonAutolayout()
     }
     
-    func mainLabelAutolayout() {
-        mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        mainLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 13).isActive = true
-        mainLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
-        
-    }
-    
     func titleTFAutolayout() {
         titleStackView.translatesAutoresizingMaskIntoConstraints = false
-        titleStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 130).isActive = true
+        titleStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         titleStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
         titleStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         

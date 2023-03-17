@@ -87,13 +87,12 @@ final class TodayTableViewCell: UITableViewCell {
     // 생성 시점에 뷰 위에 객체들 올리기
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = colorHelper.buttonColor
         contentView.layer.cornerRadius = 5
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
         contentView.layer.shadowOpacity = 1.0
         contentView.layer.shadowRadius = 1.5
-        
+        contentView.backgroundColor = colorHelper.buttonColor
         contentView.addSubview(labelView)
         contentView.addSubview(doneButton)
         

@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
 
-    // 첫화면이 뜨기전에, 탭바를 내장시키기⭐️⭐️⭐️
+    // 첫화면이 뜨기전에, 탭바를 내장시키기
         func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
             
             guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -26,7 +26,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // 첫번째 화면은 네비게이션컨트롤러로 만들기 (기본루트뷰 설정)
             let vc1 = UINavigationController(rootViewController: ViewController())
             let vc2 = UINavigationController(rootViewController: OneDayViewController())
-
             
             // 탭바 이름들 설정
 //            vc2.title = ""
@@ -53,7 +52,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
             let item2 = items[1]
             item2.image = UIImage(systemName: "person.circle")
-            
             
             // 기본루트뷰를 탭바컨트롤러로 설정⭐️
             window?.rootViewController = tabBarVC

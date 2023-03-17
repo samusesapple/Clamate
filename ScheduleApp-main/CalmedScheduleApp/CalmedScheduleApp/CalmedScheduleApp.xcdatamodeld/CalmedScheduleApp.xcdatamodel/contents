@@ -7,7 +7,4 @@
         <attribute name="todoTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="todoTitle" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="UserData" representedClassName="UserData" syncable="YES">
-        <attribute name="userName" optional="YES" attributeType="String" maxValueString="7"/>
-    </entity>
 </model>

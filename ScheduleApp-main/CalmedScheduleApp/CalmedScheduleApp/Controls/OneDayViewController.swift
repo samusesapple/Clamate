@@ -26,7 +26,6 @@ final class OneDayViewController: UIViewController {
         setupNaviBar()
     }
     
-    
 
     // MARK: - set NaviBar
     func setupNaviBar() {
@@ -39,7 +38,7 @@ final class OneDayViewController: UIViewController {
         appearance.largeTitleTextAttributes = [.foregroundColor: colorHelper.fontColor]
         
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = colorHelper.fontColor
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
         
@@ -115,10 +114,10 @@ extension OneDayViewController: UITableViewDataSource {
         
         cell.doneButton.tag = indexPath.row
         cell.doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
-
+        
         return cell
     }
-    
+        
     @objc func doneButtonPressed(_ target: UIButton) {
         print("\(target.tag)st done button pressed")
         func unpressedButtonSetting() {
@@ -155,7 +154,6 @@ extension OneDayViewController: UITableViewDataSource {
             todoStatus = true
             if todoStatus == true {
                 toDoManager!.deleteToDo(data: targetTodo) {
-                    print("데이터 삭제됨")
                     self.tableView.reloadData()
                 }
             }

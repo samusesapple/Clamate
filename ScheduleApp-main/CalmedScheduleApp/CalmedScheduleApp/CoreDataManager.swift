@@ -48,29 +48,27 @@ final class CoreDataManager {
     }
     
 //    // MARK: - [Read] 코어데이터에 저장된 오늘 데이터만 모두 읽어오기
-//    func getTodayListFromCoreData() -> [TodoData] {
-//        var todayList: [TodoData] = []
+//    func getTodayToDoListFromCoreData() -> [TodoData] {
+//        var toDoList: [TodoData] = []
 //        // 임시저장소 있는지 확인
 //        if let context = context {
 //            // 요청서
 //            let request = NSFetchRequest<NSManagedObject>(entityName: self.modelName)
 //            // 정렬순서를 정해서 요청서에 넘겨주기
-//            let dateOrder = NSSortDescriptor(key: "todoDate", ascending: false)
+//            let dateOrder = NSSortDescriptor(key: "todoTime", ascending: false)
 //            request.sortDescriptors = [dateOrder]
 //            
 //            do {
 //                // 임시저장소에서 (요청서를 통해서) 데이터 가져오기 (fetch메서드)
 //                if let fetchedToDoList = try context.fetch(request) as? [TodoData] {
-//                    todayList = fetchedToDoList.filter({ list in
-//                        list.todoDate! == Date.date
-//                    })
+//                    toDoList = fetchedToDoList
 //                }
 //            } catch {
 //                print("가져오는 것 실패")
 //            }
 //        }
 //        
-//        return todayList
+//        return toDoList.filter({ $0.longDateString == $0.nowDateString })
 //    }
     
     // MARK: - [Create] 코어데이터에 데이터 생성하기

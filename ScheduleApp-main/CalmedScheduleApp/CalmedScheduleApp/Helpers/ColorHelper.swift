@@ -8,12 +8,12 @@
 import UIKit
 
 public class ColorHelper {
-    var backgroundColor: UIColor = #colorLiteral(red: 0.2078431373, green: 0.2274509804, blue: 0.2470588235, alpha: 1)
-    var fontColor: UIColor = #colorLiteral(red: 0.9607843137, green: 0.9647058824, blue: 0.9803921569, alpha: 1)
-    var buttonColor: UIColor = #colorLiteral(red: 0.3254901961, green: 0.3607843137, blue: 0.4078431373, alpha: 1)
-    var cancelBackgroundColor: UIColor = #colorLiteral(red: 0.6470588235, green: 0.6941176471, blue: 0.7607843137, alpha: 1)
-    var cancelTextColor: UIColor = #colorLiteral(red: 0.2078431373, green: 0.2274509804, blue: 0.2470588235, alpha: 1)
-    var yesButtonColor: UIColor = #colorLiteral(red: 0.3254901961, green: 0.3607843137, blue: 0.4078431373, alpha: 1)
+    var backgroundColor: UIColor = UIColor(named: "backgroundColor")!
+    var fontColor: UIColor = UIColor(named: "fontColor")!
+    var buttonColor: UIColor = UIColor(named: "buttonColor")!
+    var cancelBackgroundColor: UIColor = UIColor(named: "cancelBackgroundColor")!
+    var cancelTextColor: UIColor = UIColor(named: "cancelTextColor")!
+    var yesButtonColor: UIColor = UIColor(named: "yesButtonColor")!
     
     var tempViewColor: UIColor = #colorLiteral(red: 0.4150928557, green: 0.4534381032, blue: 0.5106039047, alpha: 1)
     var dustViewColor: UIColor = #colorLiteral(red: 0.5285704732, green: 0.5643274784, blue: 0.6181049943, alpha: 1)

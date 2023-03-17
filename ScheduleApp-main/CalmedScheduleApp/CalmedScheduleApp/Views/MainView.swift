@@ -20,7 +20,7 @@ final class MainView: UIView {
         var label = UILabel()
         label.backgroundColor = .clear
         label.textAlignment = .left
-        label.textColor = UIColor.white
+        label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 28)
         label.text = "현관님, \n오늘도 화이팅하세요!"
         label.lineBreakMode = .byWordWrapping

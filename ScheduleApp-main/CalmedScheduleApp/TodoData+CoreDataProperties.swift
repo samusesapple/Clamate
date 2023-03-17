@@ -21,7 +21,15 @@ extension TodoData {
     @NSManaged public var todoTitle: String?
     @NSManaged public var todoDetailText: String?
     @NSManaged public var done: Bool
-
+    
+    var nowDateString: String? {
+        let myFormatter = DateFormatter()
+        myFormatter.dateFormat = "yyyy-MM-dd (EEE)"
+        let date = Date()
+        let savedDateString = myFormatter.string(from: date)
+        return savedDateString
+    }
+    
     var shortDateString: String? {
         let myFormatter = DateFormatter()
         myFormatter.dateFormat = "yyyy-MM-dd (EEE)"

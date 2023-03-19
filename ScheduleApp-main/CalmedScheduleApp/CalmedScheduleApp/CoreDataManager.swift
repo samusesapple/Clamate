@@ -14,14 +14,23 @@ final class CoreDataManager {
     static let shared = CoreDataManager()
     private init() {}
     
+    private func certainDateString(date: Date?) -> String? {
+        let myFormatter = DateFormatter()
+        myFormatter.dateFormat = "yyyy-MM-dd"
+        guard let resultDate = date  else { return "" }
+        let savedDateString = myFormatter.string(from: resultDate)
+        return savedDateString
+    }
+    
+    
     // 앱 델리게이트
-    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     // 임시저장소
-    lazy var context = appDelegate?.persistentContainer.viewContext
+    private lazy var context = appDelegate?.persistentContainer.viewContext
     
     // 엔터티 이름 (코어데이터에 저장된 객체)
-    let modelName: String = "TodoData"
+    private  let modelName: String = "TodoData"
     
     // MARK: - [Read] 코어데이터에 저장된 데이터 모두 읽어오기
     func getToDoListFromCoreData() -> [TodoData] {
@@ -31,7 +40,7 @@ final class CoreDataManager {
             // 요청서
             let request = NSFetchRequest<NSManagedObject>(entityName: self.modelName)
             // 정렬순서를 정해서 요청서에 넘겨주기
-            let dateOrder = NSSortDescriptor(key: "todoDate", ascending: false)
+            let dateOrder = NSSortDescriptor(key: "todoDate", ascending: true)
             request.sortDescriptors = [dateOrder]
             
             do {
@@ -47,29 +56,33 @@ final class CoreDataManager {
         return toDoList
     }
     
-//    // MARK: - [Read] 코어데이터에 저장된 오늘 데이터만 모두 읽어오기
-//    func getTodayToDoListFromCoreData() -> [TodoData] {
-//        var toDoList: [TodoData] = []
-//        // 임시저장소 있는지 확인
-//        if let context = context {
-//            // 요청서
-//            let request = NSFetchRequest<NSManagedObject>(entityName: self.modelName)
-//            // 정렬순서를 정해서 요청서에 넘겨주기
-//            let dateOrder = NSSortDescriptor(key: "todoTime", ascending: false)
-//            request.sortDescriptors = [dateOrder]
-//            
-//            do {
-//                // 임시저장소에서 (요청서를 통해서) 데이터 가져오기 (fetch메서드)
-//                if let fetchedToDoList = try context.fetch(request) as? [TodoData] {
-//                    toDoList = fetchedToDoList
-//                }
-//            } catch {
-//                print("가져오는 것 실패")
-//            }
-//        }
-//        
-//        return toDoList.filter({ $0.longDateString == $0.nowDateString })
-//    }
+    
+    // MARK: - [Read] 코어데이터에서 일치하는 날짜의 데이터 찾아서 불러오기
+    func getCertainDateToDo(date: Date) -> [TodoData] {
+        var toDoList: [TodoData] = []
+        
+        if let context = context {
+            let request = NSFetchRequest<NSManagedObject>(entityName: self.modelName)
+            
+            let timeOrder = NSSortDescriptor(key: "todoTime", ascending: true)
+            request.sortDescriptors = [timeOrder]
+            
+            
+            do {
+                // 임시저장소에서 (요청서를 통해서) 데이터 가져오기 (fetch메서드)
+                if let fetchedToDoList = try context.fetch(request) as? [TodoData] {
+                    toDoList = fetchedToDoList
+                }
+            } catch {
+                print("가져오는 것 실패")
+            }
+        }
+        return toDoList.filter { data in
+            certainDateString(date: data.todoDate) == certainDateString(date: date)
+        }
+        
+    }
+    
     
     // MARK: - [Create] 코어데이터에 데이터 생성하기
     func saveToDoData(todoDate: Date?, todoTime: Date?, todoTitle: String?, todoDetail: String?, todoDone: Bool,  completion: @escaping () -> Void) {
@@ -87,7 +100,7 @@ final class CoreDataManager {
                     todoData.todoTitle = todoTitle
                     todoData.todoDetailText = todoDetail
                     todoData.done = false
-                    
+                    print("\(String(describing: todoData.todoDate)), \(String(describing: todoData.todoTime))")
                     
                     //appDelegate?.saveContext() // 앱델리게이트의 메서드로 해도됨
                     if context.hasChanges {
@@ -105,6 +118,7 @@ final class CoreDataManager {
         completion()
     }
     
+
     
     // MARK: - [Delete] 코어데이터에서 데이터 삭제하기 (일치하는 데이터 찾아서 ===> 삭제)
     func deleteToDo(data: TodoData, completion: @escaping () -> Void) {
@@ -150,7 +164,7 @@ final class CoreDataManager {
         }
     }
     
-   
+    
     // MARK: - [Update] 코어데이터에서 데이터 수정하기 (일치하는 데이터 찾아서 ===> 수정)
     func updateToDo(newToDoData: TodoData, completion: @escaping () -> Void) {
         // 날짜 옵셔널 바인딩
@@ -196,6 +210,3 @@ final class CoreDataManager {
     }
     
 }
-    
-    
-    

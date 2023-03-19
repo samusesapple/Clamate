@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F106F72529C4476E007BCF0B /* WeatherDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72429C4476E007BCF0B /* WeatherDataManager.swift */; };
-		F106F72729C47EEA007BCF0B /* TenDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72629C47EEA007BCF0B /* TenDayView.swift */; };
-		F106F72929C47EFE007BCF0B /* TenDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72829C47EFE007BCF0B /* TenDayViewController.swift */; };
+		F106F72729C47EEA007BCF0B /* MonthlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72629C47EEA007BCF0B /* MonthlyView.swift */; };
+		F106F72929C47EFE007BCF0B /* MonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72829C47EFE007BCF0B /* MonthlyViewController.swift */; };
 		F1198A9929B9DBB4009E23AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9829B9DBB4009E23AD /* AppDelegate.swift */; };
 		F1198A9B29B9DBB4009E23AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9A29B9DBB4009E23AD /* SceneDelegate.swift */; };
 		F1198A9D29B9DBB4009E23AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9C29B9DBB4009E23AD /* ViewController.swift */; };
@@ -32,8 +32,8 @@
 
 /* Begin PBXFileReference section */
 		F106F72429C4476E007BCF0B /* WeatherDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataManager.swift; sourceTree = "<group>"; };
-		F106F72629C47EEA007BCF0B /* TenDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenDayView.swift; sourceTree = "<group>"; };
-		F106F72829C47EFE007BCF0B /* TenDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenDayViewController.swift; sourceTree = "<group>"; };
+		F106F72629C47EEA007BCF0B /* MonthlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyView.swift; sourceTree = "<group>"; };
+		F106F72829C47EFE007BCF0B /* MonthlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyViewController.swift; sourceTree = "<group>"; };
 		F1198A9529B9DBB4009E23AD /* CalmedScheduleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalmedScheduleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1198A9829B9DBB4009E23AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1198A9A29B9DBB4009E23AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 				F1198AB929BADBB2009E23AD /* OneDayViewController.swift */,
 				F1198AD829BC63AC009E23AD /* AddViewController.swift */,
 				F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */,
-				F106F72829C47EFE007BCF0B /* TenDayViewController.swift */,
+				F106F72829C47EFE007BCF0B /* MonthlyViewController.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -121,8 +121,8 @@
 				F1198AB229B9DC96009E23AD /* MainView.swift */,
 				F1198AD629BC37E9009E23AD /* AddView.swift */,
 				F1198ADC29BC6622009E23AD /* DetailView.swift */,
+				F106F72629C47EEA007BCF0B /* MonthlyView.swift */,
 				F1198ABC29BB0217009E23AD /* TodayTableViewCell.swift */,
-				F106F72629C47EEA007BCF0B /* TenDayView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -219,7 +219,7 @@
 				F1198AEB29C1C6E5009E23AD /* DetailViewController.swift in Sources */,
 				F1198A9D29B9DBB4009E23AD /* ViewController.swift in Sources */,
 				F1198AE929C08B42009E23AD /* TodoData+CoreDataProperties.swift in Sources */,
-				F106F72729C47EEA007BCF0B /* TenDayView.swift in Sources */,
+				F106F72729C47EEA007BCF0B /* MonthlyView.swift in Sources */,
 				F1198AD729BC37E9009E23AD /* AddView.swift in Sources */,
 				F1198A9929B9DBB4009E23AD /* AppDelegate.swift in Sources */,
 				F1198ADF29BC8072009E23AD /* CoreDataManager.swift in Sources */,
@@ -232,7 +232,7 @@
 				F1198A9B29B9DBB4009E23AD /* SceneDelegate.swift in Sources */,
 				F1198AB629B9DCBF009E23AD /* ColorHelper.swift in Sources */,
 				F1198ABD29BB0217009E23AD /* TodayTableViewCell.swift in Sources */,
-				F106F72929C47EFE007BCF0B /* TenDayViewController.swift in Sources */,
+				F106F72929C47EFE007BCF0B /* MonthlyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,7 +386,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -417,7 +417,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

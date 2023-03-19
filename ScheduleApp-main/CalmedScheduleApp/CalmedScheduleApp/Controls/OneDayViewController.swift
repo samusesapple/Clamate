@@ -11,8 +11,10 @@ final class OneDayViewController: UIViewController {
     
     private let colorHelper = ColorHelper()
     lazy var tableView = UITableView()
-    weak var toDoManager = CoreDataManager.shared
+    lazy var toDoManager = CoreDataManager.shared
+    var baseDate: Date = Date()
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = colorHelper.backgroundColor
@@ -70,7 +72,7 @@ final class OneDayViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
@@ -96,16 +98,17 @@ final class OneDayViewController: UIViewController {
 }
 
 extension OneDayViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return toDoManager!.getToDoListFromCoreData().count
+        return toDoManager.getCertainDateToDo(date: baseDate).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodayTableViewCell
         
-        let toDoData = toDoManager?.getToDoListFromCoreData()
-        cell.toDoData = toDoData?[indexPath.row]
+        let toDoData = toDoManager.getCertainDateToDo(date: baseDate)
+        cell.toDoData = toDoData[indexPath.row]
         
         cell.layer.borderColor = colorHelper.backgroundColor.cgColor
         cell.layer.borderWidth = 5
@@ -125,8 +128,8 @@ extension OneDayViewController: UITableViewDataSource {
             target.layer.shadowColor = UIColor.black.cgColor
             target.layer.shadowOpacity = 0.7
         }
-        let targetTodo = (toDoManager?.getToDoListFromCoreData()[target.tag])!
-        var todoStatus = toDoManager!.getToDoListFromCoreData()[target.tag].done
+        let targetTodo = (toDoManager.getCertainDateToDo(date: baseDate)[target.tag])
+        var todoStatus = toDoManager.getCertainDateToDo(date: baseDate)[target.tag].done
 
         // 버튼 색 및 그림자 변화
         target.layer.shadowOpacity = 0
@@ -153,7 +156,7 @@ extension OneDayViewController: UITableViewDataSource {
         func deleteTodo() {
             todoStatus = true
             if todoStatus == true {
-                toDoManager!.deleteToDo(data: targetTodo) {
+                toDoManager.deleteToDo(data: targetTodo) {
                     self.tableView.reloadData()
                 }
             }
@@ -169,9 +172,9 @@ extension OneDayViewController: UITableViewDelegate {
         print("\(indexPath)번째 셀이 선택됨")
         // 다음화면으로 이동
         let detailVC = DetailViewController()
-        let data = toDoManager?.getToDoListFromCoreData()
-        detailVC.toDoData = data?[indexPath.row]
-
+        let data = toDoManager.getToDoListFromCoreData()
+        detailVC.toDoData = data[indexPath.row]
+        print(Date())
         navigationController?.present(detailVC, animated: true)
     }
     

@@ -23,16 +23,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let tabBarVC = UITabBarController()
 
             
-            // 첫번째 화면은 네비게이션컨트롤러로 만들기 (기본루트뷰 설정)
-            let vc1 = UINavigationController(rootViewController: ViewController())
+            // 두번째 화면은 네비게이션컨트롤러로 만들기 (기본루트뷰 설정)
+            let vc1 = ViewController()
             let vc2 = UINavigationController(rootViewController: OneDayViewController())
-            
+            let vc3 = UINavigationController(rootViewController: MonthlyViewController())
             // 탭바 이름들 설정
 //            vc2.title = ""
             
             
             // 탭바로 사용하기 위한 뷰 컨트롤러들 설정 ( 탭바는 최대 5개까지 가능 )
-            tabBarVC.setViewControllers([vc1, vc2], animated: false)
+            tabBarVC.setViewControllers([vc1, vc2, vc3], animated: false)
             tabBarVC.tabBar.barTintColor = ColorHelper().backgroundColor
             tabBarVC.modalPresentationStyle = .fullScreen
             tabBarVC.tabBar.backgroundColor = ColorHelper().backgroundColor
@@ -54,6 +54,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let item2 = items[1]
             item2.image = UIImage(systemName: "circle")
             item2.selectedImage = UIImage(systemName: "circle.inset.filled")
+            
+            let item3 = items[2]
+            item3.image = UIImage(systemName: "circle")
+            item3.selectedImage = UIImage(systemName: "smallcircle.filled.circle")
             
             // 기본루트뷰를 탭바컨트롤러로 설정⭐️
             window?.rootViewController = tabBarVC

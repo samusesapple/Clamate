@@ -285,7 +285,6 @@ final class DetailView: UIView {
     
     // MARK: - initializer
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()

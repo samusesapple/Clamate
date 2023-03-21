@@ -16,6 +16,24 @@ final class MainView: UIView {
     var moistStatus: CGFloat = 0
     var dustStatus: CGFloat = 0
     
+    var dustResult: Item? {
+        didSet {
+            setUIwithData()
+        }
+    }
+    
+    func setUIwithData() {
+        let dustResult = dustResult
+        if dustResult != nil {
+            dustResultLabel.text = dustResult?.informGrade
+        } else {
+            print("dustResult == nil")
+        }
+        
+    }
+    
+    // MARK: - configure UI
+    
     lazy var greetingLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .clear
@@ -34,7 +52,7 @@ final class MainView: UIView {
         label.textAlignment = .right
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "영하 1도, 강수 30%"
+        label.text = "날짜 표시 안됨"
         return label
     }()
     
@@ -70,6 +88,7 @@ final class MainView: UIView {
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.7
         view.layer.shadowRadius = 2.5
+        view.addSubview(tempResultLabel)
         return view
     }()
     
@@ -83,6 +102,16 @@ final class MainView: UIView {
         return label
     }()
     
+    lazy var tempResultLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.textColor = colorHelper.fontColor
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.text = "적음"
+        return label
+    }()
+    
     lazy var dustView: UIView = {
        var view = UIView()
         view.backgroundColor = colorHelper.dustViewColor
@@ -92,6 +121,7 @@ final class MainView: UIView {
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.7
         view.layer.shadowRadius = 2.5
+        view.addSubview(dustResultLabel)
         return view
     }()
     
@@ -105,6 +135,16 @@ final class MainView: UIView {
         return label
     }()
     
+    lazy var dustResultLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.textColor = colorHelper.fontColor
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.text = "적음"
+        return label
+    }()
+    
     lazy var moistView: UIView = {
        var view = UIView()
         view.backgroundColor = colorHelper.moistViewColor
@@ -114,6 +154,7 @@ final class MainView: UIView {
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.7
         view.layer.shadowRadius = 2.5
+        view.addSubview(moistResultLabel)
         return view
     }()
     
@@ -127,6 +168,16 @@ final class MainView: UIView {
         return label
     }()
     
+    lazy var moistResultLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.textColor = colorHelper.fontColor
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.text = "적음"
+        return label
+    }()
+    
     // MARK: - stackVeiw
     var customSpacingAnchor: CGFloat = 45
     
@@ -136,7 +187,6 @@ final class MainView: UIView {
         stView.spacing = customSpacingAnchor
         stView.axis = .vertical
         stView.alignment = .fill
-        stView.translatesAutoresizingMaskIntoConstraints = false
         return stView
     }()
     
@@ -180,6 +230,7 @@ final class MainView: UIView {
     
     // MARK: - set Autolayout
     func labelAutolayout() {
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
         labelStack.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
         labelStack.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         labelStack.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
@@ -248,6 +299,26 @@ final class MainView: UIView {
         tempView.heightAnchor.constraint(equalToConstant: 60 + tempStatus).isActive = true
         dustView.heightAnchor.constraint(equalToConstant: 60 + dustStatus).isActive = true
         moistView.heightAnchor.constraint(equalToConstant: 60 + moistStatus).isActive = true
+        
+        tempResultLabel.translatesAutoresizingMaskIntoConstraints = false
+        dustResultLabel.translatesAutoresizingMaskIntoConstraints = false
+        moistResultLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        tempResultLabel.leadingAnchor.constraint(equalTo: tempView.leadingAnchor).isActive = true
+        tempResultLabel.trailingAnchor.constraint(equalTo: tempView.trailingAnchor).isActive = true
+        tempResultLabel.centerXAnchor.constraint(equalTo: tempView.centerXAnchor).isActive = true
+        tempResultLabel.bottomAnchor.constraint(equalTo: tempView.bottomAnchor).isActive = true
+        
+        dustResultLabel.leadingAnchor.constraint(equalTo: dustView.leadingAnchor).isActive = true
+        dustResultLabel.trailingAnchor.constraint(equalTo: dustView.trailingAnchor).isActive = true
+        dustResultLabel.centerXAnchor.constraint(equalTo: dustView.centerXAnchor).isActive = true
+        dustResultLabel.bottomAnchor.constraint(equalTo: dustView.bottomAnchor).isActive = true
+
+        moistResultLabel.leadingAnchor.constraint(equalTo: moistView.leadingAnchor).isActive = true
+        moistResultLabel.trailingAnchor.constraint(equalTo: moistView.trailingAnchor).isActive = true
+        moistResultLabel.centerXAnchor.constraint(equalTo: moistView.centerXAnchor).isActive = true
+        moistResultLabel.bottomAnchor.constraint(equalTo: moistView.bottomAnchor).isActive = true
+
 
     }
     

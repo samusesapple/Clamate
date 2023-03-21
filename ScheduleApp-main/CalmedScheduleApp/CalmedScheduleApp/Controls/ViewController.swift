@@ -8,12 +8,13 @@
 import UIKit
 
 final class ViewController: UIViewController, UITabBarDelegate {
-    let colorHelper = ColorHelper()
-    var mainView = MainView()
+    private let colorHelper = ColorHelper()
+    private var mainView = MainView()
     // 모델(저장 데이터를 관리하는 코어데이터)
-    let toDoManager = CoreDataManager.shared
+    private let toDoManager = CoreDataManager.shared
+    private let dustManager = DustManager.shared
     
-    var shortDateString: String? {
+    private var shortDateString: String? {
         let myFormatter = DateFormatter()
         myFormatter.dateFormat = "yyyy-MM-dd (EEE)"
         let date = Date()
@@ -25,34 +26,25 @@ final class ViewController: UIViewController, UITabBarDelegate {
         view = mainView
         
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUIwithData()
+        setUpData()
+        
     }
     
-
     
     // MARK: - set UI with Data
-    func setUIwithData() {
+    func setUpData() {
         mainView.dateLabel.text = shortDateString
-    }
-    
-    
-    
-    // MARK: - addTarget
-    
-    @objc func firstButtonTapped() {
-        print("first button tapped")
-    }
-    @objc func secondButtonTapped() {
-        print("second button tapped")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("viewDidDisappear 호출됨")
+        
+        dustManager.getTodayDust {
+            DispatchQueue.main.async {
+                self.mainView.dustResult = self.dustManager.dustResult
+                self.loadViewIfNeeded()
+            }
+        }
         
     }
 }

@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F106F72529C4476E007BCF0B /* WeatherDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72429C4476E007BCF0B /* WeatherDataManager.swift */; };
+		F106F72529C4476E007BCF0B /* DustDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72429C4476E007BCF0B /* DustDataManager.swift */; };
 		F106F72729C47EEA007BCF0B /* MonthlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72629C47EEA007BCF0B /* MonthlyView.swift */; };
 		F106F72929C47EFE007BCF0B /* MonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72829C47EFE007BCF0B /* MonthlyViewController.swift */; };
+		F106F72D29C98BFB007BCF0B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72C29C98BFB007BCF0B /* NetworkManager.swift */; };
 		F1198A9929B9DBB4009E23AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9829B9DBB4009E23AD /* AppDelegate.swift */; };
 		F1198A9B29B9DBB4009E23AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9A29B9DBB4009E23AD /* SceneDelegate.swift */; };
 		F1198A9D29B9DBB4009E23AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9C29B9DBB4009E23AD /* ViewController.swift */; };
@@ -28,12 +29,14 @@
 		F1198AE829C08B42009E23AD /* TodoData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198AE429C08B42009E23AD /* TodoData+CoreDataClass.swift */; };
 		F1198AE929C08B42009E23AD /* TodoData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198AE529C08B42009E23AD /* TodoData+CoreDataProperties.swift */; };
 		F1198AEB29C1C6E5009E23AD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */; };
+		F131848B29C99E4D00C7F4D3 /* DustData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848A29C99E4D00C7F4D3 /* DustData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F106F72429C4476E007BCF0B /* WeatherDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataManager.swift; sourceTree = "<group>"; };
+		F106F72429C4476E007BCF0B /* DustDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DustDataManager.swift; sourceTree = "<group>"; };
 		F106F72629C47EEA007BCF0B /* MonthlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyView.swift; sourceTree = "<group>"; };
 		F106F72829C47EFE007BCF0B /* MonthlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyViewController.swift; sourceTree = "<group>"; };
+		F106F72C29C98BFB007BCF0B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F1198A9529B9DBB4009E23AD /* CalmedScheduleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalmedScheduleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1198A9829B9DBB4009E23AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1198A9A29B9DBB4009E23AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +57,7 @@
 		F1198AE429C08B42009E23AD /* TodoData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F1198AE529C08B42009E23AD /* TodoData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		F131848A29C99E4D00C7F4D3 /* DustData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DustData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F106F72B29C98BE7007BCF0B /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				F106F72C29C98BFB007BCF0B /* NetworkManager.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		F1198A8C29B9DBB4009E23AD = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +103,7 @@
 				F1198A9829B9DBB4009E23AD /* AppDelegate.swift */,
 				F1198A9A29B9DBB4009E23AD /* SceneDelegate.swift */,
 				F1198AB429B9DCAD009E23AD /* Helpers */,
+				F106F72B29C98BE7007BCF0B /* Networking */,
 				F1198AB129B9DC75009E23AD /* Models */,
 				F1198AB029B9DC6A009E23AD /* Views */,
 				F1198AAF29B9DC61009E23AD /* Controls */,
@@ -131,7 +144,8 @@
 			isa = PBXGroup;
 			children = (
 				F1198ADE29BC8072009E23AD /* CoreDataManager.swift */,
-				F106F72429C4476E007BCF0B /* WeatherDataManager.swift */,
+				F131848A29C99E4D00C7F4D3 /* DustData.swift */,
+				F106F72429C4476E007BCF0B /* DustDataManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -224,14 +238,16 @@
 				F1198A9929B9DBB4009E23AD /* AppDelegate.swift in Sources */,
 				F1198ADF29BC8072009E23AD /* CoreDataManager.swift in Sources */,
 				F1198AD929BC63AC009E23AD /* AddViewController.swift in Sources */,
-				F106F72529C4476E007BCF0B /* WeatherDataManager.swift in Sources */,
+				F106F72529C4476E007BCF0B /* DustDataManager.swift in Sources */,
 				F1198AA329B9DBB4009E23AD /* CalmedScheduleApp.xcdatamodeld in Sources */,
 				F1198ABA29BADBB2009E23AD /* OneDayViewController.swift in Sources */,
 				F1198AB329B9DC96009E23AD /* MainView.swift in Sources */,
 				F1198AE829C08B42009E23AD /* TodoData+CoreDataClass.swift in Sources */,
 				F1198A9B29B9DBB4009E23AD /* SceneDelegate.swift in Sources */,
+				F131848B29C99E4D00C7F4D3 /* DustData.swift in Sources */,
 				F1198AB629B9DCBF009E23AD /* ColorHelper.swift in Sources */,
 				F1198ABD29BB0217009E23AD /* TodayTableViewCell.swift in Sources */,
+				F106F72D29C98BFB007BCF0B /* NetworkManager.swift in Sources */,
 				F106F72929C47EFE007BCF0B /* MonthlyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,7 +11,8 @@ final class AddViewController: UIViewController {
     private let colorHelper = ColorHelper()
     
     let addView = AddView()
-    weak var toDoManager = CoreDataManager.shared
+    var selectedDate = Date()
+    private var toDoManager = CoreDataManager.shared
     
     
     
@@ -24,12 +25,15 @@ final class AddViewController: UIViewController {
         setup()
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        setUI()
+    }
     
     func setup() {
         addView.titleTextField.delegate = self
         addView.detailTextView.delegate = self
-        addView.detailTextView.resignFirstResponder()
         
+        self.tabBarController?.tabBar.isHidden = true
         setActions()
     }
     
@@ -38,13 +42,23 @@ final class AddViewController: UIViewController {
         view.endEditing(true)
     }
     
+    // MARK: - set UI
+    func setUI() {
+        addView.datePicker.date = selectedDate
+    }
+    
+    
     // MARK: - set Actions
     func setActions() {
         addView.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         addView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         
         addView.titleTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
+        
+        addView.datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+        addView.timePicker.addTarget(self, action: #selector(timeChanged), for: .editingDidEnd)
     }
+    
     
     // MARK: - addTarget for buttons
     @objc func addButtonTapped() {
@@ -80,7 +94,7 @@ final class AddViewController: UIViewController {
         let success = UIAlertAction(title: "확인", style: .default) { action in
             print("'저장 확인'버튼이 눌렸습니다.")
             // 코어데이터 추가
-            self.toDoManager?.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {
+            self.toDoManager.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {
                 // 다시 전화면으로 돌아가기
                 self.navigationController?.popViewController(animated: true)
             })
@@ -100,10 +114,30 @@ final class AddViewController: UIViewController {
         addView.cancelButton.backgroundColor = .lightGray
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        print("add View 사라질 것")
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    // MARK: - addTarget for DatePicker & TimePicker
+    @objc func dateChanged() {
+        addView.datePicker.endEditing(true)
+        print("DatePicker 끝")
+        addView.timePicker.isSelected = true
+        print("timePicker 선택")
+    }
+    
+    @objc func timeChanged() {
+        addView.timePicker.endEditing(true)
+        print("TimePicker 끝")
+    }
+    
 }
 
 
+
 // MARK: - extension
+
 extension AddViewController: UITextViewDelegate {
     // 입력을 시작할때
     // (텍스트뷰는 플레이스홀더가 따로 있지 않아서, 플레이스 홀더처럼 동작하도록 직접 구현)
@@ -111,6 +145,8 @@ extension AddViewController: UITextViewDelegate {
         if textView.text == "(선택) 추가 내용을 입력해주세요." {
             textView.text = nil
             textView.textColor = ColorHelper().cancelBackgroundColor
+        } else {
+            textView.textColor = ColorHelper().fontColor
         }
     }
     
@@ -120,6 +156,8 @@ extension AddViewController: UITextViewDelegate {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = "(선택) 추가 내용을 입력해주세요."
             textView.textColor = ColorHelper().cancelBackgroundColor
+        } else {
+            textView.textColor = ColorHelper().fontColor
         }
     }
     
@@ -130,8 +168,8 @@ extension AddViewController: UITextViewDelegate {
                 return
             }
         }
+         textView.textColor = ColorHelper().fontColor
     }
-    
 }
 
 extension AddViewController: UITextFieldDelegate {
@@ -141,6 +179,13 @@ extension AddViewController: UITextFieldDelegate {
                 textField.text = ""
                 return
             }
+        } else {
+
         }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        addView.datePicker.becomeFirstResponder()
+        return true
     }
 }

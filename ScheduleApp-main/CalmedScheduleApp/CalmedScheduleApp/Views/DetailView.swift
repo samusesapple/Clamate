@@ -310,11 +310,11 @@ final class DetailView: UIView {
     
     
     // MARK: - set Autolayout()
-    let customLeadingAnchor: CGFloat = 25
-    let customTopAnchor: CGFloat = 18
-    let customHeightAnchor: CGFloat = 48
+    var customTopAnchor: CGFloat = 18
+    private let customLeadingAnchor: CGFloat = 25
+    private let customHeightAnchor: CGFloat = 48
     
-    func setAutolayout() {
+    private func setAutolayout() {
         mainLabelAutolayout()
         titleTFAutolayout()
         dateAutolayout()
@@ -323,16 +323,16 @@ final class DetailView: UIView {
         buttonAutolayout()
     }
     
-    func mainLabelAutolayout() {
+    private func mainLabelAutolayout() {
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        mainLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 13).isActive = true
+        mainLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: customTopAnchor).isActive = true
         mainLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
         
     }
     
-    func titleTFAutolayout() {
+    private func titleTFAutolayout() {
         titleStackView.translatesAutoresizingMaskIntoConstraints = false
-        titleStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 130).isActive = true
+        titleStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: customTopAnchor + 100).isActive = true
         titleStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
         titleStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         
@@ -348,7 +348,7 @@ final class DetailView: UIView {
         
     }
     
-    func dateAutolayout() {
+    private func dateAutolayout() {
         dateView.translatesAutoresizingMaskIntoConstraints = false
         dateView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
@@ -367,7 +367,7 @@ final class DetailView: UIView {
         dateStackView.heightAnchor.constraint(equalToConstant: customHeightAnchor).isActive = true
     }
     
-    func timeAutolayout() {
+    private func timeAutolayout() {
         timeView.translatesAutoresizingMaskIntoConstraints = false
         timeView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
@@ -387,7 +387,7 @@ final class DetailView: UIView {
         timeStackView.heightAnchor.constraint(equalToConstant: customHeightAnchor).isActive = true
     }
     
-    func buttonAutolayout() {
+    private func buttonAutolayout() {
         okLabel.translatesAutoresizingMaskIntoConstraints = false
         okLabel.centerXAnchor.constraint(equalTo: okButton.centerXAnchor, constant: 0).isActive = true
         okLabel.centerYAnchor.constraint(equalTo: okButton.centerYAnchor, constant: 0).isActive = true
@@ -406,7 +406,7 @@ final class DetailView: UIView {
         buttonStackView.bottomAnchor.constraint(equalTo: self.lastBaselineAnchor, constant: -100).isActive = true
     }
 
-    func detailAutolayout() {
+    private func detailAutolayout() {
         detailFieldView.translatesAutoresizingMaskIntoConstraints = false
         detailFieldView.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: customTopAnchor).isActive = true
         detailFieldView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true

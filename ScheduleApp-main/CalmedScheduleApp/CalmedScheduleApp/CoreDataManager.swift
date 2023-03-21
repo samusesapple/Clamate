@@ -84,6 +84,33 @@ final class CoreDataManager {
     }
     
     
+    // MARK: - [Read] 코어데이터에서 done == true 인 데이터 찾아서 불러오기
+    func getFinishedDateToDo(date: Date) -> [TodoData] {
+        var toDoList: [TodoData] = []
+        
+        if let context = context {
+            let request = NSFetchRequest<NSManagedObject>(entityName: self.modelName)
+            
+            let timeOrder = NSSortDescriptor(key: "todoTime", ascending: true)
+            request.sortDescriptors = [timeOrder]
+            
+            
+            do {
+                // 임시저장소에서 (요청서를 통해서) 데이터 가져오기 (fetch메서드)
+                if let fetchedToDoList = try context.fetch(request) as? [TodoData] {
+                    toDoList = fetchedToDoList
+                }
+            } catch {
+                print("가져오는 것 실패")
+            }
+        }
+        return toDoList.filter { data in
+            data.done == true
+        }
+        
+    }
+    
+    
     // MARK: - [Create] 코어데이터에 데이터 생성하기
     func saveToDoData(todoDate: Date?, todoTime: Date?, todoTitle: String?, todoDetail: String?, todoDone: Bool,  completion: @escaping () -> Void) {
         // 임시저장소 있는지 확인
@@ -143,7 +170,7 @@ final class CoreDataManager {
                     // 임시저장소에서 (요청서를 통해서) 데이터 삭제하기 (delete메서드)
                     if let targetToDo = fetchedToDoList.first {
                         context.delete(targetToDo)
-                        
+                        print("데이터 삭제됨")
                         //appDelegate?.saveContext() // 앱델리게이트의 메서드로 해도됨
                         if context.hasChanges {
                             do {
@@ -178,7 +205,7 @@ final class CoreDataManager {
             // 요청서
             let request = NSFetchRequest<NSManagedObject>(entityName: self.modelName)
             // 단서 / 찾기 위한 조건 설정
-            request.predicate = NSPredicate(format: "date = %@", date as CVarArg)
+            request.predicate = NSPredicate(format: "todoDate = %@", date as CVarArg)
             
             do {
                 // 요청서를 통해서 데이터 가져오기

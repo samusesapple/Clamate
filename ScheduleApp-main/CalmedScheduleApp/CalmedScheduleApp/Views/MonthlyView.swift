@@ -17,6 +17,7 @@ final class MonthlyView: UIView {
         cal.timeZone = .autoupdatingCurrent
         cal.calendar = Calendar(identifier: .gregorian)
         cal.availableDateRange = DateInterval(start: .now, end: .distantFuture)
+        cal.locale = .current
         return cal
     }()
     
@@ -67,7 +68,7 @@ final class MonthlyView: UIView {
         totalScheduleView.leadingAnchor.constraint(equalTo: calendarView.leadingAnchor).isActive = true
         totalScheduleView.trailingAnchor.constraint(equalTo: calendarView.trailingAnchor).isActive = true
         totalScheduleView.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: 20).isActive = true
-        totalScheduleView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -30).isActive = true
+        totalScheduleView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
     }
     
 

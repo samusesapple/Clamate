@@ -129,18 +129,17 @@ extension OneDayViewController: UITableViewDataSource {
             target.layer.shadowOpacity = 0.7
         }
         let targetTodo = (toDoManager.getCertainDateToDo(date: baseDate)[target.tag])
-        var todoStatus = toDoManager.getCertainDateToDo(date: baseDate)[target.tag].done
 
         // 버튼 색 및 그림자 변화
         target.layer.shadowOpacity = 0
         target.layer.shadowColor = .none
         target.backgroundColor = .gray
         // 얼럿창 생성
-        let alert = UIAlertController(title: "일정을 완료 하시겠습니까?", message: "완료 된 일정은 목록에서 삭제됩니다.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "일정을 완료 하시겠습니까?", message: "", preferredStyle: .actionSheet)
         // 얼럿창의 액션 선택지 생성
         let success = UIAlertAction(title: "예", style: .default) { action in
             print("'예'버튼이 눌렸습니다.")
-            deleteTodo()
+            finishTodo()
             unpressedButtonSetting()
         }
         let cancel = UIAlertAction(title: "아니오", style: .cancel) { action in
@@ -153,13 +152,12 @@ extension OneDayViewController: UITableViewDataSource {
         self.present(alert, animated: true, completion: nil)
         return
         
-        func deleteTodo() {
-            todoStatus = true
-            if todoStatus == true {
-                toDoManager.deleteToDo(data: targetTodo) {
-                    self.tableView.reloadData()
-                }
-            }
+        func finishTodo() {
+            toDoManager.updateToDo(newToDoData: targetTodo) {
+                targetTodo.done = !targetTodo.done
+                print("완료 상태 : \(targetTodo.done) ")
+                self.tableView.reloadData()
+            } 
         }
     }
 }

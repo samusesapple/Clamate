@@ -18,6 +18,8 @@ final class MonthlyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNaviBar()
+//        setCalendar()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,18 +49,6 @@ final class MonthlyViewController: UIViewController {
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshTapped))
         navigationItem.leftBarButtonItem = refresh
     }
-
-    
-    @objc func addTapped() {
-        print("add Button Tapped")
-        navigationController?.pushViewController(AddViewController(), animated: true)
-    }
-    
-    @objc func refreshTapped() {
-        print("refresh Button Tapped")
-        
-    }
-    
     
     func setCalendar() {
         monthlyView.setConstriaints()
@@ -67,27 +57,47 @@ final class MonthlyViewController: UIViewController {
         monthlyView.calendarView.selectionBehavior = selection
     }
     
+    // MARK: - @objc func
+    @objc func addTapped() {
+        print("add Button Tapped")
+        let selection = UICalendarSelectionSingleDate(delegate: self)
+        let addVC = AddViewController()
+        if selection.selectedDate?.date != nil {
+            addVC.selectedDate = selection.selectedDate!.date!
+            print("선택된 날짜로 지정된 + view ")
+            navigationController?.pushViewController(addVC, animated: true)
+            self.navigationController?.hidesBottomBarWhenPushed = true
+        } else {
+            navigationController?.pushViewController(addVC, animated: true)
+            self.navigationController?.hidesBottomBarWhenPushed = true
+            print("기본 + view")
+        }
+    }
+    
+    @objc func refreshTapped() {
+        print("refresh Tapped")
+    }
+    
 }
 // MARK: - Extension
 extension MonthlyViewController: UICalendarViewDelegate {
     func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
-
+        
         guard let date = NSCalendar.current.date(from: dateComponents) else {
             print("날짜 바인딩 도중 에러 발생")
             return nil
         }
         if toDoManager.getCertainDateToDo(date: date).isEmpty != true  {
-        return UICalendarView.Decoration.default(color: colorHelper.cancelBackgroundColor, size: .large)
-    }
-
-    return nil
+            return UICalendarView.Decoration.default(color: colorHelper.cancelBackgroundColor, size: .large)
+        }
+        
+        return nil
     }
 }
-                                    
-                                    
+
 extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
+    
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        
         guard let date = NSCalendar.current.date(from: dateComponents!) else {
             print("날짜 바인딩 도중 에러 발생")
             print(dateComponents!)
@@ -102,18 +112,25 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
         }
         else {
             // 일정 없음 얼럿 생성
-            let failureAlert = UIAlertController(title: "빈 일정", message: "해당 날짜에는 일정이 없습니다.", preferredStyle: .alert)
+            let failureAlert = UIAlertController(title: "빈 일정", message: "해당 날짜의 일정이 없습니다.", preferredStyle: .alert)
             
-            let failure = UIAlertAction(title: "돌아가기", style: .cancel) { action in
-                print("저장 실패")
+            let add = UIAlertAction(title: "추가하기", style: .default) { action in
+                print("추가하기")
+                let addVC = AddViewController()
+                addVC.selectedDate = dateComponents!.date!
+                self.navigationController?.pushViewController(addVC, animated: true)
+            }
+            
+            let failure = UIAlertAction(title: "취소", style: .cancel) { action in
+                print("돌아가기")
             }
             failureAlert.addAction(failure)
+            failureAlert.addAction(add)
             // 일정 없음 얼럿 띄우기
             self.present(failureAlert, animated: true, completion: nil)
             
             return
         }
-        
     }
     
 }

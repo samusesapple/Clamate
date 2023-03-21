@@ -8,9 +8,9 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
-    let detailView = DetailView()
-    let colorHelper = ColorHelper()
-    let todoManager = CoreDataManager.shared
+    private let detailView = DetailView()
+    private let colorHelper = ColorHelper()
+    private let todoManager = CoreDataManager.shared
     var toDoData: TodoData? {
         didSet {
             configureUIwithData()
@@ -29,7 +29,7 @@ final class DetailViewController: UIViewController {
     }
     
     // MARK: - configure UI with Data
-    func configureUIwithData() {
+    private func configureUIwithData() {
         detailView.titleTextField.text = toDoData?.todoTitle
         detailView.dateSelectlabel.text = toDoData?.longDateString
         detailView.timeSelectlabel.text = toDoData?.timeString
@@ -40,20 +40,19 @@ final class DetailViewController: UIViewController {
         }
     }
     
-    
     // MARK: - set Actions
-    func setActions() {
+    private func setActions() {
         detailView.okButton.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
         detailView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
     }
     
-    @objc func okButtonTapped() {
+    @objc private func okButtonTapped() {
         print("detailVC - ok button")
         detailView.okButton.backgroundColor = .lightGray
         self.dismiss(animated: true)
     }
     
-    @objc func editButtonTapped() {
+    @objc private func editButtonTapped() {
         print("detailVC - edit button")
         detailView.editButton.backgroundColor = .lightGray
         func setOriginalButtonColor() { self.detailView.editButton.backgroundColor = self.colorHelper.cancelBackgroundColor }

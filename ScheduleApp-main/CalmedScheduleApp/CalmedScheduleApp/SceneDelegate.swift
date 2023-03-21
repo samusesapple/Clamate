@@ -44,20 +44,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             tabBarVC.tabBar.layer.shadowRadius = 2.5
             tabBarVC.tabBar.unselectedItemTintColor = ColorHelper().buttonColor
             tabBarVC.tabBar.tintColor = ColorHelper().cancelBackgroundColor
+//            tabBarVC.hidesBottomBarWhenPushed = true
             
             // 탭바 이미지 설정 (이미지는 애플이 제공하는 것으로 사용)
             guard let items = tabBarVC.tabBar.items else { return }
             let item1 = items[0]
             item1.image = UIImage(systemName: "circle")
-            item1.selectedImage = UIImage(systemName: "circle.fill")
+            item1.selectedImage = UIImage(systemName: "circle.circle.fill")
     
             let item2 = items[1]
             item2.image = UIImage(systemName: "circle")
-            item2.selectedImage = UIImage(systemName: "circle.inset.filled")
+            item2.selectedImage = UIImage(systemName: "circle.circle.fill")
             
             let item3 = items[2]
             item3.image = UIImage(systemName: "circle")
-            item3.selectedImage = UIImage(systemName: "smallcircle.filled.circle")
+            item3.selectedImage = UIImage(systemName: "circle.circle.fill")
             
             // 기본루트뷰를 탭바컨트롤러로 설정⭐️
             window?.rootViewController = tabBarVC

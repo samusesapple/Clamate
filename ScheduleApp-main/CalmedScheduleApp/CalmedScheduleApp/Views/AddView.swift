@@ -48,8 +48,11 @@ final class AddView: UIView {
         tf.autocorrectionType = .no
         tf.spellCheckingType = .no
         tf.clearButtonMode = .whileEditing
+        tf.enablesReturnKeyAutomatically = true
         tf.becomeFirstResponder()
         tf.clearsOnBeginEditing = false
+        tf.returnKeyType = .next
+        tf.next?.resignFirstResponder()
         tf.attributedPlaceholder = NSAttributedString(string: "일정의 제목을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : ColorHelper().cancelBackgroundColor])
         return tf
     }()
@@ -207,11 +210,12 @@ final class AddView: UIView {
         tv.font = UIFont(descriptor: .preferredFontDescriptor(withTextStyle: .title3), size: 17)
         tv.textAlignment = .left
         tv.backgroundColor = .clear
-        tv.textColor = colorHelper.fontColor
+        tv.textColor = colorHelper.cancelBackgroundColor
         tv.tintColor = colorHelper.fontColor
         tv.autocapitalizationType = .none
         tv.autocorrectionType = .no
         tv.spellCheckingType = .no
+        tv.text = "(선택) 추가 내용을 입력해주세요."
         tv.clearsOnInsertion = true
         
         return tv
@@ -302,11 +306,11 @@ final class AddView: UIView {
     
     
     // MARK: - set Autolayout()
-    let customLeadingAnchor: CGFloat = 25
-    let customTopAnchor: CGFloat = 18
-    let customHeightAnchor: CGFloat = 48
+    var customTopAnchor: CGFloat = 18
+    private let customLeadingAnchor: CGFloat = 25
+    private let customHeightAnchor: CGFloat = 48
     
-    func setAutolayout() {
+    private func setAutolayout() {
         titleTFAutolayout()
         dateAutolayout()
         timeAutolayout()
@@ -314,9 +318,9 @@ final class AddView: UIView {
         buttonAutolayout()
     }
     
-    func titleTFAutolayout() {
+    private func titleTFAutolayout() {
         titleStackView.translatesAutoresizingMaskIntoConstraints = false
-        titleStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        titleStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: customTopAnchor).isActive = true
         titleStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
         titleStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         
@@ -332,7 +336,7 @@ final class AddView: UIView {
         
     }
     
-    func dateAutolayout() {
+    private func dateAutolayout() {
         dateView.translatesAutoresizingMaskIntoConstraints = false
         dateView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
@@ -341,7 +345,7 @@ final class AddView: UIView {
         dateLabel.centerYAnchor.constraint(equalTo: dateView.centerYAnchor, constant: -1).isActive = true
         
         dateStackView.translatesAutoresizingMaskIntoConstraints = false
-        dateStackView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: customTopAnchor).isActive = true
+        dateStackView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 18).isActive = true
         dateStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
         dateStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         dateStackView.heightAnchor.constraint(equalToConstant: customHeightAnchor).isActive = true
@@ -353,7 +357,7 @@ final class AddView: UIView {
         datePicker.widthAnchor.constraint(equalToConstant: 210).isActive = true
     }
     
-    func timeAutolayout() {
+    private func timeAutolayout() {
         timeView.translatesAutoresizingMaskIntoConstraints = false
         timeView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
@@ -374,7 +378,7 @@ final class AddView: UIView {
         timePicker.widthAnchor.constraint(equalToConstant: 210).isActive = true
     }
     
-    func buttonAutolayout() {
+    private func buttonAutolayout() {
         addLabel.translatesAutoresizingMaskIntoConstraints = false
         addLabel.centerXAnchor.constraint(equalTo: addButton.centerXAnchor, constant: 0).isActive = true
         addLabel.centerYAnchor.constraint(equalTo: addButton.centerYAnchor, constant: 0).isActive = true
@@ -393,7 +397,7 @@ final class AddView: UIView {
         buttonStackView.bottomAnchor.constraint(equalTo: self.lastBaselineAnchor, constant: -100).isActive = true
     }
     
-    func detailAutolayout() {
+    private func detailAutolayout() {
         detailFieldView.translatesAutoresizingMaskIntoConstraints = false
         detailFieldView.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: customTopAnchor).isActive = true
         detailFieldView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true

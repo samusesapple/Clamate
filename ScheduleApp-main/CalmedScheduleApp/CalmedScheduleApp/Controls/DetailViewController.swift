@@ -58,11 +58,12 @@ final class DetailViewController: UIViewController {
         func setOriginalButtonColor() { self.detailView.editButton.backgroundColor = self.colorHelper.cancelBackgroundColor }
         // 얼럿창 생성
         let alert = UIAlertController(title: "일정 수정", message: "일정을 수정 하시겠습니까?", preferredStyle: .alert)
-        // 얼럿창에 들어갈 액션 선택지 생성
+        // 예 선택
         let success = UIAlertAction(title: "예", style: .default) { action in
             print("'예'버튼이 눌렸습니다.")
             setOriginalButtonColor()
         }
+        
         let cancel = UIAlertAction(title: "아니오", style: .cancel) { action in
             print("'아니오'버튼이 눌렸습니다.")
             setOriginalButtonColor()

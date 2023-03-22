@@ -29,14 +29,28 @@ final class ViewController: UIViewController, UITabBarDelegate {
     
     
     override func viewDidLoad() {
+        setUpWeatherData()
         super.viewDidLoad()
-        setUpData()
-        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setUpTodaySchedule()
+    }
     
     // MARK: - set UI with Data
-    func setUpData() {
+    func setUpTodaySchedule() {
+        let firstTodo = toDoManager.getNotFinishedDateToDo(date: Date()).first
+        if firstTodo != nil {
+            mainView.scheduleLabel.textColor = colorHelper.fontColor
+            mainView.scheduleLabel.text = firstTodo?.todoTitle
+        } else {
+            mainView.scheduleLabel.textColor = colorHelper.cancelBackgroundColor
+            mainView.scheduleLabel.text = "오늘의 일정을 모두 끝냈습니다."
+        }
+
+    }
+    
+    func setUpWeatherData() {
         mainView.dateLabel.text = shortDateString
         
         dustManager.getTodayDust {
@@ -45,6 +59,8 @@ final class ViewController: UIViewController, UITabBarDelegate {
                 self.loadViewIfNeeded()
             }
         }
-        
     }
+    
+    
 }
+

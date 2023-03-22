@@ -17,13 +17,10 @@ final class TodayTableViewCell: UITableViewCell {
         }
     }
     
-    var todoStatus: Bool = false
-    
     // 데이터를 가지고 적절한 UI 표시하기
     func configureUIwithData() {
         todoMainLabel.text = toDoData?.todoTitle
         timeLabel.text = toDoData?.timeString
-        toDoData?.done = todoStatus
     }
 
     // MARK: - UI 구현
@@ -55,6 +52,7 @@ final class TodayTableViewCell: UITableViewCell {
         view.backgroundColor = colorHelper.buttonColor
         view.addSubview(timeLabel)
         view.addSubview(todoMainLabel)
+        view.addSubview(doneButton)
         return view
     }()
     
@@ -69,7 +67,7 @@ final class TodayTableViewCell: UITableViewCell {
         button.layer.cornerRadius = 5
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        button.layer.shadowOpacity = 0.7
+        button.layer.shadowOpacity = 0.3
         button.layer.shadowRadius = 2.5
         return button
     }()
@@ -92,9 +90,7 @@ final class TodayTableViewCell: UITableViewCell {
         contentView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
         contentView.layer.shadowOpacity = 1.0
         contentView.layer.shadowRadius = 1.5
-        contentView.backgroundColor = colorHelper.buttonColor
         contentView.addSubview(labelView)
-        contentView.addSubview(doneButton)
         
         labelViewAutolayout()
         timeLabelAutolayout()
@@ -114,29 +110,30 @@ final class TodayTableViewCell: UITableViewCell {
     
     func labelViewAutolayout() {
         labelView.translatesAutoresizingMaskIntoConstraints = false
-        labelView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
-        labelView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: customLeadingAnchor).isActive = true
-        labelView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -customLeadingAnchor).isActive = true
-        labelView.heightAnchor.constraint(equalToConstant: 49).isActive = true
+        labelView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
+        labelView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 3).isActive = true
+        labelView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -3).isActive = true
+        labelView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
     }
     
     func timeLabelAutolayout() {
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        timeLabel.topAnchor.constraint(equalTo: labelView.topAnchor, constant: 0).isActive = true
-        timeLabel.leadingAnchor.constraint(equalTo: labelView.leadingAnchor, constant: 0).isActive = true
+        timeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        timeLabel.leadingAnchor.constraint(equalTo: labelView.leadingAnchor, constant: customLeadingAnchor).isActive = true
         timeLabel.heightAnchor.constraint(equalToConstant: 19).isActive = true
     }
     
     func mainLabelAutolayout() {
         todoMainLabel.translatesAutoresizingMaskIntoConstraints = false
         todoMainLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: customSpacing).isActive = true
-        todoMainLabel.leadingAnchor.constraint(equalTo: labelView.leadingAnchor, constant: 0).isActive = true
+        todoMainLabel.leadingAnchor.constraint(equalTo: timeLabel.leadingAnchor).isActive = true
+        todoMainLabel.trailingAnchor.constraint(equalTo: labelView.trailingAnchor).isActive = true
     }
     
     func buttonAutolayout() {
         doneButton.translatesAutoresizingMaskIntoConstraints = false
-        doneButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        doneButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        doneButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15).isActive = true
+        doneButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15).isActive = true
         doneButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         doneButton.widthAnchor.constraint(equalToConstant: 57).isActive = true
     }

@@ -18,11 +18,11 @@ final class MainView: UIView {
     
     var dustResult: Item? {
         didSet {
-            setUIwithData()
+            setUIwithAPIData()
         }
     }
     
-    func setUIwithData() {
+    func setUIwithAPIData() {
         let dustResult = dustResult
         if dustResult != nil {
             dustResultLabel.text = dustResult?.informGrade
@@ -31,7 +31,6 @@ final class MainView: UIView {
         }
         
     }
-    
     // MARK: - configure UI
     
     lazy var greetingLabel: UILabel = {
@@ -62,11 +61,22 @@ final class MainView: UIView {
         view.frame.size = CGSize(width: 300, height: 160)
         view.layer.cornerRadius = 5
   
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        view.layer.shadowOpacity = 0.7
-        view.layer.shadowRadius = 2.5
+//        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+//        view.layer.shadowOpacity = 0.7
+//        view.layer.shadowRadius = 2.5
+        view.addSubview(scheduleLabel)
         return view
+    }()
+    
+    lazy var scheduleLabel: UILabel = {
+        var label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .left
+        label.textColor = colorHelper.fontColor
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.text = "일정이 없습니다."
+        return label
     }()
     
     lazy var weatherLabel: UILabel = {
@@ -232,7 +242,7 @@ final class MainView: UIView {
     func labelAutolayout() {
         labelStack.translatesAutoresizingMaskIntoConstraints = false
         labelStack.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
-        labelStack.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        labelStack.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
         labelStack.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
     }
     
@@ -241,7 +251,11 @@ final class MainView: UIView {
         scheduleView.leadingAnchor.constraint(equalTo: labelStack.leadingAnchor).isActive = true
         scheduleView.trailingAnchor.constraint(equalTo: labelStack.trailingAnchor).isActive = true
         scheduleView.topAnchor.constraint(equalTo: labelStack.bottomAnchor, constant: 8).isActive = true
-        scheduleView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        scheduleView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        scheduleLabel.translatesAutoresizingMaskIntoConstraints = false
+        scheduleLabel.centerXAnchor.constraint(equalTo: scheduleView.centerXAnchor).isActive = true
+        scheduleLabel.centerYAnchor.constraint(equalTo: scheduleView.centerYAnchor).isActive = true
     }
     
     func weatherAutolayout() {

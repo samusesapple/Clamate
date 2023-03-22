@@ -106,6 +106,36 @@ final class CoreDataManager {
         }
         return toDoList.filter { data in
             data.done == true
+        }.filter { data in
+            certainDateString(date: data.todoDate) == certainDateString(date: date)
+        }
+        
+    }
+    
+    // MARK: - [Read] 코어데이터에서 done == false 인 데이터 찾아서 불러오기
+    func getNotFinishedDateToDo(date: Date) -> [TodoData] {
+        var toDoList: [TodoData] = []
+        
+        if let context = context {
+            let request = NSFetchRequest<NSManagedObject>(entityName: self.modelName)
+            
+            let timeOrder = NSSortDescriptor(key: "todoTime", ascending: true)
+            request.sortDescriptors = [timeOrder]
+            
+            
+            do {
+                // 임시저장소에서 (요청서를 통해서) 데이터 가져오기 (fetch메서드)
+                if let fetchedToDoList = try context.fetch(request) as? [TodoData] {
+                    toDoList = fetchedToDoList
+                }
+            } catch {
+                print("가져오는 것 실패")
+            }
+        }
+        return toDoList.filter { data in
+            data.done == false
+        }.filter { data in
+            certainDateString(date: data.todoDate) == certainDateString(date: date)
         }
         
     }

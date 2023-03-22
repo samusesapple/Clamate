@@ -18,15 +18,16 @@ final class MonthlyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNaviBar()
-//        setCalendar()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setCalendar()
     }
 
-
+    override func viewDidAppear(_ animated: Bool) {
+        print("calendar 나타남")
+    }
+    
     // MARK: - set NaviBar
     func setupNaviBar() {
         // 네비게이션바 설정
@@ -75,6 +76,7 @@ final class MonthlyViewController: UIViewController {
     }
     
     @objc func refreshTapped() {
+
         print("refresh Tapped")
     }
     
@@ -87,10 +89,11 @@ extension MonthlyViewController: UICalendarViewDelegate {
             print("날짜 바인딩 도중 에러 발생")
             return nil
         }
-        if toDoManager.getCertainDateToDo(date: date).isEmpty != true  {
+        
+        if toDoManager.getNotFinishedDateToDo(date: date).isEmpty != true  {
             return UICalendarView.Decoration.default(color: colorHelper.cancelBackgroundColor, size: .large)
         }
-        
+
         return nil
     }
 }
@@ -108,11 +111,10 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
             let oneDayVC = OneDayViewController()
             oneDayVC.baseDate = date
             present(oneDayVC, animated: true)
-            
         }
         else {
             // 일정 없음 얼럿 생성
-            let failureAlert = UIAlertController(title: "빈 일정", message: "해당 날짜의 일정이 없습니다.", preferredStyle: .alert)
+            let failureAlert = UIAlertController(title: "빈 일정", message: "해당 날짜의 일정이 없습니다.", preferredStyle: .actionSheet)
             
             let add = UIAlertAction(title: "추가하기", style: .default) { action in
                 print("추가하기")

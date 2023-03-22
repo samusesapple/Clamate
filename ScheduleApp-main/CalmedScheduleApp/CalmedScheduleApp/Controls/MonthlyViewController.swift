@@ -114,22 +114,23 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
         }
         else {
             // 일정 없음 얼럿 생성
-            let failureAlert = UIAlertController(title: "빈 일정", message: "해당 날짜의 일정이 없습니다.", preferredStyle: .actionSheet)
+            let emptySchedule = UIAlertController(title: "빈 일정", message: "해당 날짜의 일정이 없습니다.", preferredStyle: .actionSheet)
             
             let add = UIAlertAction(title: "추가하기", style: .default) { action in
                 print("추가하기")
                 let addVC = AddViewController()
-                addVC.selectedDate = dateComponents!.date!
+                addVC.selectedDate = dateComponents!.date
+                
                 self.navigationController?.pushViewController(addVC, animated: true)
             }
             
-            let failure = UIAlertAction(title: "취소", style: .cancel) { action in
+            let cancel = UIAlertAction(title: "취소", style: .cancel) { action in
                 print("돌아가기")
             }
-            failureAlert.addAction(failure)
-            failureAlert.addAction(add)
+            emptySchedule.addAction(cancel)
+            emptySchedule.addAction(add)
             // 일정 없음 얼럿 띄우기
-            self.present(failureAlert, animated: true, completion: nil)
+            self.present(emptySchedule, animated: true, completion: nil)
             
             return
         }

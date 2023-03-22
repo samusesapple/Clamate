@@ -94,35 +94,32 @@ final class AddView: UIView {
         return label
     }()
     
-    lazy var dateSelectView: UIView = {
-        let view = UIView()
-        view.backgroundColor = colorHelper.buttonColor
-        view.layer.cornerRadius = 5
-        view.frame.size.height = customHeightAnchor
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 2.5
-        view.addSubview(datePicker)
-        return view
+    lazy var dateSelectButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.text = "날짜를 선택해주세요."
+        button.backgroundColor = colorHelper.buttonColor
+        button.layer.cornerRadius = 5
+        button.frame.size.height = customHeightAnchor
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowRadius = 2.5
+        button.addSubview(dateSelectlabel)
+        return button
     }()
     
-    lazy var datePicker: UIDatePicker = {
-       let dp = UIDatePicker()
-        dp.datePickerMode = .date
-        dp.minimumDate = .now
-        dp.timeZone = .current
-        dp.preferredDatePickerStyle = .compact
-        dp.backgroundColor = .clear
-        dp.locale = Locale(identifier: "ko_KR")
-        dp.tintColor = colorHelper.fontColor
-        dp.contentHorizontalAlignment = .left
-        dp.date = .now
-        return dp
+    lazy var dateSelectlabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.text = "Date"
+        label.textColor = colorHelper.fontColor
+        label.font = .boldSystemFont(ofSize: 17)
+        return label
     }()
     
     lazy var dateStackView: UIStackView = {
-            let stView = UIStackView(arrangedSubviews: [dateView, dateSelectView])
+            let stView = UIStackView(arrangedSubviews: [dateView, dateSelectButton])
             stView.axis = .horizontal
             stView.spacing = 11
             stView.alignment = .fill
@@ -155,34 +152,32 @@ final class AddView: UIView {
         return label
     }()
     
-    lazy var timeSelectView: UIView = {
-        let view = UIView()
-        view.backgroundColor = colorHelper.buttonColor
-        view.layer.cornerRadius = 5
-        view.frame.size.height = customHeightAnchor
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 2.5
-        view.addSubview(timePicker)
-        return view
+    lazy var timeSelectButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.text = "시간을 선택해주세요."
+        button.backgroundColor = colorHelper.buttonColor
+        button.layer.cornerRadius = 5
+        button.frame.size.height = customHeightAnchor
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowRadius = 2.5
+        button.addSubview(timeSelectlabel)
+        return button
     }()
     
-    lazy var timePicker: UIDatePicker = {
-       let tp = UIDatePicker()
-        tp.datePickerMode = .time
-        tp.timeZone = .current
-        tp.preferredDatePickerStyle = .compact
-        tp.backgroundColor = .clear
-        tp.locale = Locale(identifier: "ko_KR")
-        tp.tintColor = colorHelper.fontColor
-        tp.contentHorizontalAlignment = .left
-        tp.timeZone = .current
-        return tp
+    lazy var timeSelectlabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.text = "Time"
+        label.textColor = colorHelper.fontColor
+        label.font = .boldSystemFont(ofSize: 17)
+        return label
     }()
     
     lazy var timeStackView: UIStackView = {
-            let stView = UIStackView(arrangedSubviews: [timeView, timeSelectView])
+            let stView = UIStackView(arrangedSubviews: [timeView, timeSelectButton])
             stView.axis = .horizontal
             stView.spacing = 11
             stView.alignment = .fill
@@ -320,7 +315,7 @@ final class AddView: UIView {
     
     private func titleTFAutolayout() {
         titleStackView.translatesAutoresizingMaskIntoConstraints = false
-        titleStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: customTopAnchor).isActive = true
+        titleStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
         titleStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
         titleStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         
@@ -350,11 +345,9 @@ final class AddView: UIView {
         dateStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         dateStackView.heightAnchor.constraint(equalToConstant: customHeightAnchor).isActive = true
         
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.centerXAnchor.constraint(equalTo: dateSelectView.centerXAnchor, constant: 0).isActive = true
-        datePicker.centerYAnchor.constraint(equalTo: dateSelectView.centerYAnchor, constant: 0)
-        .isActive = true
-        datePicker.widthAnchor.constraint(equalToConstant: 210).isActive = true
+        dateSelectlabel.translatesAutoresizingMaskIntoConstraints = false
+        dateSelectlabel.centerXAnchor.constraint(equalTo: dateSelectButton.centerXAnchor).isActive = true
+        dateSelectlabel.centerYAnchor.constraint(equalTo: dateSelectButton.centerYAnchor).isActive = true
     }
     
     private func timeAutolayout() {
@@ -371,11 +364,11 @@ final class AddView: UIView {
         timeStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         timeStackView.heightAnchor.constraint(equalToConstant: customHeightAnchor).isActive = true
         
-        timePicker.translatesAutoresizingMaskIntoConstraints = false
-        timePicker.centerXAnchor.constraint(equalTo: timeSelectView.centerXAnchor, constant: 0).isActive = true
-        timePicker.centerYAnchor.constraint(equalTo: timeSelectView.centerYAnchor, constant: 0)
+        timeSelectlabel.translatesAutoresizingMaskIntoConstraints = false
+        timeSelectlabel.centerXAnchor.constraint(equalTo: timeSelectButton.centerXAnchor).isActive = true
+        timeSelectlabel.centerYAnchor.constraint(equalTo: timeSelectButton.centerYAnchor)
         .isActive = true
-        timePicker.widthAnchor.constraint(equalToConstant: 210).isActive = true
+        timeSelectlabel.widthAnchor.constraint(equalToConstant: 210).isActive = true
     }
     
     private func buttonAutolayout() {

@@ -33,7 +33,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appearance.configureWithTransparentBackground()
         tabBarVC.tabBar.standardAppearance = appearance
         if #available(iOS 15.0, *) {
-                // set tabbar opacity
             tabBarVC.tabBar.scrollEdgeAppearance = tabBarVC.tabBar.standardAppearance
         }
         

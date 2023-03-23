@@ -21,6 +21,7 @@ final class MonthlyViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
         setCalendar()
     }
 
@@ -29,7 +30,7 @@ final class MonthlyViewController: UIViewController {
     }
     
     // MARK: - set NaviBar
-    func setupNaviBar() {
+    private func setupNaviBar() {
         // 네비게이션바 설정
         self.navigationItem.title = "Monthly"
         let appearance = UINavigationBarAppearance()
@@ -46,20 +47,18 @@ final class MonthlyViewController: UIViewController {
         // Bar 버튼 추가
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem = add
-        
-        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshTapped))
-        navigationItem.leftBarButtonItem = refresh
     }
     
-    func setCalendar() {
+    private func setCalendar() {
         monthlyView.setConstriaints()
         monthlyView.calendarView.delegate = self
+        monthlyView.calendarView.visibleDateComponents = NSCalendar.current.dateComponents(in: .current, from: Date())
         let selection = UICalendarSelectionSingleDate(delegate: self)
         monthlyView.calendarView.selectionBehavior = selection
     }
     
     // MARK: - @objc func
-    @objc func addTapped() {
+    @objc private func addTapped() {
         print("add Button Tapped")
         let selection = UICalendarSelectionSingleDate(delegate: self)
         let addVC = AddViewController()
@@ -67,18 +66,12 @@ final class MonthlyViewController: UIViewController {
             addVC.selectedDate = selection.selectedDate!.date!
             print("선택된 날짜로 지정된 + view ")
             navigationController?.pushViewController(addVC, animated: true)
-            self.navigationController?.hidesBottomBarWhenPushed = true
         } else {
             navigationController?.pushViewController(addVC, animated: true)
-            self.navigationController?.hidesBottomBarWhenPushed = true
             print("기본 + view")
         }
     }
     
-    @objc func refreshTapped() {
-
-        print("refresh Tapped")
-    }
     
 }
 // MARK: - Extension
@@ -108,15 +101,37 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
         }
         
         if toDoManager.getCertainDateToDo(date: date).isEmpty != true {
-            let oneDayVC = OneDayViewController()
-            oneDayVC.baseDate = date
-            present(oneDayVC, animated: true)
+            let selectAlert = UIAlertController(title: "일정", message: "해당 날짜의 일정이 존재합니다.", preferredStyle: .actionSheet)
+            
+            let add = UIAlertAction(title: "일정 추가", style: .default) { action in
+                let addVC = AddViewController()
+                addVC.selectedDate = dateComponents!.date
+                self.navigationController?.pushViewController(addVC, animated: true)
+                print("일정 추가")
+            }
+            let check = UIAlertAction(title: "일정 확인", style: .default) { action in
+                print("일정 확인")
+                let oneDayVC = OneDayViewController()
+                oneDayVC.baseDate = date
+//                oneDayVC.navigationItem.title = "List"
+                self.navigationController?.pushViewController(oneDayVC, animated: true)
+            }
+            let cancel = UIAlertAction(title: "돌아가기", style: .cancel) { action in
+                print("일정확인 Cancel")
+            }
+            
+            selectAlert.addAction(check)
+            selectAlert.addAction(add)
+            selectAlert.addAction(cancel)
+            // 일정 없음 얼럿 띄우기
+            self.present(selectAlert, animated: true, completion: nil)
+            return
         }
         else {
             // 일정 없음 얼럿 생성
             let emptySchedule = UIAlertController(title: "빈 일정", message: "해당 날짜의 일정이 없습니다.", preferredStyle: .actionSheet)
             
-            let add = UIAlertAction(title: "추가하기", style: .default) { action in
+            let add = UIAlertAction(title: "일정 추가", style: .default) { action in
                 print("추가하기")
                 let addVC = AddViewController()
                 addVC.selectedDate = dateComponents!.date
@@ -124,8 +139,8 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
                 self.navigationController?.pushViewController(addVC, animated: true)
             }
             
-            let cancel = UIAlertAction(title: "취소", style: .cancel) { action in
-                print("돌아가기")
+            let cancel = UIAlertAction(title: "돌아가기", style: .cancel) { action in
+                print("Cancel")
             }
             emptySchedule.addAction(cancel)
             emptySchedule.addAction(add)

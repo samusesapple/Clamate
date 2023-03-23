@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class ColorHelper {
+public struct ColorHelper {
     var backgroundColor: UIColor = UIColor(named: "backgroundColor")!
     var fontColor: UIColor = UIColor(named: "fontColor")!
     var buttonColor: UIColor = UIColor(named: "buttonColor")!

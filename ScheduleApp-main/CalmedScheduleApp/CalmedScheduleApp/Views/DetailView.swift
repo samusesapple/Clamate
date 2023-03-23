@@ -11,12 +11,66 @@ final class DetailView: UIView {
 
     private let colorHelper = ColorHelper()
     
-    var todoArray: [TodoData] = []
-
+    var editStatus: Bool? {
+        didSet {
+            if editStatus == true {
+                editAllowed()
+            }
+        }
+    }
     
+    var toDoData: TodoData? {
+        didSet {
+            configureUIwithData()
+        }
+    }
+    
+    // MARK: - configure UI with Data
+    private func configureUIwithData() {
+        titleTextField.text = toDoData?.todoTitle
+        dateSelectLabel.text = toDoData?.longDateString
+        timeSelectLabel.text = toDoData?.timeString
+        detailTextView.text = toDoData?.todoDetailText
+        if detailTextView.text == "" || detailTextView.text == "(선택) 추가 내용을 입력해주세요." {
+            detailTextView.text = "작성된 추가 내용이 없습니다."
+            detailTextView.textColor = colorHelper.cancelBackgroundColor
+        }
+    }
+    
+    private func editAllowed() {
+        titleTextFieldView.layer.shadowColor = UIColor.black.cgColor
+        titleTextFieldView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        titleTextFieldView.layer.shadowOpacity = 0.5
+        titleTextFieldView.layer.shadowRadius = 2.5
+        
+        dateView.layer.shadowColor = UIColor.black.cgColor
+        dateView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        dateView.layer.shadowOpacity = 0.5
+        dateView.layer.shadowRadius = 2.5
+        
+        dateSelectButton.layer.shadowColor = UIColor.black.cgColor
+        dateSelectButton.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        dateSelectButton.layer.shadowOpacity = 0.5
+        dateSelectButton.layer.shadowRadius = 2.5
+        
+        timeView.layer.shadowColor = UIColor.black.cgColor
+        timeView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        timeView.layer.shadowOpacity = 0.5
+        timeView.layer.shadowRadius = 2.5
+        
+        timeSelectButton.layer.shadowColor = UIColor.black.cgColor
+        timeSelectButton.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        timeSelectButton.layer.shadowOpacity = 0.5
+        timeSelectButton.layer.shadowRadius = 2.5
+        
+        detailFieldView.layer.shadowColor = UIColor.black.cgColor
+        detailFieldView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        detailFieldView.layer.shadowOpacity = 0.5
+        detailFieldView.layer.shadowRadius = 2.5
+    }
     // MARK: - UI 생성
     
-    lazy var mainLabel: UILabel = {
+    private lazy var mainLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         label.textAlignment = .center
@@ -42,10 +96,10 @@ final class DetailView: UIView {
         view.backgroundColor = colorHelper.buttonColor
         view.layer.cornerRadius = 5
         view.frame.size.height = customHeightAnchor
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 2.5
+//        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+//        view.layer.shadowOpacity = 0.5
+//        view.layer.shadowRadius = 2.5
         view.addSubview(titleTextField)
         return view
     }()
@@ -88,9 +142,9 @@ final class DetailView: UIView {
         view.layer.cornerRadius = 5
         view.frame.size = CGSize(width: 100, height: 48)
         view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 2.5
+//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+//        view.layer.shadowOpacity = 0.5
+//        view.layer.shadowRadius = 2.5
         view.addSubview(dateLabel)
         return view
     }()
@@ -105,20 +159,20 @@ final class DetailView: UIView {
         return label
     }()
     
-    lazy var dateSelectView: UIView = {
-        let view = UIView()
-        view.backgroundColor = colorHelper.buttonColor
-        view.layer.cornerRadius = 5
-        view.frame.size.height = customHeightAnchor
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 2.5
-        view.addSubview(dateSelectlabel)
-        return view
+    lazy var dateSelectButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = colorHelper.buttonColor
+        button.layer.cornerRadius = 5
+        button.frame.size.height = customHeightAnchor
+//        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+//        view.layer.shadowOpacity = 0.5
+//        view.layer.shadowRadius = 2.5
+        button.addSubview(dateSelectLabel)
+        return button
     }()
 
-    lazy var dateSelectlabel: UILabel = {
+    lazy var dateSelectLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         label.textAlignment = .center
@@ -129,7 +183,7 @@ final class DetailView: UIView {
     }()
     
     lazy var dateStackView: UIStackView = {
-            let stView = UIStackView(arrangedSubviews: [dateView, dateSelectView])
+            let stView = UIStackView(arrangedSubviews: [dateView, dateSelectButton])
             stView.axis = .horizontal
             stView.spacing = 11
             stView.alignment = .fill
@@ -144,10 +198,10 @@ final class DetailView: UIView {
         view.backgroundColor = colorHelper.buttonColor
         view.layer.cornerRadius = 5
         view.frame.size = CGSize(width: 100, height: 48)
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 2.5
+//        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+//        view.layer.shadowOpacity = 0.5
+//        view.layer.shadowRadius = 2.5
         view.addSubview(timeLabel)
         return view
     }()
@@ -162,20 +216,20 @@ final class DetailView: UIView {
         return label
     }()
     
-    lazy var timeSelectView: UIView = {
-        let view = UIView()
-        view.backgroundColor = colorHelper.buttonColor
-        view.layer.cornerRadius = 5
-        view.frame.size.height = customHeightAnchor
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 2.5
-        view.addSubview(timeSelectlabel)
-        return view
+    lazy var timeSelectButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = colorHelper.buttonColor
+        button.layer.cornerRadius = 5
+        button.frame.size.height = customHeightAnchor
+//        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+//        view.layer.shadowOpacity = 0.5
+//        view.layer.shadowRadius = 2.5
+        button.addSubview(timeSelectLabel)
+        return button
     }()
     
-    lazy var timeSelectlabel: UILabel = {
+    lazy var timeSelectLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         label.textAlignment = .center
@@ -186,7 +240,7 @@ final class DetailView: UIView {
     }()
 
     lazy var timeStackView: UIStackView = {
-            let stView = UIStackView(arrangedSubviews: [timeView, timeSelectView])
+            let stView = UIStackView(arrangedSubviews: [timeView, timeSelectButton])
             stView.axis = .horizontal
             stView.spacing = 11
             stView.alignment = .fill
@@ -201,10 +255,10 @@ final class DetailView: UIView {
         let view = UIView()
         view.backgroundColor = colorHelper.buttonColor
         view.layer.cornerRadius = 5
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 2.5
+//        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+//        view.layer.shadowOpacity = 0.5
+//        view.layer.shadowRadius = 2.5
         view.addSubview(detailTextView)
         return view
     }()
@@ -296,7 +350,7 @@ final class DetailView: UIView {
 
     
     // MARK: - configureUI method
-    func configureUI() {
+    private func configureUI() {
         self.backgroundColor = colorHelper.backgroundColor
         addSubview(mainLabel)
         addSubview(titleStackView)
@@ -307,7 +361,6 @@ final class DetailView: UIView {
         
         setAutolayout()
     }
-    
     
     // MARK: - set Autolayout()
     var customTopAnchor: CGFloat = 18
@@ -356,9 +409,9 @@ final class DetailView: UIView {
         dateLabel.centerXAnchor.constraint(equalTo: dateView.centerXAnchor, constant: 1).isActive = true
         dateLabel.centerYAnchor.constraint(equalTo: dateView.centerYAnchor, constant: -1).isActive = true
         
-        dateSelectlabel.translatesAutoresizingMaskIntoConstraints = false
-        dateSelectlabel.centerXAnchor.constraint(equalTo: dateSelectView.centerXAnchor, constant: -10).isActive = true
-        dateSelectlabel.centerYAnchor.constraint(equalTo: dateSelectView.centerYAnchor).isActive = true
+        dateSelectLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateSelectLabel.centerXAnchor.constraint(equalTo: dateSelectButton.centerXAnchor, constant: -10).isActive = true
+        dateSelectLabel.centerYAnchor.constraint(equalTo: dateSelectButton.centerYAnchor).isActive = true
         
         dateStackView.translatesAutoresizingMaskIntoConstraints = false
         dateStackView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: customTopAnchor).isActive = true
@@ -375,9 +428,9 @@ final class DetailView: UIView {
         timeLabel.centerXAnchor.constraint(equalTo: timeView.centerXAnchor, constant: 1).isActive = true
         timeLabel.centerYAnchor.constraint(equalTo: timeView.centerYAnchor, constant: -1).isActive = true
         
-        timeSelectlabel.translatesAutoresizingMaskIntoConstraints = false
-        timeSelectlabel.centerXAnchor.constraint(equalTo: timeSelectView.centerXAnchor, constant: -10).isActive = true
-        timeSelectlabel.centerYAnchor.constraint(equalTo: timeSelectView.centerYAnchor).isActive = true
+        timeSelectLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeSelectLabel.centerXAnchor.constraint(equalTo: timeSelectButton.centerXAnchor, constant: -10).isActive = true
+        timeSelectLabel.centerYAnchor.constraint(equalTo: timeSelectButton.centerYAnchor).isActive = true
         
         
         timeStackView.translatesAutoresizingMaskIntoConstraints = false

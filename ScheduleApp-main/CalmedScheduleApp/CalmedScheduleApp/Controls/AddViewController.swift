@@ -16,8 +16,6 @@ final class AddViewController: UIViewController {
     private var selectedTime: Date?
     private var toDoManager = CoreDataManager.shared
     
-    
-    
     override func loadView() {
         view = addView
     }
@@ -28,10 +26,11 @@ final class AddViewController: UIViewController {
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        print("Add View 나타남")
         setUIwithDate()
     }
     
-    func setup() {
+    private func setup() {
         addView.titleTextField.delegate = self
         addView.detailTextView.delegate = self
         
@@ -46,22 +45,22 @@ final class AddViewController: UIViewController {
     }
     
     // MARK: - set UI
-    func setUI() {
-        addView.dateSelectlabel.textColor = colorHelper.cancelBackgroundColor
-        addView.dateSelectlabel.text = "날짜를 선택해주세요."
-        addView.timeSelectlabel.textColor = colorHelper.cancelBackgroundColor
-        addView.timeSelectlabel.text = "시간을 선택해주세요."
+    private func setUI() {
+        addView.dateSelectLabel.textColor = colorHelper.cancelBackgroundColor
+        addView.dateSelectLabel.text = "날짜를 선택해주세요."
+        addView.timeSelectLabel.textColor = colorHelper.cancelBackgroundColor
+        addView.timeSelectLabel.text = "시간을 선택해주세요."
     }
     
-    func setUIwithDate() {
+    private func setUIwithDate() {
         guard let selectedDate = selectedDate else { return }
-        addView.dateSelectlabel.textColor = colorHelper.fontColor
-        addView.dateSelectlabel.text = dateHelper.shortDateString(date: selectedDate)
+        addView.dateSelectLabel.textColor = colorHelper.fontColor
+        addView.dateSelectLabel.text = dateHelper.shortDateString(date: selectedDate)
     }
     
-    
+
     // MARK: - set Actions
-    func setActions() {
+    private func setActions() {
         addView.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         addView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         
@@ -71,9 +70,8 @@ final class AddViewController: UIViewController {
         addView.timeSelectButton.addTarget(self, action: #selector(timeSelectButtonTapped), for: .touchUpInside)
     }
     
-    
     // MARK: - addTarget for buttons
-    @objc func dateSelectButtonTapped() {
+    @objc private func dateSelectButtonTapped() {
         let alert = UIAlertController(title: "날짜 설정", message: "추가할 일정의 날짜를 선택해주세요.", preferredStyle: .actionSheet)
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
@@ -88,8 +86,8 @@ final class AddViewController: UIViewController {
                 let dateString = myFormatter.string(from: datePicker.date)
                 return dateString
             }
-            self.addView.dateSelectlabel.textColor = self.colorHelper.fontColor
-            self.addView.dateSelectlabel.text = dateString
+            self.addView.dateSelectLabel.textColor = self.colorHelper.fontColor
+            self.addView.dateSelectLabel.text = dateString
             self.selectedDate = datePicker.date
         }
         
@@ -103,7 +101,7 @@ final class AddViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    @objc func timeSelectButtonTapped() {
+    @objc private func timeSelectButtonTapped() {
         let alert = UIAlertController(title: "시간 설정", message: "설정할 시간을 선택해주세요.", preferredStyle: .actionSheet)
         let timePicker = UIDatePicker()
         
@@ -117,9 +115,9 @@ final class AddViewController: UIViewController {
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.locale = Locale(identifier: "ko_KR")
-        if self.addView.dateSelectlabel.text == todayDateString {
+        if self.addView.dateSelectLabel.text == todayDateString {
             timePicker.minimumDate = .now
-        } else if self.addView.dateSelectlabel.text == "날짜를 선택해주세요." {
+        } else if self.addView.dateSelectLabel.text == "날짜를 선택해주세요." {
             timePicker.minimumDate = .now
         }
         
@@ -130,8 +128,8 @@ final class AddViewController: UIViewController {
                 let dateString = myFormatter.string(from: timePicker.date)
                 return dateString
             }
-            self.addView.timeSelectlabel.textColor = self.colorHelper.fontColor
-            self.addView.timeSelectlabel.text = dateString
+            self.addView.timeSelectLabel.textColor = self.colorHelper.fontColor
+            self.addView.timeSelectLabel.text = dateString
             self.selectedTime = timePicker.date
         }
         
@@ -145,7 +143,7 @@ final class AddViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    @objc func addButtonTapped() {
+    @objc private func addButtonTapped() {
         // 버튼 색 및 그림자 변화
         addView.addButton.layer.shadowOpacity = 0
         addView.addButton.layer.shadowColor = .none
@@ -156,7 +154,7 @@ final class AddViewController: UIViewController {
         let todoDate = self.selectedDate
         let todoTime = self.selectedTime
         guard let text = titleText, !text.isEmpty && text != " ", todoDate != nil, todoTime != nil
-            else {
+        else {
             // 저장실패 얼럿 생성
             let failureAlert = UIAlertController(title: "추가 실패", message: "일정의 정보를 기입해주세요.", preferredStyle: .alert)
             
@@ -172,27 +170,15 @@ final class AddViewController: UIViewController {
             
             return
         }
-        
-        // 저장 완료 얼럿 생성
-        let successAlert = UIAlertController(title: "추가 완료", message: "일정이 추가 되었습니다.", preferredStyle: .alert)
-        
-        let success = UIAlertAction(title: "확인", style: .default) { action in
-            print("'저장 확인'버튼이 눌렸습니다.")
-            //             코어데이터 추가
-            self.toDoManager.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {
-                //                 다시 전화면으로 돌아가기
-                self.navigationController?.popViewController(animated: true)
-            })
-        }
-        successAlert.addAction(success)
-        // 저장 완료 얼럿 실행
-        self.present(successAlert, animated: true, completion: nil)
-        
-        
+        self.toDoManager.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {
+            print("저장 완료")
+            self.navigationController?.popViewController(animated: true)
+        })
     }
-    
-    
-    @objc func cancelButtonTapped() {
+        
+                                          
+
+    @objc private func cancelButtonTapped() {
         self.navigationController?.popViewController(animated: true)
         addView.cancelButton.layer.shadowOpacity = 0
         addView.cancelButton.layer.shadowColor = .none
@@ -206,6 +192,23 @@ final class AddViewController: UIViewController {
     
 }
 // MARK: - extension
+
+extension AddViewController: UITextFieldDelegate {
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if textField.text?.count == 1 {        // 첫글자가 공백인지 확인
+            if textField.text?.first == " " {
+                textField.text = ""
+                return
+            }
+        } else {
+
+        }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
 
 extension AddViewController: UITextViewDelegate {
     // 입력을 시작할때
@@ -241,19 +244,4 @@ extension AddViewController: UITextViewDelegate {
     }
 }
 
-extension AddViewController: UITextFieldDelegate {
-    @objc func textFieldEditingChanged(_ textField: UITextField) {
-        if textField.text?.count == 1 {        // 첫글자가 공백인지 확인
-            if textField.text?.first == " " {
-                textField.text = ""
-                return
-            }
-        } else {
 
-        }
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}

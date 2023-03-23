@@ -25,11 +25,12 @@ final class OneDayViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         print("뷰 나타날 것")
         tableView.reloadData()
+        tabBarController?.tabBar.isHidden = false
     }
     
     
     // MARK: - set NaviBar
-    func setupNaviBar() {
+    private func setupNaviBar() {
         // 네비게이션바 설정
         self.navigationItem.title = "Today"
         let appearance = UINavigationBarAppearance()
@@ -51,7 +52,7 @@ final class OneDayViewController: UIViewController {
     
     
     // MARK: - set TableView()
-    func setupTableView() {
+    private func setupTableView() {
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -65,7 +66,7 @@ final class OneDayViewController: UIViewController {
     }
     
     // MARK: - TableView Autolayout
-    func setupTableViewConstraints() {
+    private func setupTableViewConstraints() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -77,14 +78,14 @@ final class OneDayViewController: UIViewController {
         ])
     }
     
-    @objc func addTapped() {
+    @objc private func addTapped() {
         print("add button tapped")
         navigationController?.pushViewController(AddViewController(), animated: true)
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
-        print("뷰 사라짐")
+        print("OneDayView 사라짐")
     }
     
     
@@ -176,7 +177,7 @@ extension OneDayViewController: UITableViewDataSource {
         // 얼럿창 생성
         let alert = UIAlertController(title: "일정을 완료 하시겠습니까?", message: "", preferredStyle: .actionSheet)
         if target.titleLabel?.text == "Undo" {
-            alert.title = "일정의 상태를 변경하시겠습니까?"
+            alert.title = "일정의 상태를 변경 하시겠습니까?"
             alert.message = "'예'를 선택하여 미완료 상태로 변경합니다."
         }
         // 얼럿창의 액션 선택지 생성
@@ -228,16 +229,20 @@ extension OneDayViewController: UITableViewDelegate {
         switch indexPath.section {
         case 0:
             let data = toDoManager.getNotFinishedDateToDo(date: baseDate)
-            detailVC.toDoData = data[indexPath.row]
+            detailVC.detailView.toDoData = data[indexPath.row]
             print(Date())
-            navigationController?.present(detailVC, animated: true)
+            navigationController?.navigationBar.isHidden = false
+            tabBarController?.tabBar.isHidden = true
+            navigationController?.pushViewController(detailVC, animated: true)
         case 1:
             let data = toDoManager.getFinishedDateToDo(date: baseDate)
-            detailVC.toDoData = data[indexPath.row]
+            detailVC.detailView.toDoData = data[indexPath.row]
             print(Date())
-            navigationController?.present(detailVC, animated: true)
+            navigationController?.navigationBar.isHidden = false
+            tabBarController?.tabBar.isHidden = true
+            navigationController?.pushViewController(detailVC, animated: true)
         default:
-            navigationController?.present(detailVC, animated: true)
+            navigationController?.pushViewController(detailVC, animated: true)
         }
     }
     
@@ -246,7 +251,7 @@ extension OneDayViewController: UITableViewDelegate {
         let deleteAction = UIContextualAction(style: .normal, title: "Delete", handler: { action, view, completionHandler in
             print("action performed")
             
-            let alert = UIAlertController(title: "일정을 삭제하시겠습니까?", message: "", preferredStyle: .alert)
+            let alert = UIAlertController(title: "일정을 삭제 하시겠습니까?", message: "", preferredStyle: .alert)
             
             // 삭제 실행
             let yes = UIAlertAction(title: "예", style: .default) { action in

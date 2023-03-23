@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class DateHelper {
+public struct DateHelper {
     
     var nowDateString: String? {
         let myFormatter = DateFormatter()

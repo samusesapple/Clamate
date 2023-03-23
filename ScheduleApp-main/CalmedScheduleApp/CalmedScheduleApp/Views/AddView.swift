@@ -28,7 +28,7 @@ final class AddView: UIView {
         let view = UIView()
         view.backgroundColor = colorHelper.buttonColor
         view.layer.cornerRadius = 5
-        view.frame.size.height = customHeightAnchor
+        view.frame.size.height = 48
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.5
@@ -61,7 +61,7 @@ final class AddView: UIView {
     lazy var titleStackView: UIStackView = {
         let stView = UIStackView(arrangedSubviews: [titleLabel, titleTextFieldView])
         stView.axis = .vertical
-        stView.frame.size.height = 21 + 7 + customHeightAnchor
+        stView.frame.size.height = 76
         stView.spacing = 7
         stView.alignment = .fill
         stView.distribution = .fill
@@ -99,16 +99,16 @@ final class AddView: UIView {
         button.titleLabel?.text = "날짜를 선택해주세요."
         button.backgroundColor = colorHelper.buttonColor
         button.layer.cornerRadius = 5
-        button.frame.size.height = customHeightAnchor
+        button.frame.size.height = 48
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         button.layer.shadowOpacity = 0.5
         button.layer.shadowRadius = 2.5
-        button.addSubview(dateSelectlabel)
+        button.addSubview(dateSelectLabel)
         return button
     }()
     
-    lazy var dateSelectlabel: UILabel = {
+    lazy var dateSelectLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         label.textAlignment = .center
@@ -157,16 +157,16 @@ final class AddView: UIView {
         button.titleLabel?.text = "시간을 선택해주세요."
         button.backgroundColor = colorHelper.buttonColor
         button.layer.cornerRadius = 5
-        button.frame.size.height = customHeightAnchor
+        button.frame.size.height = 48
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         button.layer.shadowOpacity = 0.5
         button.layer.shadowRadius = 2.5
-        button.addSubview(timeSelectlabel)
+        button.addSubview(timeSelectLabel)
         return button
     }()
     
-    lazy var timeSelectlabel: UILabel = {
+    lazy var timeSelectLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
         label.textAlignment = .center
@@ -276,7 +276,6 @@ final class AddView: UIView {
     
     // MARK: - initializer
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -288,7 +287,7 @@ final class AddView: UIView {
     
     
     // MARK: - configureUI method
-    func configureUI() {
+    private func configureUI() {
         self.backgroundColor = colorHelper.backgroundColor
         addSubview(titleStackView)
         addSubview(dateStackView)
@@ -345,9 +344,9 @@ final class AddView: UIView {
         dateStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         dateStackView.heightAnchor.constraint(equalToConstant: customHeightAnchor).isActive = true
         
-        dateSelectlabel.translatesAutoresizingMaskIntoConstraints = false
-        dateSelectlabel.centerXAnchor.constraint(equalTo: dateSelectButton.centerXAnchor).isActive = true
-        dateSelectlabel.centerYAnchor.constraint(equalTo: dateSelectButton.centerYAnchor).isActive = true
+        dateSelectLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateSelectLabel.centerXAnchor.constraint(equalTo: dateSelectButton.centerXAnchor).isActive = true
+        dateSelectLabel.centerYAnchor.constraint(equalTo: dateSelectButton.centerYAnchor).isActive = true
     }
     
     private func timeAutolayout() {
@@ -364,11 +363,11 @@ final class AddView: UIView {
         timeStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         timeStackView.heightAnchor.constraint(equalToConstant: customHeightAnchor).isActive = true
         
-        timeSelectlabel.translatesAutoresizingMaskIntoConstraints = false
-        timeSelectlabel.centerXAnchor.constraint(equalTo: timeSelectButton.centerXAnchor).isActive = true
-        timeSelectlabel.centerYAnchor.constraint(equalTo: timeSelectButton.centerYAnchor)
+        timeSelectLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeSelectLabel.centerXAnchor.constraint(equalTo: timeSelectButton.centerXAnchor).isActive = true
+        timeSelectLabel.centerYAnchor.constraint(equalTo: timeSelectButton.centerYAnchor)
         .isActive = true
-        timeSelectlabel.widthAnchor.constraint(equalToConstant: 210).isActive = true
+        timeSelectLabel.widthAnchor.constraint(equalToConstant: 210).isActive = true
     }
     
     private func buttonAutolayout() {

@@ -31,6 +31,10 @@
 		F1198AEB29C1C6E5009E23AD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */; };
 		F131848B29C99E4D00C7F4D3 /* DustData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848A29C99E4D00C7F4D3 /* DustData.swift */; };
 		F131848D29CB0DDF00C7F4D3 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848C29CB0DDF00C7F4D3 /* DateHelper.swift */; };
+		F131848F29CC010300C7F4D3 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848E29CC010300C7F4D3 /* StartView.swift */; };
+		F131849129CC01EA00C7F4D3 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131849029CC01EA00C7F4D3 /* StartViewController.swift */; };
+		F131849429CC13E900C7F4D3 /* UserData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131849229CC13E900C7F4D3 /* UserData+CoreDataClass.swift */; };
+		F131849529CC13E900C7F4D3 /* UserData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131849329CC13E900C7F4D3 /* UserData+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +64,10 @@
 		F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F131848A29C99E4D00C7F4D3 /* DustData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DustData.swift; sourceTree = "<group>"; };
 		F131848C29CB0DDF00C7F4D3 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		F131848E29CC010300C7F4D3 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		F131849029CC01EA00C7F4D3 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		F131849229CC13E900C7F4D3 /* UserData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F131849329CC13E900C7F4D3 /* UserData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +92,8 @@
 		F1198A8C29B9DBB4009E23AD = {
 			isa = PBXGroup;
 			children = (
+				F131849229CC13E900C7F4D3 /* UserData+CoreDataClass.swift */,
+				F131849329CC13E900C7F4D3 /* UserData+CoreDataProperties.swift */,
 				F1198AE429C08B42009E23AD /* TodoData+CoreDataClass.swift */,
 				F1198AE529C08B42009E23AD /* TodoData+CoreDataProperties.swift */,
 				F1198A9729B9DBB4009E23AD /* CalmedScheduleApp */,
@@ -120,6 +130,7 @@
 		F1198AAF29B9DC61009E23AD /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				F131849029CC01EA00C7F4D3 /* StartViewController.swift */,
 				F1198A9C29B9DBB4009E23AD /* ViewController.swift */,
 				F1198AB929BADBB2009E23AD /* OneDayViewController.swift */,
 				F1198AD829BC63AC009E23AD /* AddViewController.swift */,
@@ -133,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				F1198A9E29B9DBB4009E23AD /* Main.storyboard */,
+				F131848E29CC010300C7F4D3 /* StartView.swift */,
 				F1198AB229B9DC96009E23AD /* MainView.swift */,
 				F1198AD629BC37E9009E23AD /* AddView.swift */,
 				F1198ADC29BC6622009E23AD /* DetailView.swift */,
@@ -233,15 +245,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1198ADD29BC6622009E23AD /* DetailView.swift in Sources */,
+				F131848F29CC010300C7F4D3 /* StartView.swift in Sources */,
+				F131849129CC01EA00C7F4D3 /* StartViewController.swift in Sources */,
 				F1198AEB29C1C6E5009E23AD /* DetailViewController.swift in Sources */,
 				F1198A9D29B9DBB4009E23AD /* ViewController.swift in Sources */,
 				F1198AE929C08B42009E23AD /* TodoData+CoreDataProperties.swift in Sources */,
+				F131849529CC13E900C7F4D3 /* UserData+CoreDataProperties.swift in Sources */,
 				F106F72729C47EEA007BCF0B /* MonthlyView.swift in Sources */,
 				F1198AD729BC37E9009E23AD /* AddView.swift in Sources */,
 				F1198A9929B9DBB4009E23AD /* AppDelegate.swift in Sources */,
 				F1198ADF29BC8072009E23AD /* CoreDataManager.swift in Sources */,
 				F1198AD929BC63AC009E23AD /* AddViewController.swift in Sources */,
 				F106F72529C4476E007BCF0B /* DustDataManager.swift in Sources */,
+				F131849429CC13E900C7F4D3 /* UserData+CoreDataClass.swift in Sources */,
 				F1198AA329B9DBB4009E23AD /* CalmedScheduleApp.xcdatamodeld in Sources */,
 				F1198ABA29BADBB2009E23AD /* OneDayViewController.swift in Sources */,
 				F131848D29CB0DDF00C7F4D3 /* DateHelper.swift in Sources */,

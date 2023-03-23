@@ -22,15 +22,12 @@ final class MainView: UIView {
         }
     }
     
-    func setUIwithAPIData() {
-        let dustResult = dustResult
-        if dustResult != nil {
-            dustResultLabel.text = dustResult?.informGrade
-        } else {
-            print("dustResult == nil")
+    var userData: UserData? {
+        didSet {
+            setUserData()
         }
-        
     }
+    
     // MARK: - configure UI
     
     lazy var greetingLabel: UILabel = {
@@ -39,7 +36,7 @@ final class MainView: UIView {
         label.textAlignment = .left
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 28)
-        label.text = "현관님, \n오늘도 화이팅하세요!"
+        label.text = "유저 정보가 없습니다."
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 2
         return label
@@ -60,11 +57,6 @@ final class MainView: UIView {
         view.backgroundColor = colorHelper.buttonColor
         view.frame.size = CGSize(width: 300, height: 160)
         view.layer.cornerRadius = 5
-  
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-//        view.layer.shadowOpacity = 0.7
-//        view.layer.shadowRadius = 2.5
         view.addSubview(scheduleLabel)
         return view
     }()
@@ -226,7 +218,7 @@ final class MainView: UIView {
     
     
     // MARK: - configureUI method
-    func configureUI() {
+    private func configureUI() {
         self.backgroundColor = colorHelper.backgroundColor
         addSubview(labelStack)
         addSubview(scheduleView)
@@ -237,16 +229,28 @@ final class MainView: UIView {
         weatherAutolayout()
     }
     
+    private func setUserData() {
+        greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘도 화이팅하세요!"
+    }
+    
+    private func setUIwithAPIData() {
+        let dustResult = dustResult
+        if dustResult != nil {
+            dustResultLabel.text = dustResult?.informGrade
+        } else {
+            print("nil")
+        }
+    }
     
     // MARK: - set Autolayout
-    func labelAutolayout() {
+    private func labelAutolayout() {
         labelStack.translatesAutoresizingMaskIntoConstraints = false
         labelStack.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
-        labelStack.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        labelStack.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         labelStack.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
     }
     
-    func scheduleViewAutolayout() {
+    private func scheduleViewAutolayout() {
         scheduleView.translatesAutoresizingMaskIntoConstraints = false
         scheduleView.leadingAnchor.constraint(equalTo: labelStack.leadingAnchor).isActive = true
         scheduleView.trailingAnchor.constraint(equalTo: labelStack.trailingAnchor).isActive = true
@@ -258,7 +262,7 @@ final class MainView: UIView {
         scheduleLabel.centerYAnchor.constraint(equalTo: scheduleView.centerYAnchor).isActive = true
     }
     
-    func weatherAutolayout() {
+    private func weatherAutolayout() {
         weatherLabel.translatesAutoresizingMaskIntoConstraints = false
         weatherLabel.topAnchor.constraint(equalTo: scheduleView.bottomAnchor, constant: customSpacingAnchor).isActive = true
         weatherLabel.leadingAnchor.constraint(equalTo: scheduleView.leadingAnchor).isActive = true

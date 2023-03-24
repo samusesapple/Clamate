@@ -51,16 +51,16 @@ final class DetailViewController: UIViewController {
         datePicker.minimumDate = Date()
         datePicker.locale = Locale(identifier: "ko_KR")
         
-        let ok = UIAlertAction(title: "완료", style: .cancel) { action in
+        let ok = UIAlertAction(title: "완료", style: .cancel) {  [weak self] action in
             var dateString: String? {
                 let myFormatter = DateFormatter()
                 myFormatter.dateFormat = "yyyy-MM-dd (EEE)"
                 let dateString = myFormatter.string(from: datePicker.date)
                 return dateString
             }
-            self.detailView.dateSelectLabel.textColor = self.colorHelper.fontColor
-            self.detailView.dateSelectLabel.text = dateString
-            self.detailView.toDoData?.todoDate = datePicker.date
+            self?.detailView.dateSelectLabel.textColor = self?.colorHelper.fontColor
+            self?.detailView.dateSelectLabel.text = dateString
+            self?.detailView.toDoData?.todoDate = datePicker.date
         }
         
         alert.addAction(ok)
@@ -91,22 +91,22 @@ final class DetailViewController: UIViewController {
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.locale = Locale(identifier: "ko_KR")
-        if self.detailView.dateSelectLabel.text == todayDateString {
+        if detailView.dateSelectLabel.text == todayDateString {
             timePicker.minimumDate = .now
-        } else if self.detailView.dateSelectLabel.text == "날짜를 선택해주세요." {
+        } else if detailView.dateSelectLabel.text == "날짜를 선택해주세요." {
             timePicker.minimumDate = .now
         }
         
-        let ok = UIAlertAction(title: "완료", style: .cancel) { action in
+        let ok = UIAlertAction(title: "완료", style: .cancel) {  [weak self] action in
             var dateString: String? {
                 let myFormatter = DateFormatter()
                 myFormatter.dateFormat = "a hh:mm"
                 let dateString = myFormatter.string(from: timePicker.date)
                 return dateString
             }
-            self.detailView.timeSelectLabel.textColor = self.colorHelper.fontColor
-            self.detailView.timeSelectLabel.text = dateString
-            self.detailView.toDoData?.todoTime = timePicker.date
+            self?.detailView.timeSelectLabel.textColor = self?.colorHelper.fontColor
+            self?.detailView.timeSelectLabel.text = dateString
+            self?.detailView.toDoData?.todoTime = timePicker.date
         }
         
         alert.addAction(ok)
@@ -123,22 +123,22 @@ final class DetailViewController: UIViewController {
         detailView.okButton.backgroundColor = .lightGray
         if detailView.okLabel.text == "OK" {
             print("detailVC - ok button")
-            self.navigationController?.popViewController(animated: true)
+            navigationController?.popViewController(animated: true)
             return
         }
         if detailView.okLabel.text == "SAVE" {
             detailView.toDoData?.todoTitle = detailView.titleTextField.text
             detailView.toDoData?.todoDetailText = detailView.detailTextView.text
-            todoManager.updateToDo(newToDoData: detailView.toDoData!) {
+            todoManager.updateToDo(newToDoData: detailView.toDoData!) {  [weak self] in
                 print("detailVC - Todo Data Changed!")
-                self.navigationController?.popViewController(animated: true)
+                self?.navigationController?.popViewController(animated: true)
             }
         }
     }
     
     @objc private func editButtonTapped() {
         detailView.editButton.backgroundColor = .lightGray
-        func setOriginalButtonColor() { self.detailView.editButton.backgroundColor = self.colorHelper.cancelBackgroundColor }
+        func setOriginalButtonColor() { self.detailView.editButton.backgroundColor = colorHelper.cancelBackgroundColor }
         let alert = UIAlertController(title: "일정 편집", message: "일정을 편집 하시겠습니까?", preferredStyle: .alert)
         
         if detailView.editLabel.text == "EDIT" {
@@ -146,15 +146,15 @@ final class DetailViewController: UIViewController {
             // 얼럿창 생성
             //            let alert = UIAlertController(title: "일정 수정", message: "일정을 수정 하시겠습니까?", preferredStyle: .alert)
             // 예 선택
-            let success = UIAlertAction(title: "예", style: .default) { action in
+            let success = UIAlertAction(title: "예", style: .default) {  [weak self] action in
                 print("'예'버튼이 눌렸습니다.")
-                self.detailView.editStatus = true
-                self.detailView.okLabel.text = "SAVE"
-                self.detailView.editLabel.text = "CANCEL"
+                self?.detailView.editStatus = true
+                self?.detailView.okLabel.text = "SAVE"
+                self?.detailView.editLabel.text = "CANCEL"
                 setOriginalButtonColor()
             }
             
-            let cancel = UIAlertAction(title: "아니오", style: .cancel) { action in
+            let cancel = UIAlertAction(title: "아니오", style: .cancel) {  action in
                 print("'아니오'버튼이 눌렸습니다.")
                 setOriginalButtonColor()
             }

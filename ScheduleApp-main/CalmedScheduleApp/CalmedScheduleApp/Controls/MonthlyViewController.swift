@@ -103,18 +103,18 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
         if toDoManager.getCertainDateToDo(date: date).isEmpty != true {
             let selectAlert = UIAlertController(title: "일정", message: "해당 날짜의 일정이 존재합니다.", preferredStyle: .actionSheet)
             
-            let add = UIAlertAction(title: "일정 추가", style: .default) { action in
+            let add = UIAlertAction(title: "일정 추가", style: .default) {  [weak self] action in
                 let addVC = AddViewController()
                 addVC.selectedDate = dateComponents!.date
-                self.navigationController?.pushViewController(addVC, animated: true)
+                self?.navigationController?.pushViewController(addVC, animated: true)
                 print("일정 추가")
             }
-            let check = UIAlertAction(title: "일정 확인", style: .default) { action in
+            let check = UIAlertAction(title: "일정 확인", style: .default) {  [weak self] action in
                 print("일정 확인")
                 let oneDayVC = OneDayViewController()
                 oneDayVC.baseDate = date
 //                oneDayVC.navigationItem.title = "List"
-                self.navigationController?.pushViewController(oneDayVC, animated: true)
+                self?.navigationController?.pushViewController(oneDayVC, animated: true)
             }
             let cancel = UIAlertAction(title: "돌아가기", style: .cancel) { action in
                 print("일정확인 Cancel")
@@ -131,21 +131,21 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
             // 일정 없음 얼럿 생성
             let emptySchedule = UIAlertController(title: "빈 일정", message: "해당 날짜의 일정이 없습니다.", preferredStyle: .actionSheet)
             
-            let add = UIAlertAction(title: "일정 추가", style: .default) { action in
+            let add = UIAlertAction(title: "일정 추가", style: .default) {  [weak self] action in
                 print("추가하기")
                 let addVC = AddViewController()
                 addVC.selectedDate = dateComponents!.date
                 
-                self.navigationController?.pushViewController(addVC, animated: true)
+                self?.navigationController?.pushViewController(addVC, animated: true)
             }
             
-            let cancel = UIAlertAction(title: "돌아가기", style: .cancel) { action in
+            let cancel = UIAlertAction(title: "돌아가기", style: .cancel) {  action in
                 print("Cancel")
             }
             emptySchedule.addAction(cancel)
             emptySchedule.addAction(add)
             // 일정 없음 얼럿 띄우기
-            self.present(emptySchedule, animated: true, completion: nil)
+            present(emptySchedule, animated: true, completion: nil)
             
             return
         }

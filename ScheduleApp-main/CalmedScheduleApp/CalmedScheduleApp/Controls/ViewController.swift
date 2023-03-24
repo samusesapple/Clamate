@@ -78,9 +78,9 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
     
     private func setUpWeatherData() {
         dustManager.getTodayDust {
-            DispatchQueue.main.async {
-                self.mainView.dustResult = self.dustManager.dustResult
-                self.loadViewIfNeeded()
+            DispatchQueue.main.async { [weak self] in
+                self?.mainView.dustResult = self?.dustManager.dustResult
+                self?.loadViewIfNeeded()
             }
         }
     }

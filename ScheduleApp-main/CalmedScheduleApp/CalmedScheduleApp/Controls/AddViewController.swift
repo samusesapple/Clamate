@@ -11,7 +11,7 @@ final class AddViewController: UIViewController {
     private let colorHelper = ColorHelper()
     private let dateHelper = DateHelper()
     
-    let addView = AddView()
+    private let addView = AddView()
     var selectedDate: Date? 
     private var selectedTime: Date?
     private var toDoManager = CoreDataManager.shared
@@ -34,7 +34,7 @@ final class AddViewController: UIViewController {
         addView.titleTextField.delegate = self
         addView.detailTextView.delegate = self
         
-        self.tabBarController?.tabBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
         setActions()
         setUI()
     }
@@ -79,16 +79,16 @@ final class AddViewController: UIViewController {
         datePicker.minimumDate = Date()
         datePicker.locale = Locale(identifier: "ko_KR")
         
-        let ok = UIAlertAction(title: "완료", style: .cancel) { action in
+        let ok = UIAlertAction(title: "완료", style: .cancel) {  [weak self] action in
             var dateString: String? {
                 let myFormatter = DateFormatter()
                 myFormatter.dateFormat = "yyyy-MM-dd (EEE)"
                 let dateString = myFormatter.string(from: datePicker.date)
                 return dateString
             }
-            self.addView.dateSelectLabel.textColor = self.colorHelper.fontColor
-            self.addView.dateSelectLabel.text = dateString
-            self.selectedDate = datePicker.date
+            self?.addView.dateSelectLabel.textColor = self?.colorHelper.fontColor
+            self?.addView.dateSelectLabel.text = dateString
+            self?.selectedDate = datePicker.date
         }
         
         alert.addAction(ok)
@@ -115,22 +115,22 @@ final class AddViewController: UIViewController {
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.locale = Locale(identifier: "ko_KR")
-        if self.addView.dateSelectLabel.text == todayDateString {
+        if addView.dateSelectLabel.text == todayDateString {
             timePicker.minimumDate = .now
-        } else if self.addView.dateSelectLabel.text == "날짜를 선택해주세요." {
+        } else if addView.dateSelectLabel.text == "날짜를 선택해주세요." {
             timePicker.minimumDate = .now
         }
         
-        let ok = UIAlertAction(title: "완료", style: .cancel) { action in
+        let ok = UIAlertAction(title: "완료", style: .cancel) {  [weak self] action in
             var dateString: String? {
                 let myFormatter = DateFormatter()
                 myFormatter.dateFormat = "a hh:mm"
                 let dateString = myFormatter.string(from: timePicker.date)
                 return dateString
             }
-            self.addView.timeSelectLabel.textColor = self.colorHelper.fontColor
-            self.addView.timeSelectLabel.text = dateString
-            self.selectedTime = timePicker.date
+            self?.addView.timeSelectLabel.textColor = self?.colorHelper.fontColor
+            self?.addView.timeSelectLabel.text = dateString
+            self?.selectedTime = timePicker.date
         }
         
         alert.addAction(ok)
@@ -158,28 +158,28 @@ final class AddViewController: UIViewController {
             // 저장실패 얼럿 생성
             let failureAlert = UIAlertController(title: "추가 실패", message: "일정의 정보를 기입해주세요.", preferredStyle: .alert)
             
-            let failure = UIAlertAction(title: "돌아가기", style: .cancel) { action in
+            let failure = UIAlertAction(title: "돌아가기", style: .cancel) {  [weak self] action in
                 print("저장 실패")
-                self.addView.addButton.backgroundColor = self.colorHelper.yesButtonColor
-                self.addView.addButton.layer.shadowColor = UIColor.black.cgColor
-                self.addView.addButton.layer.shadowOpacity = 0.5
+                self?.addView.addButton.backgroundColor = self?.colorHelper.yesButtonColor
+                self?.addView.addButton.layer.shadowColor = UIColor.black.cgColor
+                self?.addView.addButton.layer.shadowOpacity = 0.5
             }
             failureAlert.addAction(failure)
             // 저장실패 얼럿 띄우기
-            self.present(failureAlert, animated: true, completion: nil)
+            present(failureAlert, animated: true, completion: nil)
             
             return
         }
-        self.toDoManager.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {
+        self.toDoManager.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {  [weak self] in
             print("저장 완료")
-            self.navigationController?.popViewController(animated: true)
+            self?.navigationController?.popViewController(animated: true)
         })
     }
         
                                           
 
     @objc private func cancelButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
         addView.cancelButton.layer.shadowOpacity = 0
         addView.cancelButton.layer.shadowColor = .none
         addView.cancelButton.backgroundColor = .lightGray
@@ -187,7 +187,7 @@ final class AddViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         print("add View 사라질 것")
-        self.tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.isHidden = false
     }
     
 }

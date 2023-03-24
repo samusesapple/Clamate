@@ -165,7 +165,7 @@ extension OneDayViewController: UITableViewDataSource {
     @objc func cellButtonPressed(_ target: UIButton) {
         print("\(target.tag)st done button pressed")
         func unpressedButtonSetting() {
-            target.backgroundColor = self.colorHelper.buttonColor
+            target.backgroundColor = colorHelper.buttonColor
             target.layer.shadowColor = UIColor.black.cgColor
             target.layer.shadowOpacity = 0.3
         }
@@ -200,17 +200,16 @@ extension OneDayViewController: UITableViewDataSource {
             if target.titleLabel?.text == "Done" {
                 let targetTodo = (toDoManager.getNotFinishedDateToDo(date: baseDate)[target.tag])
                 targetTodo.done = true
-                toDoManager.updateToDo(newToDoData: targetTodo) {
+                toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
                     print("true로 변경 : \(targetTodo.done) ")
-                    self.tableView.reloadData()
-                    
+                    self?.tableView.reloadData()
                 }
             } else {
                 let targetTodo = (toDoManager.getFinishedDateToDo(date: baseDate)[target.tag])
                 targetTodo.done = false
-                toDoManager.updateToDo(newToDoData: targetTodo) {
+                toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
                     print("false로 변경 : \(targetTodo.done) ")
-                    self.tableView.reloadData()
+                    self?.tableView.reloadData()
                 }
                 
             }

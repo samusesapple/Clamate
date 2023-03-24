@@ -12,7 +12,7 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
     private var mainView = MainView()
     // 모델(저장 데이터를 관리하는 코어데이터)
     private let coreDataManager = CoreDataManager.shared
-    private let dustManager = DustManager.shared
+    private let weatherDataManager = WeatherDataManager.shared
     
     override func loadView() {
         view = mainView
@@ -21,8 +21,6 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
     
     
     override func viewDidLoad() {
-//        setNaviBar()
-//        setUpWeatherData()
         super.viewDidLoad()
     }
     
@@ -31,25 +29,6 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
         setUpTodaySchedule()
     }
     
-    // MARK: - set NaviBar
-//    private func setNaviBar() {
-//        navigationController?.delegate = self
-//
-//        let appearance = UINavigationBarAppearance()
-//        appearance.configureWithOpaqueBackground()  // 불투명으로
-//        appearance.backgroundColor = colorHelper.backgroundColor
-//        appearance.titleTextAttributes = [.foregroundColor: colorHelper.fontColor]
-//        appearance.largeTitleTextAttributes = [.foregroundColor: colorHelper.fontColor]
-//
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationController?.navigationBar.tintColor = colorHelper.fontColor
-//        navigationController?.navigationBar.standardAppearance = appearance
-//        navigationController?.navigationBar.compactAppearance = appearance
-//
-//        // Bar 버튼 추가
-//        let add = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(addTapped))
-//        navigationItem.leftBarButtonItem = add
-//    }
     
     // MARK: - set UI with Data
     private func setUpUserData() {
@@ -57,11 +36,12 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
             mainView.userData = coreDataManager.getUserInfoFromCoreData()[0]
             tabBarController?.tabBar.isHidden = false
             navigationController?.navigationBar.isHidden = false
+            setUpWeatherData()
         } else {
             navigationController?.pushViewController(StartViewController(), animated: true)
             tabBarController?.tabBar.isHidden = true
             navigationController?.navigationBar.isHidden = true
-            }
+        }
     }
     
     private func setUpTodaySchedule() {
@@ -77,19 +57,26 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
     }
     
     private func setUpWeatherData() {
-        dustManager.getTodayDust {
+        weatherDataManager.getTodayTemp {
             DispatchQueue.main.async { [weak self] in
-                self?.mainView.dustResult = self?.dustManager.dustResult
+                let tempResult = self?.weatherDataManager.tempResult
+                self?.mainView.tempResult = round(tempResult! * 10) / 10
                 self?.loadViewIfNeeded()
             }
         }
+        weatherDataManager.getCityCoord {
+            DispatchQueue.main.async { [weak self] in
+                let lon = self?.weatherDataManager.lon
+                let lat = self?.weatherDataManager.lat
+                self?.weatherDataManager.getTodayDust(lat: lat, lon: lon) {
+                    DispatchQueue.main.async { [weak self] in
+                        self?.mainView.dustResult = self?.weatherDataManager.dustResult
+                        self?.loadViewIfNeeded()
+                    }
+                }
+                
+            }
+        }
+        
     }
-    
-    // MARK: - add Target
-    
-    @objc func addTapped() {
-        print("Tapped")
-    }
-    
 }
-

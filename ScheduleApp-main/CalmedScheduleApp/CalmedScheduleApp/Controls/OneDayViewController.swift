@@ -10,8 +10,8 @@ import UIKit
 final class OneDayViewController: UIViewController {
     
     private let colorHelper = ColorHelper()
-    lazy var tableView = UITableView()
-    lazy var toDoManager = CoreDataManager.shared
+    private var tableView = UITableView()
+    private var toDoManager = CoreDataManager.shared
     var baseDate: Date = Date()
     
     

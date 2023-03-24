@@ -12,13 +12,19 @@ final class MainView: UIView {
     
     private let colorHelper = ColorHelper()
     
-    var tempStatus: CGFloat = 0
-    var moistStatus: CGFloat = 0
-    var dustStatus: CGFloat = 0
+    var tempStatus: Int = 0
+    var moistStatus: Int = 0
+    var dustStatus: Int = 0
     
-    var dustResult: Item? {
+    var dustResult: Int? {
         didSet {
-            setUIwithAPIData()
+            setDustUIwithAPIData()
+        }
+    }
+    
+    var tempResult: Double? {
+        didSet {
+            setTempUIwithAPIData()
         }
     }
     
@@ -27,6 +33,7 @@ final class MainView: UIView {
             setUserData()
         }
     }
+    
     
     // MARK: - configure UI
     
@@ -53,7 +60,7 @@ final class MainView: UIView {
     }()
     
     lazy var scheduleView: UIView = {
-       var view = UIView()
+        var view = UIView()
         view.backgroundColor = colorHelper.buttonColor
         view.frame.size = CGSize(width: 300, height: 160)
         view.layer.cornerRadius = 5
@@ -82,10 +89,10 @@ final class MainView: UIView {
     }()
     
     lazy var tempView: UIView = {
-       var view = UIView()
+        var view = UIView()
         view.backgroundColor = colorHelper.tempViewColor
         view.layer.cornerRadius = 5
-
+        
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.7
@@ -115,10 +122,10 @@ final class MainView: UIView {
     }()
     
     lazy var dustView: UIView = {
-       var view = UIView()
+        var view = UIView()
         view.backgroundColor = colorHelper.dustViewColor
         view.layer.cornerRadius = 5
-
+        
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.7
@@ -148,10 +155,10 @@ final class MainView: UIView {
     }()
     
     lazy var moistView: UIView = {
-       var view = UIView()
+        var view = UIView()
         view.backgroundColor = colorHelper.moistViewColor
         view.layer.cornerRadius = 5
-
+        
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.7
@@ -233,14 +240,43 @@ final class MainView: UIView {
         greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘도 화이팅하세요!"
     }
     
-    private func setUIwithAPIData() {
-        let dustResult = dustResult
-        if dustResult != nil {
-            dustResultLabel.text = dustResult?.informGrade
-        } else {
-            print("nil")
+    private func setDustUIwithAPIData() {
+        if let dustResult = dustResult {
+            switch dustResult {
+            case 1: dustResultLabel.text = "좋음"
+                dustStatus = 0
+            case 2: dustResultLabel.text = "보통"
+                dustStatus = 30
+            case 3: dustResultLabel.text = "나쁨"
+                dustStatus = 60
+            case 4: dustResultLabel.text = "매우 나쁨"
+                dustStatus = 80
+            case 5: dustResultLabel.text = "외출 지양"
+                dustStatus = 100
+            default: dustResultLabel.text = "Loading"
+                dustStatus = 0
+            }
         }
     }
+    private func setTempUIwithAPIData() {
+        let tempResult = tempResult
+        if let tempResult = tempResult {
+            tempResultLabel.text = "\(String(tempResult))°C"
+            let intTemp = Int(tempResult)
+            switch intTemp {
+            case 1: tempStatus = 0
+            case 2: tempStatus = 20
+            case 3: tempStatus = 40
+            case 4: tempStatus = 60
+            case 5: tempStatus = 80
+            default: dustResultLabel.text = "Loading"
+                tempStatus = 0
+            }
+        } else {
+            tempResultLabel.text = "Loading"
+        }
+    }
+
     
     // MARK: - set Autolayout
     private func labelAutolayout() {
@@ -314,9 +350,9 @@ final class MainView: UIView {
         moistLabel.trailingAnchor.constraint(equalTo: moistView.trailingAnchor).isActive = true
         
         // 현재기온 + 미세먼지 + 강수량 높이
-        tempView.heightAnchor.constraint(equalToConstant: 60 + tempStatus).isActive = true
-        dustView.heightAnchor.constraint(equalToConstant: 60 + dustStatus).isActive = true
-        moistView.heightAnchor.constraint(equalToConstant: 60 + moistStatus).isActive = true
+        tempView.heightAnchor.constraint(equalToConstant: 60 + CGFloat(tempStatus)).isActive = true
+        dustView.heightAnchor.constraint(equalToConstant: 60 + CGFloat(dustStatus)).isActive = true
+        moistView.heightAnchor.constraint(equalToConstant: 60 + CGFloat(moistStatus)).isActive = true
         
         tempResultLabel.translatesAutoresizingMaskIntoConstraints = false
         dustResultLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -325,17 +361,17 @@ final class MainView: UIView {
         tempResultLabel.leadingAnchor.constraint(equalTo: tempView.leadingAnchor).isActive = true
         tempResultLabel.trailingAnchor.constraint(equalTo: tempView.trailingAnchor).isActive = true
         tempResultLabel.centerXAnchor.constraint(equalTo: tempView.centerXAnchor).isActive = true
-        tempResultLabel.bottomAnchor.constraint(equalTo: tempView.bottomAnchor).isActive = true
+        tempResultLabel.bottomAnchor.constraint(equalTo: tempView.bottomAnchor, constant: -3).isActive = true
         
         dustResultLabel.leadingAnchor.constraint(equalTo: dustView.leadingAnchor).isActive = true
         dustResultLabel.trailingAnchor.constraint(equalTo: dustView.trailingAnchor).isActive = true
         dustResultLabel.centerXAnchor.constraint(equalTo: dustView.centerXAnchor).isActive = true
-        dustResultLabel.bottomAnchor.constraint(equalTo: dustView.bottomAnchor).isActive = true
+        dustResultLabel.bottomAnchor.constraint(equalTo: dustView.bottomAnchor, constant: -3).isActive = true
 
         moistResultLabel.leadingAnchor.constraint(equalTo: moistView.leadingAnchor).isActive = true
         moistResultLabel.trailingAnchor.constraint(equalTo: moistView.trailingAnchor).isActive = true
         moistResultLabel.centerXAnchor.constraint(equalTo: moistView.centerXAnchor).isActive = true
-        moistResultLabel.bottomAnchor.constraint(equalTo: moistView.bottomAnchor).isActive = true
+        moistResultLabel.bottomAnchor.constraint(equalTo: moistView.bottomAnchor, constant: -3).isActive = true
 
 
     }

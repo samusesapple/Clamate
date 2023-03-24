@@ -2,7 +2,7 @@
 //  UserData+CoreDataProperties.swift
 //  CalmedScheduleApp
 //
-//  Created by Sam Sung on 2023/03/23.
+//  Created by Sam Sung on 2023/03/24.
 //
 //
 
@@ -16,8 +16,8 @@ extension UserData {
         return NSFetchRequest<UserData>(entityName: "UserData")
     }
 
-    @NSManaged public var userName: String?
     @NSManaged public var userCity: String?
+    @NSManaged public var userName: String?
 
 }
 

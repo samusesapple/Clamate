@@ -67,6 +67,7 @@ final class CoreDataManager {
                     //  UserData에 실제 데이터 할당
                     userData.userName = userName
                     userData.userCity = userCity
+                    
                     print("\(String(describing: userData.userName)), \(String(describing: userData.userCity))")
                     
                     appDelegate?.saveContext()

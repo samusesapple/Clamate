@@ -12,6 +12,8 @@ class StartViewController: UIViewController {
     private let startView = StartView()
     private let colorHelper = ColorHelper()
     private let userDataManager = CoreDataManager.shared
+    private let networkManager = NetworkManager.shared
+    private let weatherDataManager = WeatherDataManager.shared
     
     
     let pickerView = UIPickerView()
@@ -73,20 +75,23 @@ class StartViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             return
         }
-        let ok = UIAlertAction(title: "저장", style: .default) { action in
+        let ok = UIAlertAction(title: "저장", style: .default) { [weak self] action in
             print("유저 정보 저장")
-            self.startView.okButton.backgroundColor = self.colorHelper.yesButtonColor
-            self.startView.okButton.layer.shadowColor = UIColor.black.cgColor
-            self.startView.okButton.layer.shadowOpacity = 0.5
-            self.userDataManager.saveUserData(userName: userName, userCity: userCity) {
-                self.navigationController?.popViewController(animated: true)
+            self?.startView.okButton.backgroundColor = self?.colorHelper.yesButtonColor
+            self?.startView.okButton.layer.shadowColor = UIColor.black.cgColor
+            self?.startView.okButton.layer.shadowOpacity = 0.5
+            self?.userDataManager.saveUserData(userName: userName, userCity: userCity) { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+                print("유저 데이터 저장 완료")
             }
+
         }
-        let cancel = UIAlertAction(title: "취소", style: .cancel) { action in
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel) { [weak self] action in
             print("유저 정보 불충분")
-            self.startView.okButton.backgroundColor = self.colorHelper.yesButtonColor
-            self.startView.okButton.layer.shadowColor = UIColor.black.cgColor
-            self.startView.okButton.layer.shadowOpacity = 0.5
+            self?.startView.okButton.backgroundColor = self?.colorHelper.yesButtonColor
+            self?.startView.okButton.layer.shadowColor = UIColor.black.cgColor
+            self?.startView.okButton.layer.shadowOpacity = 0.5
         }
         alert.addAction(ok)
         alert.addAction(cancel)
@@ -114,8 +119,8 @@ extension StartViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let textFieldText = textField.text,
-            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
-                return false
+              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+            return false
         }
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
@@ -131,3 +136,4 @@ extension StartViewController: UITextFieldDelegate {
         //        startView.addSubview()
     }
 }
+

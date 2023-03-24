@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let vc1 = UINavigationController(rootViewController: ViewController())
         let vc2 = UINavigationController(rootViewController: OneDayViewController())
         let vc3 = UINavigationController(rootViewController: MonthlyViewController())
-        let vc4 = UINavigationController(rootViewController: DetailViewController())
+        _ = UINavigationController(rootViewController: DetailViewController())
 
         tabBarVC.setViewControllers([vc1, vc2, vc3], animated: false)
         

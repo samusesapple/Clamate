@@ -12,9 +12,11 @@ final class MainView: UIView {
     
     private let colorHelper = ColorHelper()
     
-    var tempStatus: Int = 0
-    var moistStatus: Int = 0
-    var dustStatus: Int = 0
+    var tempResult: Double? {
+        didSet {
+            setTempUIwithAPIData()
+        }
+    }
     
     var dustResult: Int? {
         didSet {
@@ -22,17 +24,18 @@ final class MainView: UIView {
         }
     }
     
-    var tempResult: Double? {
+    var moistResult: Int? {
         didSet {
-            setTempUIwithAPIData()
+
         }
     }
-    
+
     var userData: UserData? {
         didSet {
             setUserData()
         }
     }
+    
     
     
     // MARK: - configure UI
@@ -92,7 +95,6 @@ final class MainView: UIView {
         var view = UIView()
         view.backgroundColor = colorHelper.tempViewColor
         view.layer.cornerRadius = 5
-        
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         view.layer.shadowOpacity = 0.7
@@ -240,43 +242,57 @@ final class MainView: UIView {
         greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘도 화이팅하세요!"
     }
     
-    private func setDustUIwithAPIData() {
-        if let dustResult = dustResult {
-            switch dustResult {
-            case 1: dustResultLabel.text = "좋음"
-                dustStatus = 0
-            case 2: dustResultLabel.text = "보통"
-                dustStatus = 30
-            case 3: dustResultLabel.text = "나쁨"
-                dustStatus = 60
-            case 4: dustResultLabel.text = "매우 나쁨"
-                dustStatus = 80
-            case 5: dustResultLabel.text = "외출 지양"
-                dustStatus = 100
-            default: dustResultLabel.text = "Loading"
-                dustStatus = 0
-            }
-        }
-    }
     private func setTempUIwithAPIData() {
-        let tempResult = tempResult
         if let tempResult = tempResult {
             tempResultLabel.text = "\(String(tempResult))°C"
-            let intTemp = Int(tempResult)
-            switch intTemp {
-            case 1: tempStatus = 0
-            case 2: tempStatus = 20
-            case 3: tempStatus = 40
-            case 4: tempStatus = 60
-            case 5: tempStatus = 80
+            var tempStatus = 0
+            switch tempResult {
+            case _ where tempResult < 0: tempStatus = 0
+            case _ where  0 <= tempResult && tempResult < 11: tempStatus = Int(tempResult) + 30
+            case _ where  11 <= tempResult && tempResult < 18 : tempStatus = Int(tempResult) + 60
+            case _ where 18 <= tempResult && tempResult < 27 : tempStatus = Int(tempResult) + 90
+            case _ where 27 <= tempResult : tempStatus = Int(tempResult) + 120
             default: dustResultLabel.text = "Loading"
                 tempStatus = 0
+            }
+            DispatchQueue.main.async { [weak self] in
+                MainView.animate(withDuration: 0.5) {
+                    self?.tempView.heightConstraint?.constant = 60 + CGFloat(tempStatus)
+                    self?.tempView.layoutIfNeeded()
+                }
             }
         } else {
             tempResultLabel.text = "Loading"
         }
     }
-
+    
+    
+    private func setDustUIwithAPIData() {
+        var dustStatus = 0
+        if let dustResult = dustResult {
+            switch dustResult {
+            case 1: dustResultLabel.text = "좋음"
+                dustStatus = 0
+            case 2: dustResultLabel.text = "양호"
+                dustStatus = 40
+            case 3: dustResultLabel.text = "주의"
+                dustStatus = 80
+            case 4: dustResultLabel.text = "위험"
+                dustStatus = 120
+            case 5: dustResultLabel.text = "매우 위험"
+                dustStatus = 160
+            default: dustResultLabel.text = "Loading"
+                dustStatus = 0
+            }
+            DispatchQueue.main.async { [weak self] in
+                MainView.animate(withDuration: 0.5) {
+                    self?.dustView.heightConstraint?.constant = 60 + CGFloat(dustStatus)
+                    self?.dustView.layoutIfNeeded()
+                }
+            }
+        }
+    }
+    
     
     // MARK: - set Autolayout
     private func labelAutolayout() {
@@ -350,9 +366,12 @@ final class MainView: UIView {
         moistLabel.trailingAnchor.constraint(equalTo: moistView.trailingAnchor).isActive = true
         
         // 현재기온 + 미세먼지 + 강수량 높이
-        tempView.heightAnchor.constraint(equalToConstant: 60 + CGFloat(tempStatus)).isActive = true
-        dustView.heightAnchor.constraint(equalToConstant: 60 + CGFloat(dustStatus)).isActive = true
-        moistView.heightAnchor.constraint(equalToConstant: 60 + CGFloat(moistStatus)).isActive = true
+        
+        tempView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        dustView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        moistView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        
         
         tempResultLabel.translatesAutoresizingMaskIntoConstraints = false
         dustResultLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -367,15 +386,26 @@ final class MainView: UIView {
         dustResultLabel.trailingAnchor.constraint(equalTo: dustView.trailingAnchor).isActive = true
         dustResultLabel.centerXAnchor.constraint(equalTo: dustView.centerXAnchor).isActive = true
         dustResultLabel.bottomAnchor.constraint(equalTo: dustView.bottomAnchor, constant: -3).isActive = true
-
+        
         moistResultLabel.leadingAnchor.constraint(equalTo: moistView.leadingAnchor).isActive = true
         moistResultLabel.trailingAnchor.constraint(equalTo: moistView.trailingAnchor).isActive = true
         moistResultLabel.centerXAnchor.constraint(equalTo: moistView.centerXAnchor).isActive = true
         moistResultLabel.bottomAnchor.constraint(equalTo: moistView.bottomAnchor, constant: -3).isActive = true
-
-
+        
+        
     }
     
 }
 
+extension UIView {
+    
+    var heightConstraint: NSLayoutConstraint? {
+        get {
+            return constraints.first(where: {
+                $0.firstAttribute == .height && $0.relation == .equal
+            })
+        }
+        set { setNeedsLayout() }
+    }
+}
 

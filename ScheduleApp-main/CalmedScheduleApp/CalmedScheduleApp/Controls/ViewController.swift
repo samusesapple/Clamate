@@ -59,11 +59,11 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
     private func setUpWeatherData() {
         weatherDataManager.getTodayTemp {
             DispatchQueue.main.async { [weak self] in
-                let tempResult = self?.weatherDataManager.tempResult
-                self?.mainView.tempResult = round(tempResult! * 10) / 10
-                self?.loadViewIfNeeded()
+                guard let tempResult = self?.weatherDataManager.tempResult else { return }
+                self?.mainView.tempResult = round(tempResult * 10) / 10
             }
         }
+        
         weatherDataManager.getCityCoord {
             DispatchQueue.main.async { [weak self] in
                 let lon = self?.weatherDataManager.lon
@@ -71,12 +71,11 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
                 self?.weatherDataManager.getTodayDust(lat: lat, lon: lon) {
                     DispatchQueue.main.async { [weak self] in
                         self?.mainView.dustResult = self?.weatherDataManager.dustResult
-                        self?.loadViewIfNeeded()
                     }
                 }
-                
             }
         }
-        
     }
+    
+    
 }

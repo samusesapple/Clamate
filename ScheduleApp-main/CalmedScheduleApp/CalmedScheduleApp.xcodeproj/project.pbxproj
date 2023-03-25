@@ -34,6 +34,7 @@
 		F131849129CC01EA00C7F4D3 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131849029CC01EA00C7F4D3 /* StartViewController.swift */; };
 		F1DECA5629CDB74A001C758F /* UserData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DECA5429CDB74A001C758F /* UserData+CoreDataClass.swift */; };
 		F1DECA5729CDB74A001C758F /* UserData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DECA5529CDB74A001C758F /* UserData+CoreDataProperties.swift */; };
+		F1DECA5929CEF203001C758F /* CertainDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DECA5829CEF203001C758F /* CertainDayViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		F131849029CC01EA00C7F4D3 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		F1DECA5429CDB74A001C758F /* UserData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F1DECA5529CDB74A001C758F /* UserData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F1DECA5829CEF203001C758F /* CertainDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertainDayViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				F131849029CC01EA00C7F4D3 /* StartViewController.swift */,
 				F1198A9C29B9DBB4009E23AD /* ViewController.swift */,
 				F1198AB929BADBB2009E23AD /* OneDayViewController.swift */,
+				F1DECA5829CEF203001C758F /* CertainDayViewController.swift */,
 				F1198AD829BC63AC009E23AD /* AddViewController.swift */,
 				F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */,
 				F106F72829C47EFE007BCF0B /* MonthlyViewController.swift */,
@@ -154,8 +157,8 @@
 		F1198AB129B9DC75009E23AD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F1198ADE29BC8072009E23AD /* CoreDataManager.swift */,
 				F131848A29C99E4D00C7F4D3 /* NetworkingModel.swift */,
+				F1198ADE29BC8072009E23AD /* CoreDataManager.swift */,
 				F106F72429C4476E007BCF0B /* WeatherDataManager.swift */,
 			);
 			name = Models;
@@ -240,6 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1DECA5929CEF203001C758F /* CertainDayViewController.swift in Sources */,
 				F1198ADD29BC6622009E23AD /* DetailView.swift in Sources */,
 				F131848F29CC010300C7F4D3 /* StartView.swift in Sources */,
 				F131849129CC01EA00C7F4D3 /* StartViewController.swift in Sources */,

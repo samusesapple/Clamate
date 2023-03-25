@@ -17,6 +17,5 @@ public struct ColorHelper {
     
     var tempViewColor: UIColor = UIColor(named: "buttonColor")!
     var dustViewColor: UIColor = #colorLiteral(red: 0.5285704732, green: 0.5643274784, blue: 0.6181049943, alpha: 1)
-    var moistViewColor: UIColor = #colorLiteral(red: 0.5386753678, green: 0.619384706, blue: 0.699549973, alpha: 1)
 }
 

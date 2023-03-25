@@ -7,12 +7,11 @@
 
 import UIKit
 
-class StartView: UIView {
+final class StartView: UIView {
 
     private let colorHelper = ColorHelper()
     
-    
-    
+
     lazy var greetingLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .clear

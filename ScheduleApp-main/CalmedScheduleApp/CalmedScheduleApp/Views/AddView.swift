@@ -300,7 +300,7 @@ final class AddView: UIView {
     
     
     // MARK: - set Autolayout()
-    var customTopAnchor: CGFloat = 18
+    
     private let customLeadingAnchor: CGFloat = 25
     private let customHeightAnchor: CGFloat = 48
     
@@ -314,7 +314,9 @@ final class AddView: UIView {
     
     private func titleTFAutolayout() {
         titleStackView.translatesAutoresizingMaskIntoConstraints = false
+        titleStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         titleStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        
         titleStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
         titleStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
         
@@ -391,10 +393,10 @@ final class AddView: UIView {
     
     private func detailAutolayout() {
         detailFieldView.translatesAutoresizingMaskIntoConstraints = false
-        detailFieldView.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: customTopAnchor).isActive = true
+        detailFieldView.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: 18).isActive = true
         detailFieldView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: customLeadingAnchor).isActive = true
         detailFieldView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -customLeadingAnchor).isActive = true
-        detailFieldView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor, constant: -customTopAnchor).isActive = true
+        detailFieldView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor, constant: -18).isActive = true
         
         detailTextView.translatesAutoresizingMaskIntoConstraints = false
         detailTextView.topAnchor.constraint(equalTo: detailFieldView.topAnchor, constant: 5).isActive = true

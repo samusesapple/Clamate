@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StartViewController: UIViewController {
+final class StartViewController: UIViewController {
     
     private let startView = StartView()
     private let colorHelper = ColorHelper()
@@ -15,9 +15,10 @@ class StartViewController: UIViewController {
     private let networkManager = NetworkManager.shared
     private let weatherDataManager = WeatherDataManager.shared
     
-    
-    let pickerView = UIPickerView()
-    
+    let location = ["Seoul", "Incheon", "Seongnam", "Yongin", "Suwon", "Osan", "Ansan", "Seosan",  "Cheonan", "Cheongju", "Chuncheon", "Gangneung", "Sokcho", "Yeosu", "Daejeon", "Daegu", "Busan", "Ulsan", "Jeonju", "Gwangju", "Changwon", "Jeju"]
+    var focusedRow: Int = 0
+    var selectedRow: Int = 0
+
     
     override func loadView() {
         view = startView
@@ -34,21 +35,35 @@ class StartViewController: UIViewController {
     // MARK: - set Actions
     func setActions() {
         startView.nameTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
-        startView.cityTextField.addTarget(self, action: #selector(selectCity), for: .touchUpInside)
+        startView.cityTextField.addTarget(self, action: #selector(selectCity), for: .allTouchEvents)
         startView.okButton.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
         
     }
     
     @objc private func selectCity() {
-        //        let alert = UIAlertController(title: "도시 선택", message: "도시를 선택해주세요.", preferredStyle: .actionSheet)
-        print("select city")
+        print(#function)
+        let pickerView = UIPickerView()
+        let alert = UIAlertController(title: "지역 선택", message: "\n\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel) { _ in
+            pickerView.selectRow(self.selectedRow, inComponent: 0, animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "확인", style: .default) { _ in
+            self.selectedRow = self.focusedRow
+    
+        })
+        
+        pickerView.frame = CGRect(x: 50, y: 50, width: 270, height: 130)
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        
+        alert.view.addSubview(pickerView)
+        self.present(alert, animated: true, completion: nil)
     }
     
     
-    
-    
-    
     @objc private func okButtonTapped() {
+        print(#function)
         // 버튼 색 및 그림자 변화
         startView.okButton.layer.shadowOpacity = 0
         startView.okButton.layer.shadowColor = .none
@@ -108,6 +123,13 @@ class StartViewController: UIViewController {
 // MARK: - Extension
 
 extension StartViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField == startView.cityTextField {
+            return false
+        }
+        return true
+    }
+    
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         if textField.text?.count == 1 {        // 첫글자가 공백인지 확인
             if textField.text?.first == " " {
@@ -132,8 +154,30 @@ extension StartViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        //        startView.addSubview()
-    }
 }
 
+extension StartViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return location.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return location[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        focusedRow = row
+        startView.cityTextField.text = location[focusedRow]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat
+    {
+        return 30
+    }
+    
+}

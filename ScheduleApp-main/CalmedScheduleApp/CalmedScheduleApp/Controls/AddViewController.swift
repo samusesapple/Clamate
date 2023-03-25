@@ -27,6 +27,7 @@ final class AddViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         print("Add View 나타남")
+        tabBarController?.tabBar.isHidden = true
         setUIwithDate()
     }
     
@@ -34,7 +35,7 @@ final class AddViewController: UIViewController {
         addView.titleTextField.delegate = self
         addView.detailTextView.delegate = self
         
-        tabBarController?.tabBar.isHidden = true
+//        self.tabBarController?.tabBar.isHidden = true
         setActions()
         setUI()
     }
@@ -70,7 +71,8 @@ final class AddViewController: UIViewController {
         addView.timeSelectButton.addTarget(self, action: #selector(timeSelectButtonTapped), for: .touchUpInside)
     }
     
-    // MARK: - addTarget for buttons
+    // MARK: - @objc funcs
+
     @objc private func dateSelectButtonTapped() {
         let alert = UIAlertController(title: "날짜 설정", message: "추가할 일정의 날짜를 선택해주세요.", preferredStyle: .actionSheet)
         let datePicker = UIDatePicker()
@@ -89,6 +91,7 @@ final class AddViewController: UIViewController {
             self?.addView.dateSelectLabel.textColor = self?.colorHelper.fontColor
             self?.addView.dateSelectLabel.text = dateString
             self?.selectedDate = datePicker.date
+            self?.timeSelectButtonTapped()
         }
         
         alert.addAction(ok)
@@ -187,7 +190,6 @@ final class AddViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         print("add View 사라질 것")
-        tabBarController?.tabBar.isHidden = false
     }
     
 }
@@ -206,6 +208,7 @@ extension AddViewController: UITextFieldDelegate {
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        dateSelectButtonTapped()
         return true
     }
 }

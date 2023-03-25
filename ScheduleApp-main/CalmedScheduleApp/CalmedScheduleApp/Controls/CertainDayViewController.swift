@@ -7,11 +7,12 @@
 
 import UIKit
 
-final class OneDayViewController: UIViewController {
+final class CertainDayViewController: UIViewController {
     
     private let colorHelper = ColorHelper()
     private var tableView = UITableView()
     private var toDoManager = CoreDataManager.shared
+    var baseDate: Date = Date()
     
     
     override func viewDidLoad() {
@@ -24,14 +25,14 @@ final class OneDayViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         print("뷰 나타날 것")
         tableView.reloadData()
-        tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.isHidden = true
     }
     
     
     // MARK: - set NaviBar
     private func setupNaviBar() {
         // 네비게이션바 설정
-        navigationItem.title = "Today"
+        navigationItem.title = DateHelper().veryShortDateString(date: baseDate)
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()  // 불투명으로
         appearance.backgroundColor = colorHelper.backgroundColor
@@ -90,7 +91,7 @@ final class OneDayViewController: UIViewController {
     
 }
 // MARK: - Extension - UITableViewDataSource
-extension OneDayViewController: UITableViewDataSource {
+extension CertainDayViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -99,9 +100,9 @@ extension OneDayViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return toDoManager.getNotFinishedDateToDo(date: Date()).count
+            return toDoManager.getNotFinishedDateToDo(date: baseDate).count
         case 1:
-            return toDoManager.getFinishedDateToDo(date: Date()).count
+            return toDoManager.getFinishedDateToDo(date: baseDate).count
         default :
             break
         }
@@ -124,7 +125,7 @@ extension OneDayViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodayTableViewCell
         switch indexPath.section {
         case 0:
-            let falseToDoData = toDoManager.getNotFinishedDateToDo(date: Date())
+            let falseToDoData = toDoManager.getNotFinishedDateToDo(date: baseDate)
             cell.doneButton.setTitle("Done", for: .normal)
             cell.layer.borderColor = colorHelper.backgroundColor.cgColor
             cell.layer.borderWidth = 5
@@ -139,7 +140,7 @@ extension OneDayViewController: UITableViewDataSource {
             return cell
             
         case 1:
-            let trueToDoData = toDoManager.getFinishedDateToDo(date: Date())
+            let trueToDoData = toDoManager.getFinishedDateToDo(date: baseDate)
             cell.doneButton.setTitle("Undo", for: .normal)
             cell.layer.borderColor = colorHelper.backgroundColor.cgColor
             cell.layer.borderWidth = 5
@@ -196,14 +197,14 @@ extension OneDayViewController: UITableViewDataSource {
         
         func changeTodoStatus() {
             if target.titleLabel?.text == "Done" {
-                let targetTodo = (toDoManager.getNotFinishedDateToDo(date: Date())[target.tag])
+                let targetTodo = (toDoManager.getNotFinishedDateToDo(date: baseDate)[target.tag])
                 targetTodo.done = true
                 toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
                     print("true로 변경 : \(targetTodo.done) ")
                     self?.tableView.reloadData()
                 }
             } else {
-                let targetTodo = (toDoManager.getFinishedDateToDo(date: Date())[target.tag])
+                let targetTodo = (toDoManager.getFinishedDateToDo(date: baseDate)[target.tag])
                 targetTodo.done = false
                 toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
                     print("false로 변경 : \(targetTodo.done) ")
@@ -216,27 +217,25 @@ extension OneDayViewController: UITableViewDataSource {
         
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
 
-    }
 }
 
 // MARK: - Extension - UITableViewDelegate
-extension OneDayViewController: UITableViewDelegate {
+extension CertainDayViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath)번째 셀이 선택됨")
         let detailVC = DetailViewController()
         // 다음화면으로 이동
         switch indexPath.section {
         case 0:
-            let data = toDoManager.getNotFinishedDateToDo(date: Date())
+            let data = toDoManager.getNotFinishedDateToDo(date: baseDate)
             detailVC.detailView.toDoData = data[indexPath.row]
             print(Date())
             navigationController?.navigationBar.isHidden = false
             tabBarController?.tabBar.isHidden = true
             navigationController?.pushViewController(detailVC, animated: true)
         case 1:
-            let data = toDoManager.getFinishedDateToDo(date: Date())
+            let data = toDoManager.getFinishedDateToDo(date: baseDate)
             detailVC.detailView.toDoData = data[indexPath.row]
             print(Date())
             navigationController?.navigationBar.isHidden = false
@@ -259,12 +258,12 @@ extension OneDayViewController: UITableViewDelegate {
                 print("삭제를 실행합니다")
                 switch indexPath.section {
                 case 0:
-                    let data = self?.toDoManager.getNotFinishedDateToDo(date: Date())
+                    let data = self?.toDoManager.getNotFinishedDateToDo(date: self!.baseDate)
                     self?.toDoManager.deleteToDo(data: data![indexPath.row]) {
                         tableView.reloadData()
                     }
                 case 1:
-                    let data = self?.toDoManager.getFinishedDateToDo(date: Date())
+                    let data = self?.toDoManager.getFinishedDateToDo(date: self!.baseDate)
                     self?.toDoManager.deleteToDo(data: data![indexPath.row]) {
                         tableView.reloadData()
                     }

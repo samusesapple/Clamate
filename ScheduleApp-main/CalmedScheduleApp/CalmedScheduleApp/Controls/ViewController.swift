@@ -10,7 +10,6 @@ import UIKit
 final class ViewController: UIViewController, UITabBarDelegate, UINavigationControllerDelegate {
     private let colorHelper = ColorHelper()
     private var mainView = MainView()
-    // 모델(저장 데이터를 관리하는 코어데이터)
     private let coreDataManager = CoreDataManager.shared
     private let weatherDataManager = WeatherDataManager.shared
     

@@ -29,7 +29,7 @@ final class NetworkManager {
     
     // MARK: - Coord
     func fetchCoord(city: String, completion: @escaping NetworkCompletion) {
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&units=metric&appid=\(tempServiceKey)&lang=kr"
+        let urlString = "http://api.openweathermap.org/geo/1.0/direct?q=\(city)&limit=1&appid=\(tempServiceKey)"
         print(urlString)
         coordPerformRequest(with: urlString) { result in
             completion(result)
@@ -72,12 +72,12 @@ final class NetworkManager {
     }
     
     // 받아본 데이터 분석하는 함수
-    private func parseCoordJSON(_ tempData: Data) -> [Double]? {
+    private func parseCoordJSON(_ coordData: Data) -> [Double]? {
         print(#function)
         // 성공
         do {
-            let decodedTempData = try JSONDecoder().decode(WeatherData.self, from: tempData)
-            return [decodedTempData.coord.lat, decodedTempData.coord.lon]
+            let decodedCoordData = try JSONDecoder().decode(Coordinate.self, from: coordData)
+            return [decodedCoordData[0].lat, decodedCoordData[0].lon]
         // 실패
         } catch {
             print(error.localizedDescription)

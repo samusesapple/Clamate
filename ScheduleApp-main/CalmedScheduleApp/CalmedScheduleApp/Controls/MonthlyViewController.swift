@@ -111,10 +111,10 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
             }
             let check = UIAlertAction(title: "일정 확인", style: .default) {  [weak self] action in
                 print("일정 확인")
-                let oneDayVC = OneDayViewController()
-                oneDayVC.baseDate = date
-//                oneDayVC.navigationItem.title = "List"
-                self?.navigationController?.pushViewController(oneDayVC, animated: true)
+                let certainDayVC = CertainDayViewController()
+                certainDayVC.baseDate = date
+//                oneDayVC.navigationItem.title = DateHelper().shortDateString(date: date)
+                self?.navigationController?.pushViewController(certainDayVC, animated: true)
             }
             let cancel = UIAlertAction(title: "돌아가기", style: .cancel) { action in
                 print("일정확인 Cancel")

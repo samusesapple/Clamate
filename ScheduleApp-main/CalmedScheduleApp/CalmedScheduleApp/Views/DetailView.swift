@@ -96,10 +96,6 @@ final class DetailView: UIView {
         view.backgroundColor = colorHelper.buttonColor
         view.layer.cornerRadius = 5
         view.frame.size.height = customHeightAnchor
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-//        view.layer.shadowOpacity = 0.5
-//        view.layer.shadowRadius = 2.5
         view.addSubview(titleTextField)
         return view
     }()
@@ -142,9 +138,6 @@ final class DetailView: UIView {
         view.layer.cornerRadius = 5
         view.frame.size = CGSize(width: 100, height: 48)
         view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-//        view.layer.shadowOpacity = 0.5
-//        view.layer.shadowRadius = 2.5
         view.addSubview(dateLabel)
         return view
     }()
@@ -164,10 +157,6 @@ final class DetailView: UIView {
         button.backgroundColor = colorHelper.buttonColor
         button.layer.cornerRadius = 5
         button.frame.size.height = customHeightAnchor
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-//        view.layer.shadowOpacity = 0.5
-//        view.layer.shadowRadius = 2.5
         button.addSubview(dateSelectLabel)
         return button
     }()
@@ -198,10 +187,6 @@ final class DetailView: UIView {
         view.backgroundColor = colorHelper.buttonColor
         view.layer.cornerRadius = 5
         view.frame.size = CGSize(width: 100, height: 48)
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-//        view.layer.shadowOpacity = 0.5
-//        view.layer.shadowRadius = 2.5
         view.addSubview(timeLabel)
         return view
     }()
@@ -221,10 +206,6 @@ final class DetailView: UIView {
         button.backgroundColor = colorHelper.buttonColor
         button.layer.cornerRadius = 5
         button.frame.size.height = customHeightAnchor
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-//        view.layer.shadowOpacity = 0.5
-//        view.layer.shadowRadius = 2.5
         button.addSubview(timeSelectLabel)
         return button
     }()
@@ -255,10 +236,6 @@ final class DetailView: UIView {
         let view = UIView()
         view.backgroundColor = colorHelper.buttonColor
         view.layer.cornerRadius = 5
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-//        view.layer.shadowOpacity = 0.5
-//        view.layer.shadowRadius = 2.5
         view.addSubview(detailTextView)
         return view
     }()
@@ -274,10 +251,9 @@ final class DetailView: UIView {
         tv.autocapitalizationType = .none
         tv.autocorrectionType = .no
         tv.spellCheckingType = .no
-        
+        tv.returnKeyType = .done
         return tv
     }()
-    
     
     
     

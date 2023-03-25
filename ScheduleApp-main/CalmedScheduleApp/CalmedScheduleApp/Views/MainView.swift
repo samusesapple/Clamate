@@ -156,46 +156,12 @@ final class MainView: UIView {
         return label
     }()
     
-    lazy var moistView: UIView = {
-        var view = UIView()
-        view.backgroundColor = colorHelper.moistViewColor
-        view.layer.cornerRadius = 5
-        
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        view.layer.shadowOpacity = 0.7
-        view.layer.shadowRadius = 2.5
-        view.addSubview(moistResultLabel)
-        return view
-    }()
-    
-    lazy var moistLabel: UILabel = {
-        var label = UILabel()
-        label.backgroundColor = .clear
-        label.textAlignment = .center
-        label.textColor = colorHelper.fontColor
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.text = "강수량"
-        return label
-    }()
-    
-    lazy var moistResultLabel: UILabel = {
-        var label = UILabel()
-        label.backgroundColor = .clear
-        label.textAlignment = .center
-        label.textColor = colorHelper.fontColor
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = "적음"
-        return label
-    }()
-    
     // MARK: - stackVeiw
-    var customSpacingAnchor: CGFloat = 45
     
     lazy var labelStack: UIStackView = {
         var stView = UIStackView(arrangedSubviews: [greetingLabel, dateLabel])
         stView.backgroundColor = .clear
-        stView.spacing = customSpacingAnchor
+        stView.spacing = 45
         stView.axis = .vertical
         stView.alignment = .fill
         return stView
@@ -204,12 +170,10 @@ final class MainView: UIView {
     lazy var weatherView: UIView = {
         var view = UIView()
         view.backgroundColor = .clear
-        view.addSubview(tempView)
         view.addSubview(dustView)
-        view.addSubview(moistView)
+        view.addSubview(tempView)
         view.addSubview(tempLabel)
         view.addSubview(dustLabel)
-        view.addSubview(moistLabel)
         return view
     }()
     
@@ -240,6 +204,7 @@ final class MainView: UIView {
     
     private func setUserData() {
         greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘도 화이팅하세요!"
+        weatherLabel.text = "📍\(userData?.userCity! ?? "Weather")"
     }
     
     private func setTempUIwithAPIData() {
@@ -316,7 +281,7 @@ final class MainView: UIView {
     
     private func weatherAutolayout() {
         weatherLabel.translatesAutoresizingMaskIntoConstraints = false
-        weatherLabel.topAnchor.constraint(equalTo: scheduleView.bottomAnchor, constant: customSpacingAnchor).isActive = true
+        weatherLabel.topAnchor.constraint(equalTo: scheduleView.bottomAnchor, constant: 45).isActive = true
         weatherLabel.leadingAnchor.constraint(equalTo: scheduleView.leadingAnchor).isActive = true
         
         
@@ -324,20 +289,28 @@ final class MainView: UIView {
         weatherView.topAnchor.constraint(equalTo: weatherLabel.bottomAnchor, constant: 8).isActive = true
         weatherView.leadingAnchor.constraint(equalTo: labelStack.leadingAnchor).isActive = true
         weatherView.trailingAnchor.constraint(equalTo: labelStack.trailingAnchor).isActive = true
-        weatherView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -customSpacingAnchor).isActive = true
-        
-        tempView.translatesAutoresizingMaskIntoConstraints = false
-        tempLabel.translatesAutoresizingMaskIntoConstraints = false
+        weatherView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -45).isActive = true
+
         
         dustView.translatesAutoresizingMaskIntoConstraints = false
         dustLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        moistView.translatesAutoresizingMaskIntoConstraints = false
-        moistLabel.translatesAutoresizingMaskIntoConstraints = false
+        tempView.translatesAutoresizingMaskIntoConstraints = false
+        tempLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        //미세먼지
+        dustView.bottomAnchor.constraint(equalTo: weatherView.bottomAnchor).isActive = true
+        dustView.trailingAnchor.constraint(equalTo: weatherView.trailingAnchor, constant: 10).isActive = true
+        dustView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        dustLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        dustLabel.bottomAnchor.constraint(equalTo: dustView.topAnchor, constant: -5).isActive = true
+        dustLabel.leadingAnchor.constraint(equalTo: dustView.leadingAnchor).isActive = true
+        dustLabel.trailingAnchor.constraint(equalTo: dustView.trailingAnchor).isActive = true
         
         //현재기온
         tempView.bottomAnchor.constraint(equalTo: weatherView.bottomAnchor).isActive = true
-        tempView.leadingAnchor.constraint(equalTo: weatherView.leadingAnchor).isActive = true
+        tempView.trailingAnchor.constraint(equalTo: dustView.leadingAnchor, constant: -15).isActive = true
         tempView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
         tempLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
@@ -345,37 +318,16 @@ final class MainView: UIView {
         tempLabel.leadingAnchor.constraint(equalTo: tempView.leadingAnchor).isActive = true
         tempLabel.trailingAnchor.constraint(equalTo: tempView.trailingAnchor).isActive = true
         
-        //미세먼지
-        dustView.bottomAnchor.constraint(equalTo: weatherView.bottomAnchor).isActive = true
-        dustView.leadingAnchor.constraint(equalTo: tempView.trailingAnchor, constant: 10).isActive = true
-        dustView.widthAnchor.constraint(equalTo: tempView.widthAnchor).isActive = true
+
         
-        dustLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
-        dustLabel.bottomAnchor.constraint(equalTo: dustView.topAnchor, constant: -5).isActive = true
-        dustLabel.leadingAnchor.constraint(equalTo: dustView.leadingAnchor).isActive = true
-        dustLabel.trailingAnchor.constraint(equalTo: dustView.trailingAnchor).isActive = true
-        
-        // 강수량
-        moistView.bottomAnchor.constraint(equalTo: weatherView.bottomAnchor).isActive = true
-        moistView.leadingAnchor.constraint(equalTo: dustView.trailingAnchor, constant: 10).isActive = true
-        moistView.widthAnchor.constraint(equalTo: tempView.widthAnchor).isActive = true
-        
-        moistLabel.heightAnchor.constraint(equalToConstant: 16).isActive = true
-        moistLabel.bottomAnchor.constraint(equalTo: moistView.topAnchor, constant: -5).isActive = true
-        moistLabel.leadingAnchor.constraint(equalTo: moistView.leadingAnchor).isActive = true
-        moistLabel.trailingAnchor.constraint(equalTo: moistView.trailingAnchor).isActive = true
-        
-        // 현재기온 + 미세먼지 + 강수량 높이
+        // 현재기온 + 미세먼지
         
         tempView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         dustView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        moistView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
         
         
         tempResultLabel.translatesAutoresizingMaskIntoConstraints = false
         dustResultLabel.translatesAutoresizingMaskIntoConstraints = false
-        moistResultLabel.translatesAutoresizingMaskIntoConstraints = false
         
         tempResultLabel.leadingAnchor.constraint(equalTo: tempView.leadingAnchor).isActive = true
         tempResultLabel.trailingAnchor.constraint(equalTo: tempView.trailingAnchor).isActive = true
@@ -386,12 +338,6 @@ final class MainView: UIView {
         dustResultLabel.trailingAnchor.constraint(equalTo: dustView.trailingAnchor).isActive = true
         dustResultLabel.centerXAnchor.constraint(equalTo: dustView.centerXAnchor).isActive = true
         dustResultLabel.bottomAnchor.constraint(equalTo: dustView.bottomAnchor, constant: -3).isActive = true
-        
-        moistResultLabel.leadingAnchor.constraint(equalTo: moistView.leadingAnchor).isActive = true
-        moistResultLabel.trailingAnchor.constraint(equalTo: moistView.trailingAnchor).isActive = true
-        moistResultLabel.centerXAnchor.constraint(equalTo: moistView.centerXAnchor).isActive = true
-        moistResultLabel.bottomAnchor.constraint(equalTo: moistView.bottomAnchor, constant: -3).isActive = true
-        
         
     }
     

@@ -11,6 +11,7 @@ final class DetailViewController: UIViewController {
     let detailView = DetailView()
     private let colorHelper = ColorHelper()
     private let todoManager = CoreDataManager.shared
+    private let dateHelper = DateHelper()
     
     override func loadView() {
         view = detailView
@@ -52,14 +53,8 @@ final class DetailViewController: UIViewController {
         datePicker.locale = Locale(identifier: "ko_KR")
         
         let ok = UIAlertAction(title: "완료", style: .cancel) {  [weak self] action in
-            var dateString: String? {
-                let myFormatter = DateFormatter()
-                myFormatter.dateFormat = "yyyy-MM-dd (EEE)"
-                let dateString = myFormatter.string(from: datePicker.date)
-                return dateString
-            }
             self?.detailView.dateSelectLabel.textColor = self?.colorHelper.fontColor
-            self?.detailView.dateSelectLabel.text = dateString
+            self?.detailView.dateSelectLabel.text = self?.dateHelper.shortDateString(date: datePicker.date)
             self?.detailView.toDoData?.todoDate = datePicker.date
         }
         
@@ -81,31 +76,18 @@ final class DetailViewController: UIViewController {
         let alert = UIAlertController(title: "시간 설정", message: "설정할 시간을 선택해주세요.", preferredStyle: .actionSheet)
         let timePicker = UIDatePicker()
         
-        var todayDateString: String? {
-            let myFormatter = DateFormatter()
-            myFormatter.dateFormat = "yyyy-MM-dd (EEE)"
-            let dateString = myFormatter.string(from: Date())
-            return dateString
-        }
-        
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.locale = Locale(identifier: "ko_KR")
-        if detailView.dateSelectLabel.text == todayDateString {
+        if detailView.dateSelectLabel.text == dateHelper.nowDateString {
             timePicker.minimumDate = .now
         } else if detailView.dateSelectLabel.text == "날짜를 선택해주세요." {
             timePicker.minimumDate = .now
         }
         
         let ok = UIAlertAction(title: "완료", style: .cancel) {  [weak self] action in
-            var dateString: String? {
-                let myFormatter = DateFormatter()
-                myFormatter.dateFormat = "a hh:mm"
-                let dateString = myFormatter.string(from: timePicker.date)
-                return dateString
-            }
             self?.detailView.timeSelectLabel.textColor = self?.colorHelper.fontColor
-            self?.detailView.timeSelectLabel.text = dateString
+            self?.detailView.timeSelectLabel.text = self?.dateHelper.certainTimeString(time: timePicker.date)
             self?.detailView.toDoData?.todoTime = timePicker.date
         }
         
@@ -143,9 +125,6 @@ final class DetailViewController: UIViewController {
         
         if detailView.editLabel.text == "EDIT" {
             print("detailVC - edit button")
-            // 얼럿창 생성
-            //            let alert = UIAlertController(title: "일정 수정", message: "일정을 수정 하시겠습니까?", preferredStyle: .alert)
-            // 예 선택
             let success = UIAlertAction(title: "예", style: .default) {  [weak self] action in
                 print("'예'버튼이 눌렸습니다.")
                 self?.detailView.editStatus = true

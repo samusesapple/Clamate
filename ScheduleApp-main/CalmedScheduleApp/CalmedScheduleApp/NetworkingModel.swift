@@ -24,14 +24,8 @@ struct DustMain: Codable {
 
 // MARK: - Weather
 struct WeatherData: Codable {
-    let coord: Coord
     let weather: [Weather]
     let main: TempMain
-}
-
-struct Coord: Codable {
-    let lon: Double
-    let lat: Double
 }
 
 struct TempMain: Codable {
@@ -45,3 +39,15 @@ struct TempMain: Codable {
 struct Weather: Codable {
     let description: String
 }
+
+// MARK: - Coord
+
+struct CoordinateElement: Codable {
+    let lat, lon: Double
+
+    enum CodingKeys: String, CodingKey {
+        case lat, lon
+    }
+}
+
+typealias Coordinate = [CoordinateElement]

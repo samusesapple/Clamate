@@ -63,18 +63,11 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
             }
         }
         
-        weatherDataManager.getCityCoord {
+        weatherDataManager.getTodayDust {
             DispatchQueue.main.async { [weak self] in
-                let lon = self?.weatherDataManager.lon
-                let lat = self?.weatherDataManager.lat
-                self?.weatherDataManager.getTodayDust(lat: lat, lon: lon) {
-                    DispatchQueue.main.async { [weak self] in
-                        self?.mainView.dustResult = self?.weatherDataManager.dustResult
-                    }
-                }
+                self?.mainView.dustResult = self?.weatherDataManager.dustResult
             }
         }
     }
-    
-    
 }
+

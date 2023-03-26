@@ -15,7 +15,7 @@ final class StartViewController: UIViewController {
     private let networkManager = NetworkManager.shared
     private let weatherDataManager = WeatherDataManager.shared
     
-    let location = ["Seoul", "Incheon", "Seongnam", "Yongin", "Suwon", "Osan", "Ansan", "Seosan",  "Cheonan", "Cheongju", "Chuncheon", "Gangneung", "Sokcho", "Yeosu", "Daejeon", "Daegu", "Busan", "Ulsan", "Jeonju", "Gwangju", "Changwon", "Jeju"]
+    let location = ["Seoul", "Incheon", "Seongnam", "Suwon", "Osan", "Ansan", "Seosan",  "Cheonan", "Cheongju", "Chuncheon", "Gangneung", "Sokcho", "Yeosu", "Daejeon", "Daegu", "Busan", "Ulsan", "Jeonju", "Gwangju", "Changwon", "Jeju"]
     var focusedRow: Int = 0
     var selectedRow: Int = 0
 

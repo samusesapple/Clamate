@@ -203,8 +203,19 @@ final class MainView: UIView {
     }
     
     private func setUserData() {
-        greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘도 화이팅하세요!"
+//        greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘도 화이팅하세요!"
         weatherLabel.text = "📍\(userData?.userCity! ?? "Weather")"
+        let hour = Calendar.current.component(.hour, from: Date())
+        switch hour {
+            case 1...6:
+            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n편안한 새벽 되세요 :)"
+            case 7...11:
+            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘 하루도 응원합니다!"
+            case 12...20:
+            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오후 시간도 화이팅!"
+            default:
+            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n행복한 저녁 되세요 :)"
+         }
     }
     
     private func setTempUIwithAPIData() {
@@ -236,16 +247,18 @@ final class MainView: UIView {
         var dustStatus = 0
         if let dustResult = dustResult {
             switch dustResult {
-            case 1: dustResultLabel.text = "좋음"
+            case _ where  0 <= dustResult && dustResult <= 50: dustResultLabel.text = "좋음"
                 dustStatus = 0
-            case 2: dustResultLabel.text = "양호"
+            case _ where  51 <= dustResult && dustResult <= 100: dustResultLabel.text = "보통"
                 dustStatus = 40
-            case 3: dustResultLabel.text = "주의"
+            case _ where  101 <= dustResult && dustResult <= 150: dustResultLabel.text = "민감군 위험"
                 dustStatus = 80
-            case 4: dustResultLabel.text = "위험"
+            case _ where  151 <= dustResult && dustResult <= 200: dustResultLabel.text = "위험"
                 dustStatus = 120
-            case 5: dustResultLabel.text = "매우 위험"
+            case _ where  201 <= dustResult && dustResult <= 300: dustResultLabel.text = "매우 위험"
                 dustStatus = 160
+            case _ where  301 <= dustResult: dustResultLabel.text = "비상"
+                dustStatus = 200
             default: dustResultLabel.text = "Loading"
                 dustStatus = 0
             }

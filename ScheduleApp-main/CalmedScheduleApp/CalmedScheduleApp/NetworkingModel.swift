@@ -7,22 +7,15 @@
 
 import Foundation
 
-// MARK: - Dust
 struct Dust: Codable {
-    let list: [DustList]
+    let status: String?
+    let data: DataClass?
 }
 
-struct DustList: Codable {
-    let main: DustMain
+struct DataClass: Codable {
+    let aqi: Int?
 }
 
-struct DustMain: Codable {
-    let aqi: Int
-}
-
-
-
-// MARK: - Weather
 struct WeatherData: Codable {
     let weather: [Weather]
     let main: TempMain
@@ -30,7 +23,7 @@ struct WeatherData: Codable {
 
 struct TempMain: Codable {
     let temp: Double
-
+    
     enum CodingKeys: String, CodingKey {
         case temp
     }
@@ -40,14 +33,4 @@ struct Weather: Codable {
     let description: String
 }
 
-// MARK: - Coord
 
-struct CoordinateElement: Codable {
-    let lat, lon: Double
-
-    enum CodingKeys: String, CodingKey {
-        case lat, lon
-    }
-}
-
-typealias Coordinate = [CoordinateElement]

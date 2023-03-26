@@ -15,76 +15,17 @@ enum NetworkError: Error {
     case parseError
 }
 
-
 //MARK: - Networking model
 
 final class NetworkManager {
     // MARK: - keys
     let tempServiceKey = "0148f2d4545ea1be79ccf51e2339c35c"
+    let dustServiceKey = "7027a677183704666f97ce3f15f7134811d487f2"
     
     static let shared = NetworkManager()
     private init() {}
     
     typealias NetworkCompletion = (Result<Any?, NetworkError>) -> Void
-    
-    // MARK: - Coord
-    func fetchCoord(city: String, completion: @escaping NetworkCompletion) {
-        let urlString = "http://api.openweathermap.org/geo/1.0/direct?q=\(city)&limit=1&appid=\(tempServiceKey)"
-        print(urlString)
-        coordPerformRequest(with: urlString) { result in
-            completion(result)
-            print("\(result)")
-        }
-    }
-    
-    private func coordPerformRequest(with urlString: String, completion: @escaping NetworkCompletion) {
-        print(#function)
-        guard let url = URL(string: urlString) else { return }
-        
-        let session = URLSession(configuration: .default)
-        
-        let task = session.dataTask(with: url) { (data, response, error) in
-            if error != nil {
-                print(error!)
-                completion(.failure(.networkingError))
-                print("위도경도 networkingError")
-                return
-            }
-            guard let safeData = data else {
-                completion(.failure(.dataError))
-                print("위도경도 Data Error")
-                return
-            }
-            print("위도경도 Data ok")
-            
-            // 데이터 분석하기
-            if let tempData = self.parseCoordJSON(safeData) {
-                print("위도경도 Parse 실행")
-                completion(.success(tempData))
-                print("위도경도 Parsing ok")
-            } else {
-                print("위도경도 Parse 실패")
-                completion(.failure(.parseError))
-                print("위도경도 ParsingFailed")
-            }
-        }
-        task.resume()
-    }
-    
-    // 받아본 데이터 분석하는 함수
-    private func parseCoordJSON(_ coordData: Data) -> [Double]? {
-        print(#function)
-        // 성공
-        do {
-            let decodedCoordData = try JSONDecoder().decode(Coordinate.self, from: coordData)
-            return [decodedCoordData[0].lat, decodedCoordData[0].lon]
-        // 실패
-        } catch {
-            print(error.localizedDescription)
-            print("localizedDescription error")
-            return nil
-        }
-    }
     
     // MARK: - Temp
     func fetchTemp(city: String, completion: @escaping NetworkCompletion) {
@@ -146,8 +87,8 @@ final class NetworkManager {
     }
     
 // MARK: - Dust
-    func fetchDust(lat: Double, lon: Double, completion: @escaping NetworkCompletion) {
-        let urlString = "http://api.openweathermap.org/data/2.5/air_pollution?lat=\(lat)&lon=\(lon)&appid=\(tempServiceKey)"
+    func fetchDust(city: String, completion: @escaping NetworkCompletion) {
+        let urlString = "https://api.waqi.info/feed/\(city)/?token=\(dustServiceKey)"
         print(urlString)
         dustPerformRequest(with: urlString) { result in
             completion(result)
@@ -194,15 +135,15 @@ final class NetworkManager {
         print(#function)
         // 성공
         do {
+            print(String(data: dustData, encoding:.utf8)!)
             let decodedDustData = try JSONDecoder().decode(Dust.self, from: dustData)
-            let dustList = decodedDustData.list
-            return dustList[0].main.aqi
+            let dustData = decodedDustData
+            return dustData.data?.aqi
         // 실패
         } catch {
-            print(error.localizedDescription)
+            print(error)
             print("localizedDescription error")
             return nil
         }
     }
-    
 }

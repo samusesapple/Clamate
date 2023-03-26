@@ -95,8 +95,6 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
         guard let date = NSCalendar.current.date(from: dateComponents!) else {
-            print("날짜 바인딩 도중 에러 발생")
-            print(dateComponents!)
             return
         }
         
@@ -107,17 +105,13 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
                 let addVC = AddViewController()
                 addVC.selectedDate = dateComponents!.date
                 self?.navigationController?.pushViewController(addVC, animated: true)
-                print("일정 추가")
             }
             let check = UIAlertAction(title: "일정 확인", style: .default) {  [weak self] action in
-                print("일정 확인")
                 let certainDayVC = CertainDayViewController()
                 certainDayVC.baseDate = date
-//                oneDayVC.navigationItem.title = DateHelper().shortDateString(date: date)
                 self?.navigationController?.pushViewController(certainDayVC, animated: true)
             }
-            let cancel = UIAlertAction(title: "돌아가기", style: .cancel) { action in
-                print("일정확인 Cancel")
+            let cancel = UIAlertAction(title: "취소", style: .cancel) { action in
             }
             
             selectAlert.addAction(check)
@@ -132,15 +126,13 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
             let emptySchedule = UIAlertController(title: "빈 일정", message: "해당 날짜의 일정이 없습니다.", preferredStyle: .actionSheet)
             
             let add = UIAlertAction(title: "일정 추가", style: .default) {  [weak self] action in
-                print("추가하기")
                 let addVC = AddViewController()
                 addVC.selectedDate = dateComponents!.date
                 
                 self?.navigationController?.pushViewController(addVC, animated: true)
             }
             
-            let cancel = UIAlertAction(title: "돌아가기", style: .cancel) {  action in
-                print("Cancel")
+            let cancel = UIAlertAction(title: "취소", style: .cancel) {  action in
             }
             emptySchedule.addAction(cancel)
             emptySchedule.addAction(add)

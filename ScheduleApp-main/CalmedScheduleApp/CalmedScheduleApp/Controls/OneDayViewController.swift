@@ -175,8 +175,7 @@ extension OneDayViewController: UITableViewDataSource {
         // 얼럿창 생성
         let alert = UIAlertController(title: "일정을 완료 하시겠습니까?", message: "", preferredStyle: .actionSheet)
         if target.titleLabel?.text == "Undo" {
-            alert.title = "일정의 상태를 변경 하시겠습니까?"
-            alert.message = "'예'를 선택하여 미완료 상태로 변경합니다."
+            alert.title = "일정을 미완료 상태로 변경 하시겠습니까?"
         }
         // 얼럿창의 액션 선택지 생성
         let success = UIAlertAction(title: "예", style: .default) { action in

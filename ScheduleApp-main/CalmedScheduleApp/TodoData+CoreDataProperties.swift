@@ -48,7 +48,7 @@ extension TodoData {
     
     var timeString: String? {
         let myFormatter = DateFormatter()
-        myFormatter.dateFormat = "a hh:mm"
+        myFormatter.dateFormat = "HH:mm a"
         guard let time = self.todoTime else { return "" }
         let savedTimeString = myFormatter.string(from: time)
         return savedTimeString

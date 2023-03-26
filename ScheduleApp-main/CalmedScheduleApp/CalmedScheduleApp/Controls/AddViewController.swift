@@ -107,14 +107,7 @@ final class AddViewController: UIViewController {
     @objc private func timeSelectButtonTapped() {
         let alert = UIAlertController(title: "시간 설정", message: "설정할 시간을 선택해주세요.", preferredStyle: .actionSheet)
         let timePicker = UIDatePicker()
-        
-        var todayDateString: String? {
-            let myFormatter = DateFormatter()
-            myFormatter.dateFormat = "yyyy-MM-dd (EEE)"
-            let dateString = myFormatter.string(from: Date())
-            return dateString
-        }
-        
+        var todayDateString = dateHelper.nowDateString
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.locale = Locale(identifier: "ko_KR")
@@ -125,14 +118,9 @@ final class AddViewController: UIViewController {
         }
         
         let ok = UIAlertAction(title: "완료", style: .cancel) {  [weak self] action in
-            var dateString: String? {
-                let myFormatter = DateFormatter()
-                myFormatter.dateFormat = "a hh:mm"
-                let dateString = myFormatter.string(from: timePicker.date)
-                return dateString
-            }
+            var timeString = self?.dateHelper.certainTimeString(time: timePicker.date)
             self?.addView.timeSelectLabel.textColor = self?.colorHelper.fontColor
-            self?.addView.timeSelectLabel.text = dateString
+            self?.addView.timeSelectLabel.text = timeString
             self?.selectedTime = timePicker.date
         }
         

@@ -88,6 +88,7 @@ final class MainView: UIView {
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.text = "Weather"
+        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -203,18 +204,19 @@ final class MainView: UIView {
     }
     
     private func setUserData() {
-//        greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘도 화이팅하세요!"
         weatherLabel.text = "📍\(userData?.userCity! ?? "Weather")"
         let hour = Calendar.current.component(.hour, from: Date())
         switch hour {
             case 1...6:
             greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n편안한 새벽 되세요 :)"
             case 7...11:
-            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘 하루도 응원합니다!"
-            case 12...20:
+            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘 하루도 응원해요!"
+            case 12...18:
             greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오후 시간도 화이팅!"
-            default:
+            case 19...21:
             greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n행복한 저녁 되세요 :)"
+            default:
+            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘도 수고했어요 :)"
          }
     }
     

@@ -62,7 +62,7 @@ final class StartView: UIView {
         tf.enablesReturnKeyAutomatically = true
         tf.becomeFirstResponder()
         tf.clearsOnBeginEditing = false
-        tf.returnKeyType = .next
+        tf.returnKeyType = .done
         tf.next?.resignFirstResponder()
         tf.attributedPlaceholder = NSAttributedString(string: "최대 7글자, 변경 불가능", attributes: [NSAttributedString.Key.foregroundColor : ColorHelper().cancelBackgroundColor])
         return tf
@@ -222,7 +222,7 @@ final class StartView: UIView {
         okButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         okButton.widthAnchor.constraint(equalToConstant: 90).isActive = true
         okButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        okButton.topAnchor.constraint(equalTo: cityStackView.bottomAnchor, constant: 80).isActive = true
+        okButton.topAnchor.constraint(equalTo: cityStackView.bottomAnchor, constant: 90).isActive = true
         
         okLabel.translatesAutoresizingMaskIntoConstraints = false
         okLabel.centerXAnchor.constraint(equalTo: okButton.centerXAnchor).isActive = true

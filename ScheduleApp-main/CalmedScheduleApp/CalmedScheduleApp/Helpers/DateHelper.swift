@@ -44,14 +44,14 @@ public struct DateHelper {
     
     var nowTimeString: String? {
         let myFormatter = DateFormatter()
-        myFormatter.dateFormat = "a hh:mm"
+        myFormatter.dateFormat = "HH:mm a"
         let savedTimeString = myFormatter.string(from: Date())
         return savedTimeString
     }
     
     func certainTimeString(time: Date?) -> String {
         let myFormatter = DateFormatter()
-        myFormatter.dateFormat = "a hh:mm"
+        myFormatter.dateFormat = "HH:mm a"
         guard let time = time else { return "" }
         let savedTimeString = myFormatter.string(from: time)
         return savedTimeString

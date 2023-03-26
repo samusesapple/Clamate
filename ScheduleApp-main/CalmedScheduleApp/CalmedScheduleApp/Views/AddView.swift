@@ -45,8 +45,6 @@ final class AddView: UIView {
         tf.textColor = colorHelper.fontColor
         tf.tintColor = colorHelper.fontColor
         tf.autocapitalizationType = .none
-        tf.autocorrectionType = .no
-        tf.spellCheckingType = .no
         tf.clearButtonMode = .whileEditing
         tf.enablesReturnKeyAutomatically = true
         tf.becomeFirstResponder()

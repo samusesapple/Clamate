@@ -28,7 +28,7 @@ final class DetailView: UIView {
     // MARK: - configure UI with Data
     private func configureUIwithData() {
         titleTextField.text = toDoData?.todoTitle
-        dateSelectLabel.text = toDoData?.longDateString
+        dateSelectLabel.text = toDoData?.shortDateString
         timeSelectLabel.text = toDoData?.timeString
         detailTextView.text = toDoData?.todoDetailText
         if detailTextView.text == "" || detailTextView.text == "(선택) 추가 내용을 입력해주세요." {
@@ -386,7 +386,7 @@ final class DetailView: UIView {
         dateLabel.centerYAnchor.constraint(equalTo: dateView.centerYAnchor, constant: -1).isActive = true
         
         dateSelectLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateSelectLabel.centerXAnchor.constraint(equalTo: dateSelectButton.centerXAnchor, constant: -10).isActive = true
+        dateSelectLabel.centerXAnchor.constraint(equalTo: dateSelectButton.centerXAnchor).isActive = true
         dateSelectLabel.centerYAnchor.constraint(equalTo: dateSelectButton.centerYAnchor).isActive = true
         
         dateStackView.translatesAutoresizingMaskIntoConstraints = false

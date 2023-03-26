@@ -17,12 +17,7 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
         view = mainView
         
     }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         setUpUserData()
         setUpTodaySchedule()
@@ -69,5 +64,7 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
             }
         }
     }
+    
 }
+
 

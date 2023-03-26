@@ -15,9 +15,9 @@ final class StartViewController: UIViewController {
     private let networkManager = NetworkManager.shared
     private let weatherDataManager = WeatherDataManager.shared
     
-    let location = ["Seoul", "Incheon", "Seongnam", "Suwon", "Osan", "Ansan", "Seosan",  "Cheonan", "Cheongju", "Chuncheon", "Gangneung", "Sokcho", "Yeosu", "Daejeon", "Daegu", "Busan", "Ulsan", "Jeonju", "Gwangju", "Changwon", "Jeju"]
-    var focusedRow: Int = 0
-    var selectedRow: Int = 0
+    private let location = ["Seoul", "Incheon", "Seongnam", "Suwon", "Osan", "Ansan", "Seosan",  "Cheonan", "Cheongju", "Chuncheon", "Gangneung", "Sokcho", "Yeosu", "Daejeon", "Daegu", "Busan", "Ulsan", "Jeonju", "Gwangju", "Changwon", "Jeju"]
+    private var focusedRow: Int = 0
+    private var selectedRow: Int = 0
 
     
     override func loadView() {
@@ -40,16 +40,13 @@ final class StartViewController: UIViewController {
         
     }
     
-    @objc private func selectCity() {
+    @objc func selectCity() {
         print(#function)
         let pickerView = UIPickerView()
         let alert = UIAlertController(title: "지역 선택", message: "\n\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel) { _ in
-            pickerView.selectRow(self.selectedRow, inComponent: 0, animated: true)
-        })
-        alert.addAction(UIAlertAction(title: "확인", style: .default) { _ in
-            self.selectedRow = self.focusedRow
+        alert.addAction(UIAlertAction(title: "확인", style: .cancel) { [weak self] _ in
+            self?.selectedRow = self!.focusedRow
     
         })
         
@@ -116,6 +113,10 @@ final class StartViewController: UIViewController {
         
         
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
 }
 
 
@@ -138,7 +139,6 @@ extension StartViewController: UITextFieldDelegate {
             }
         }
     }
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let textFieldText = textField.text,
               let rangeOfTextToReplace = Range(range, in: textFieldText) else {

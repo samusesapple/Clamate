@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F1198A9429B9DBB4009E23AD"
-               BuildableName = "CalmedScheduleApp.app"
+               BuildableName = "Clamate.app"
                BlueprintName = "CalmedScheduleApp"
                ReferencedContainer = "container:CalmedScheduleApp.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F1198A9429B9DBB4009E23AD"
-            BuildableName = "CalmedScheduleApp.app"
+            BuildableName = "Clamate.app"
             BlueprintName = "CalmedScheduleApp"
             ReferencedContainer = "container:CalmedScheduleApp.xcodeproj">
          </BuildableReference>
@@ -79,7 +79,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F1198A9429B9DBB4009E23AD"
-            BuildableName = "CalmedScheduleApp.app"
+            BuildableName = "Clamate.app"
             BlueprintName = "CalmedScheduleApp"
             ReferencedContainer = "container:CalmedScheduleApp.xcodeproj">
          </BuildableReference>

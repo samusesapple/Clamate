@@ -11,6 +11,7 @@ final class MonthlyViewController: UIViewController {
     lazy var toDoManager = CoreDataManager.shared
     lazy var monthlyView = MonthlyView()
     private let colorHelper = ColorHelper()
+    private let dateHelper = DateHelper()
     
     override func loadView() {
         view = monthlyView
@@ -61,16 +62,18 @@ final class MonthlyViewController: UIViewController {
         }
     }
     
-    
 }
 
 extension MonthlyViewController: UICalendarViewDelegate {
     func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
         
+        let todayDate = dateHelper.shortDateString(date: Date())
         guard let date = NSCalendar.current.date(from: dateComponents) else {
             return nil
         }
-        
+        if todayDate == dateHelper.shortDateString(date: date) {
+            return UICalendarView.Decoration.default(color: colorHelper.fontColor, size: .large)
+        }
         if toDoManager.getNotFinishedDateToDo(date: date).isEmpty != true  {
             return UICalendarView.Decoration.default(color: colorHelper.cancelBackgroundColor, size: .large)
         }

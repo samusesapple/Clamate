@@ -11,8 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     
-    
-    // 첫화면이 뜨기전에, 탭바를 내장시키기
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -50,8 +48,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarVC.tabBar.unselectedItemTintColor = ColorHelper().buttonColor
         tabBarVC.tabBar.tintColor = ColorHelper().cancelBackgroundColor
   
-        
-        // 탭바 이미지 설정 (이미지는 애플이 제공하는 것으로 사용)
         guard let items = tabBarVC.tabBar.items else { return }
         let item1 = items[0]
         item1.image = UIImage(systemName: "circle")
@@ -65,7 +61,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         item3.image = UIImage(systemName: "circle")
         item3.selectedImage = UIImage(systemName: "circle.circle.fill")
         
-        // 기본루트뷰를 탭바컨트롤러로 설정⭐️
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
     }

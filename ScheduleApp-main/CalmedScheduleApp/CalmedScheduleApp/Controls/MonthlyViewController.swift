@@ -25,16 +25,10 @@ final class MonthlyViewController: UIViewController {
         setCalendar()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        print("calendar 나타남")
-    }
-    
-    // MARK: - set NaviBar
     private func setupNaviBar() {
-        // 네비게이션바 설정
         self.navigationItem.title = "Monthly"
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()  // 불투명으로
+        appearance.configureWithOpaqueBackground()  
         appearance.backgroundColor = colorHelper.backgroundColor
         appearance.titleTextAttributes = [.foregroundColor: colorHelper.fontColor]
         appearance.largeTitleTextAttributes = [.foregroundColor: colorHelper.fontColor]
@@ -44,7 +38,6 @@ final class MonthlyViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
         
-        // Bar 버튼 추가
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem = add
     }
@@ -57,36 +50,31 @@ final class MonthlyViewController: UIViewController {
         monthlyView.calendarView.selectionBehavior = selection
     }
     
-    // MARK: - @objc func
     @objc private func addTapped() {
-        print("add Button Tapped")
         let selection = UICalendarSelectionSingleDate(delegate: self)
         let addVC = AddViewController()
         if selection.selectedDate?.date != nil {
             addVC.selectedDate = selection.selectedDate!.date!
-            print("선택된 날짜로 지정된 + view ")
             navigationController?.pushViewController(addVC, animated: true)
         } else {
             navigationController?.pushViewController(addVC, animated: true)
-            print("기본 + view")
         }
     }
     
     
 }
-// MARK: - Extension
+
 extension MonthlyViewController: UICalendarViewDelegate {
     func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
         
         guard let date = NSCalendar.current.date(from: dateComponents) else {
-            print("날짜 바인딩 도중 에러 발생")
             return nil
         }
         
         if toDoManager.getNotFinishedDateToDo(date: date).isEmpty != true  {
             return UICalendarView.Decoration.default(color: colorHelper.cancelBackgroundColor, size: .large)
         }
-
+            
         return nil
     }
 }
@@ -117,12 +105,10 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
             selectAlert.addAction(check)
             selectAlert.addAction(add)
             selectAlert.addAction(cancel)
-            // 일정 없음 얼럿 띄우기
             self.present(selectAlert, animated: true, completion: nil)
             return
         }
         else {
-            // 일정 없음 얼럿 생성
             let emptySchedule = UIAlertController(title: "빈 일정", message: "해당 날짜의 일정이 없습니다.", preferredStyle: .actionSheet)
             
             let add = UIAlertAction(title: "일정 추가", style: .default) {  [weak self] action in
@@ -136,7 +122,6 @@ extension MonthlyViewController: UICalendarSelectionSingleDateDelegate {
             }
             emptySchedule.addAction(cancel)
             emptySchedule.addAction(add)
-            // 일정 없음 얼럿 띄우기
             present(emptySchedule, animated: true, completion: nil)
             
             return

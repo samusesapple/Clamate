@@ -28,7 +28,6 @@ final class DetailViewController: UIViewController {
         detailView.editStatus = false
     }
     
-    // MARK: - set Actions
     private func setActions() {
         detailView.okButton.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
         detailView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
@@ -39,10 +38,8 @@ final class DetailViewController: UIViewController {
         
     }
     
-    // MARK: - addTarget for buttons
     @objc private func dateSelectButtonTapped() {
         if detailView.editStatus != true {
-            print("date select 불가")
             return
         }
         let alert = UIAlertController(title: "날짜 설정", message: "추가할 일정의 날짜를 선택해주세요.", preferredStyle: .actionSheet)
@@ -70,7 +67,6 @@ final class DetailViewController: UIViewController {
     
     @objc private func timeSelectButtonTapped() {
         if detailView.editStatus != true {
-            print("time select 불가")
             return
         }
         let alert = UIAlertController(title: "시간 설정", message: "설정할 시간을 선택해주세요.", preferredStyle: .actionSheet)
@@ -104,7 +100,6 @@ final class DetailViewController: UIViewController {
     @objc private func okButtonTapped() {
         detailView.okButton.backgroundColor = .lightGray
         if detailView.okLabel.text == "OK" {
-            print("detailVC - ok button")
             navigationController?.popViewController(animated: true)
             return
         }
@@ -112,7 +107,6 @@ final class DetailViewController: UIViewController {
             detailView.toDoData?.todoTitle = detailView.titleTextField.text
             detailView.toDoData?.todoDetailText = detailView.detailTextView.text
             todoManager.updateToDo(newToDoData: detailView.toDoData!) {  [weak self] in
-                print("detailVC - Todo Data Changed!")
                 self?.navigationController?.popViewController(animated: true)
             }
         }
@@ -126,7 +120,6 @@ final class DetailViewController: UIViewController {
         if detailView.editLabel.text == "EDIT" {
             print("detailVC - edit button")
             let success = UIAlertAction(title: "예", style: .default) {  [weak self] action in
-                print("'예'버튼이 눌렸습니다.")
                 self?.detailView.editStatus = true
                 self?.detailView.okLabel.text = "SAVE"
                 self?.detailView.editLabel.text = "CANCEL"
@@ -134,7 +127,6 @@ final class DetailViewController: UIViewController {
             }
             
             let cancel = UIAlertAction(title: "아니오", style: .cancel) {  action in
-                print("'아니오'버튼이 눌렸습니다.")
                 setOriginalButtonColor()
             }
             alert.addAction(success)
@@ -148,13 +140,11 @@ final class DetailViewController: UIViewController {
             alert.message = "편집을 취소 하시겠습니까?"
             
             let success = UIAlertAction(title: "예", style: .default) { action in
-                print("'예'버튼이 눌렸습니다.")
                 self.navigationController?.popViewController(animated: true)
                 setOriginalButtonColor()
             }
             
             let cancel = UIAlertAction(title: "아니오", style: .cancel) { action in
-                print("'아니오'버튼이 눌렸습니다.")
                 setOriginalButtonColor()
             }
             alert.addAction(success)
@@ -168,12 +158,8 @@ final class DetailViewController: UIViewController {
         view.endEditing(true)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        print("DetailView 사라짐")
-    }
 }
 
-// MARK: - extension
 extension DetailViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -184,7 +170,7 @@ extension DetailViewController: UITextFieldDelegate {
     }
     
     private func textFieldEditingChanged(_ textField: UITextField) {
-        if textField.text?.count == 1 {        // 첫글자가 공백인지 확인
+        if textField.text?.count == 1 {       
             if textField.text?.first == " " {
                 textField.text = ""
                 return
@@ -201,7 +187,6 @@ extension DetailViewController: UITextFieldDelegate {
 }
 
 extension DetailViewController: UITextViewDelegate {
-    // 입력 못하게 막기
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if detailView.editStatus == true {
             return true
@@ -218,9 +203,7 @@ extension DetailViewController: UITextViewDelegate {
         }
     }
     
-    // 입력이 끝났을때
     func textViewDidEndEditing(_ textView: UITextView) {
-        // 비어있으면 다시 플레이스 홀더처럼 입력하기 위해서 조건 확인
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = "(선택) 추가 내용을 입력해주세요."
             textView.textColor = ColorHelper().cancelBackgroundColor
@@ -230,7 +213,7 @@ extension DetailViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text?.count == 1 {        // 첫글자가 공백인지 확인
+        if textView.text?.count == 1 {
             if textView.text?.first == " " {
                 textView.text = ""
                 return

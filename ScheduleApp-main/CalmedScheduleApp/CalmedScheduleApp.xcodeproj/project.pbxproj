@@ -92,10 +92,6 @@
 		F1198A8C29B9DBB4009E23AD = {
 			isa = PBXGroup;
 			children = (
-				F1DECA5429CDB74A001C758F /* UserData+CoreDataClass.swift */,
-				F1DECA5529CDB74A001C758F /* UserData+CoreDataProperties.swift */,
-				F1198AE429C08B42009E23AD /* TodoData+CoreDataClass.swift */,
-				F1198AE529C08B42009E23AD /* TodoData+CoreDataProperties.swift */,
 				F1198A9729B9DBB4009E23AD /* CalmedScheduleApp */,
 				F1198A9629B9DBB4009E23AD /* Products */,
 			);
@@ -157,6 +153,10 @@
 		F1198AB129B9DC75009E23AD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F1DECA5429CDB74A001C758F /* UserData+CoreDataClass.swift */,
+				F1DECA5529CDB74A001C758F /* UserData+CoreDataProperties.swift */,
+				F1198AE429C08B42009E23AD /* TodoData+CoreDataClass.swift */,
+				F1198AE529C08B42009E23AD /* TodoData+CoreDataProperties.swift */,
 				F131848A29C99E4D00C7F4D3 /* NetworkingModel.swift */,
 				F1198ADE29BC8072009E23AD /* CoreDataManager.swift */,
 				F106F72429C4476E007BCF0B /* WeatherDataManager.swift */,

@@ -68,8 +68,7 @@ final class DetailView: UIView {
         detailFieldView.layer.shadowOpacity = 0.5
         detailFieldView.layer.shadowRadius = 2.5
     }
-    // MARK: - UI 생성
-    
+
     private lazy var mainLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
@@ -80,7 +79,6 @@ final class DetailView: UIView {
         return label
     }()
     
-    // title
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
@@ -118,7 +116,6 @@ final class DetailView: UIView {
         return tf
     }()
     
-    // titleLabel + titleTextField stack
     lazy var titleStackView: UIStackView = {
         let stView = UIStackView(arrangedSubviews: [titleLabel, titleTextFieldView])
         stView.axis = .vertical
@@ -256,8 +253,6 @@ final class DetailView: UIView {
     }()
     
     
-    
-    // buttons
     lazy var okButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = colorHelper.yesButtonColor
@@ -313,8 +308,6 @@ final class DetailView: UIView {
         }()
     
     
-    // MARK: - initializer
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -324,8 +317,6 @@ final class DetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    
-    // MARK: - configureUI method
     private func configureUI() {
         self.backgroundColor = colorHelper.backgroundColor
         addSubview(mainLabel)

@@ -16,12 +16,10 @@ final class MonthlyView: UIView {
         cal.tintColor = ColorHelper().fontColor
         cal.timeZone = .autoupdatingCurrent
         cal.calendar = Calendar(identifier: .gregorian)
-        cal.availableDateRange = DateInterval(start: .now, end: .distantFuture)
         cal.locale = .current
         return cal
     }()
     
-    // MARK: - initializer
     
     override init(frame: CGRect) {
         super.init(frame: frame)

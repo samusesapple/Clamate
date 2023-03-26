@@ -156,7 +156,6 @@ final class StartView: UIView {
         return label
     }()
     
-    // MARK: - initializer
     
     
     override init(frame: CGRect) {
@@ -169,7 +168,6 @@ final class StartView: UIView {
     }
     
     
-    // MARK: - configureUI method
     func configureUI() {
         self.backgroundColor = colorHelper.backgroundColor
         addSubview(greetingLabel)
@@ -178,8 +176,6 @@ final class StartView: UIView {
         addSubview(okButton)
         setAutolayout()
     }
-    
-    // MARK: - Autolayout
     
     func setAutolayout() {
         greetingLabel.translatesAutoresizingMaskIntoConstraints = false

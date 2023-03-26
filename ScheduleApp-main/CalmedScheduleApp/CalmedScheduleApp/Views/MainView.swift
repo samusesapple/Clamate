@@ -157,8 +157,6 @@ final class MainView: UIView {
         return label
     }()
     
-    // MARK: - stackVeiw
-    
     lazy var labelStack: UIStackView = {
         var stView = UIStackView(arrangedSubviews: [greetingLabel, dateLabel])
         stView.backgroundColor = .clear
@@ -178,9 +176,6 @@ final class MainView: UIView {
         return view
     }()
     
-    // MARK: - initializer
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -190,8 +185,6 @@ final class MainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    // MARK: - configureUI method
     private func configureUI() {
         self.backgroundColor = colorHelper.backgroundColor
         addSubview(labelStack)
@@ -273,8 +266,6 @@ final class MainView: UIView {
         }
     }
     
-    
-    // MARK: - set Autolayout
     private func labelAutolayout() {
         labelStack.translatesAutoresizingMaskIntoConstraints = false
         labelStack.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
@@ -313,7 +304,6 @@ final class MainView: UIView {
         tempView.translatesAutoresizingMaskIntoConstraints = false
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        //미세먼지
         dustView.bottomAnchor.constraint(equalTo: weatherView.bottomAnchor).isActive = true
         dustView.trailingAnchor.constraint(equalTo: weatherView.trailingAnchor, constant: 10).isActive = true
         dustView.widthAnchor.constraint(equalToConstant: 100).isActive = true
@@ -323,7 +313,6 @@ final class MainView: UIView {
         dustLabel.leadingAnchor.constraint(equalTo: dustView.leadingAnchor).isActive = true
         dustLabel.trailingAnchor.constraint(equalTo: dustView.trailingAnchor).isActive = true
         
-        //현재기온
         tempView.bottomAnchor.constraint(equalTo: weatherView.bottomAnchor).isActive = true
         tempView.trailingAnchor.constraint(equalTo: dustView.leadingAnchor, constant: -15).isActive = true
         tempView.widthAnchor.constraint(equalToConstant: 100).isActive = true
@@ -334,9 +323,6 @@ final class MainView: UIView {
         tempLabel.trailingAnchor.constraint(equalTo: tempView.trailingAnchor).isActive = true
         
 
-        
-        // 현재기온 + 미세먼지
-        
         tempView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         dustView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         

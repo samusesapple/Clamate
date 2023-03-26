@@ -29,18 +29,10 @@ extension TodoData {
         let savedDateString = myFormatter.string(from: date)
         return savedDateString
     }
-    
+
     var shortDateString: String? {
         let myFormatter = DateFormatter()
         myFormatter.dateFormat = "yyyy-MM-dd (EEE)"
-        guard let date = self.todoDate else { return "" }
-        let savedDateString = myFormatter.string(from: date)
-        return savedDateString
-    }
-    
-    var longDateString: String? {
-        let myFormatter = DateFormatter()
-        myFormatter.dateFormat = "yyyy년 M월 dd일 (EEE)"
         guard let date = self.todoDate else { return "" }
         let savedDateString = myFormatter.string(from: date)
         return savedDateString

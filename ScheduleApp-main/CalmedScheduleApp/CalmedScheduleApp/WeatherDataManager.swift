@@ -18,8 +18,7 @@ final class WeatherDataManager {
     
     var tempResult: Double?
     var dustResult: Int?
-    
-    // MARK: - Temp
+
     func getTodayTemp(completion: @escaping () -> Void) {
         if userDataManager.getUserInfoFromCoreData().count > 0 {
             let userCity = userDataManager.getUserInfoFromCoreData()[0].userCity
@@ -34,11 +33,9 @@ final class WeatherDataManager {
                 }
             }
         } else {
-            print("날씨 - 유저 도시 정보 없음")
         }
     }
     
-    // MARK: - Dust
     func getTodayDust(completion: @escaping () -> Void) {
         if userDataManager.getUserInfoFromCoreData().count > 0 {
             let userCity = userDataManager.getUserInfoFromCoreData()[0].userCity
@@ -53,7 +50,6 @@ final class WeatherDataManager {
                 }
             }
         } else {
-            print("미세먼지 - 유저 도시 정보 없음")
         }
     }
     

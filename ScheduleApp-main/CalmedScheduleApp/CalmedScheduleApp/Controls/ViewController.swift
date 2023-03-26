@@ -24,7 +24,6 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
     }
     
     
-    // MARK: - set UI with Data
     private func setUpUserData() {
         if coreDataManager.getUserInfoFromCoreData().count > 0 {
             mainView.userData = coreDataManager.getUserInfoFromCoreData()[0]

@@ -11,9 +11,6 @@ final class AddView: UIView {
     
     private let colorHelper = ColorHelper()
     
-
-    // MARK: - UI 생성
-    // title
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .clear
@@ -55,7 +52,6 @@ final class AddView: UIView {
         return tf
     }()
     
-    // titleLabel + titleTextField stack
     lazy var titleStackView: UIStackView = {
         let stView = UIStackView(arrangedSubviews: [titleLabel, titleTextFieldView])
         stView.axis = .vertical
@@ -67,8 +63,6 @@ final class AddView: UIView {
     }()
     
     
-    
-    // date
     lazy var dateView: UIView = {
         let view = UIView()
         view.backgroundColor = colorHelper.buttonColor
@@ -125,8 +119,6 @@ final class AddView: UIView {
             return stView
         }()
     
-    
-    // time
     lazy var timeView: UIView = {
         let view = UIView()
         view.backgroundColor = colorHelper.buttonColor
@@ -271,9 +263,7 @@ final class AddView: UIView {
             return stView
         }()
     
-    
-    // MARK: - initializer
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -295,9 +285,6 @@ final class AddView: UIView {
         
         setAutolayout()
     }
-    
-    
-    // MARK: - set Autolayout()
     
     private let customLeadingAnchor: CGFloat = 25
     private let customHeightAnchor: CGFloat = 48

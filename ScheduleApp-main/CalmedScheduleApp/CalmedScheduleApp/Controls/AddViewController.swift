@@ -34,8 +34,6 @@ final class AddViewController: UIViewController {
     private func setup() {
         addView.titleTextField.delegate = self
         addView.detailTextView.delegate = self
-        
-//        self.tabBarController?.tabBar.isHidden = true
         setActions()
         setUI()
     }
@@ -107,7 +105,7 @@ final class AddViewController: UIViewController {
     @objc private func timeSelectButtonTapped() {
         let alert = UIAlertController(title: "시간 설정", message: "설정할 시간을 선택해주세요.", preferredStyle: .actionSheet)
         let timePicker = UIDatePicker()
-        var todayDateString = dateHelper.nowDateString
+        let todayDateString = dateHelper.nowDateString
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.locale = Locale(identifier: "ko_KR")
@@ -118,7 +116,7 @@ final class AddViewController: UIViewController {
         }
         
         let ok = UIAlertAction(title: "완료", style: .cancel) {  [weak self] action in
-            var timeString = self?.dateHelper.certainTimeString(time: timePicker.date)
+            let timeString = self?.dateHelper.certainTimeString(time: timePicker.date)
             self?.addView.timeSelectLabel.textColor = self?.colorHelper.fontColor
             self?.addView.timeSelectLabel.text = timeString
             self?.selectedTime = timePicker.date
@@ -135,7 +133,6 @@ final class AddViewController: UIViewController {
     }
     
     @objc private func addButtonTapped() {
-        // 버튼 색 및 그림자 변화
         addView.addButton.layer.shadowOpacity = 0
         addView.addButton.layer.shadowColor = .none
         addView.addButton.backgroundColor = .lightGray
@@ -146,23 +143,19 @@ final class AddViewController: UIViewController {
         let todoTime = self.selectedTime
         guard let text = titleText, !text.isEmpty && text != " ", todoDate != nil, todoTime != nil
         else {
-            // 저장실패 얼럿 생성
             let failureAlert = UIAlertController(title: "추가 실패", message: "일정의 정보를 기입해주세요.", preferredStyle: .alert)
             
             let failure = UIAlertAction(title: "돌아가기", style: .cancel) {  [weak self] action in
-                print("저장 실패")
                 self?.addView.addButton.backgroundColor = self?.colorHelper.yesButtonColor
                 self?.addView.addButton.layer.shadowColor = UIColor.black.cgColor
                 self?.addView.addButton.layer.shadowOpacity = 0.5
             }
             failureAlert.addAction(failure)
-            // 저장실패 얼럿 띄우기
             present(failureAlert, animated: true, completion: nil)
             
             return
         }
         self.toDoManager.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {  [weak self] in
-            print("저장 완료")
             self?.navigationController?.popViewController(animated: true)
         })
     }
@@ -181,11 +174,10 @@ final class AddViewController: UIViewController {
     }
     
 }
-// MARK: - extension
 
 extension AddViewController: UITextFieldDelegate {
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
-        if textField.text?.count == 1 {        // 첫글자가 공백인지 확인
+        if textField.text?.count == 1 {
             if textField.text?.first == " " {
                 textField.text = ""
                 return
@@ -202,8 +194,6 @@ extension AddViewController: UITextFieldDelegate {
 }
 
 extension AddViewController: UITextViewDelegate {
-    // 입력을 시작할때
-    // (텍스트뷰는 플레이스홀더가 따로 있지 않아서, 플레이스 홀더처럼 동작하도록 직접 구현)
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "(선택) 추가 내용을 입력해주세요." {
             textView.text = nil
@@ -213,9 +203,7 @@ extension AddViewController: UITextViewDelegate {
         }
     }
     
-    // 입력이 끝났을때
     func textViewDidEndEditing(_ textView: UITextView) {
-        // 비어있으면 다시 플레이스 홀더처럼 입력하기 위해서 조건 확인
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = "(선택) 추가 내용을 입력해주세요."
             textView.textColor = ColorHelper().cancelBackgroundColor
@@ -225,7 +213,7 @@ extension AddViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text?.count == 1 {        // 첫글자가 공백인지 확인
+        if textView.text?.count == 1 {     
             if textView.text?.first == " " {
                 textView.text = ""
                 return

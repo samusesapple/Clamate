@@ -31,8 +31,6 @@ final class StartViewController: UIViewController {
         setActions()
     }
     
-    
-    // MARK: - set Actions
     func setActions() {
         startView.nameTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         startView.cityTextField.addTarget(self, action: #selector(selectCity), for: .allTouchEvents)
@@ -61,7 +59,6 @@ final class StartViewController: UIViewController {
     
     @objc private func okButtonTapped() {
         print(#function)
-        // 버튼 색 및 그림자 변화
         startView.okButton.layer.shadowOpacity = 0
         startView.okButton.layer.shadowColor = .none
         startView.okButton.backgroundColor = .lightGray
@@ -72,12 +69,10 @@ final class StartViewController: UIViewController {
         
         guard let text = userName, !text.isEmpty && text != " ", userCity != nil
         else {
-            // 저장실패 얼럿 생성
             alert.title = "실패"
             alert.message = "정보를 기입해주세요."
             
             let failure = UIAlertAction(title: "돌아가기", style: .cancel) { action in
-                print("유저 정보 불충분")
                 self.startView.okButton.backgroundColor = self.colorHelper.yesButtonColor
                 self.startView.okButton.layer.shadowColor = UIColor.black.cgColor
                 self.startView.okButton.layer.shadowOpacity = 0.5
@@ -88,26 +83,22 @@ final class StartViewController: UIViewController {
             return
         }
         let ok = UIAlertAction(title: "저장", style: .default) { [weak self] action in
-            print("유저 정보 저장")
             self?.startView.okButton.backgroundColor = self?.colorHelper.yesButtonColor
             self?.startView.okButton.layer.shadowColor = UIColor.black.cgColor
             self?.startView.okButton.layer.shadowOpacity = 0.5
             self?.userDataManager.saveUserData(userName: userName, userCity: userCity) { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
-                print("유저 데이터 저장 완료")
             }
 
         }
         
         let cancel = UIAlertAction(title: "취소", style: .cancel) { [weak self] action in
-            print("유저 정보 불충분")
             self?.startView.okButton.backgroundColor = self?.colorHelper.yesButtonColor
             self?.startView.okButton.layer.shadowColor = UIColor.black.cgColor
             self?.startView.okButton.layer.shadowOpacity = 0.5
         }
         alert.addAction(ok)
         alert.addAction(cancel)
-        // 저장실패 얼럿 띄우기
         self.present(alert, animated: true, completion: nil)
         return
         
@@ -120,8 +111,6 @@ final class StartViewController: UIViewController {
 }
 
 
-
-// MARK: - Extension
 
 extension StartViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

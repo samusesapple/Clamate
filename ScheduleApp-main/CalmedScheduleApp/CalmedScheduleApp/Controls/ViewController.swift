@@ -17,12 +17,12 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
         view = mainView
         
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         setUpUserData()
         setUpTodaySchedule()
     }
-    
+
     
     private func setUpUserData() {
         if coreDataManager.getUserInfoFromCoreData().count > 0 {

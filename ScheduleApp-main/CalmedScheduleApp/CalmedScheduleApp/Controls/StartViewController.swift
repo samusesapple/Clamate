@@ -65,7 +65,7 @@ final class StartViewController: UIViewController {
         
         let userName = startView.nameTextField.text
         let userCity = startView.cityTextField.text
-        let alert = UIAlertController(title: "저장하시겠습니까?", message: "저장된 정보는 수정이 불가합니다.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "저장 하시겠습니까?", message: "저장된 정보는 수정이 불가합니다.", preferredStyle: .alert)
         
         guard let text = userName, !text.isEmpty && text != " ", userCity != nil
         else {

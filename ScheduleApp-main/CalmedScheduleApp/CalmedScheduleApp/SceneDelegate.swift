@@ -61,6 +61,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         item3.image = UIImage(systemName: "circle")
         item3.selectedImage = UIImage(systemName: "circle.circle.fill")
         
+        
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
     }
@@ -97,6 +98,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
-    
+
 }
 

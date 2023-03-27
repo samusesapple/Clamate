@@ -54,6 +54,8 @@ https://apps.apple.com/kr/app/clamate-%ED%81%B4%EB%9D%BC%EB%A9%94%EC%9D%B4%ED%8A
 1. 라이트모드 뿐만 아니라, 다크모드를 지원합니다.  
 <br>
 
+### 문제 및 해결 과정
+---
 
  
 ### 배운 점

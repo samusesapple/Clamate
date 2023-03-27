@@ -21,6 +21,10 @@ https://apps.apple.com/kr/app/clamate-%ED%81%B4%EB%9D%BC%EB%A9%94%EC%9D%B4%ED%8A
 #### 네트워킹
 * OpenWeatherMap의 API로 현재 기온을, AQICN에서 현재 미세먼지 현황 데이터를 각각 JSON 형태로 받았습니다.
 
+### 개발 기간
+---
+2023.03.08 ~ 2023.03.26 (약 18일 소요)
+
 ### 구현 기능
 ---
 #### Main 

@@ -55,17 +55,44 @@ https://apps.apple.com/kr/app/clamate-%ED%81%B4%EB%9D%BC%EB%A9%94%EC%9D%B4%ED%8A
 
 ### 문제 및 해결 과정
 ---
-#### 1. TableView 상의 셀의 contentView는 바로 화면에 보이지만, contentView의 하위 view(버튼, label 등)가 바로 화면에 표시되지 않는 문제가 발생했습니다.<br>
-[문제 상황 코드]<br>
+#### 1. TableView - 셀의 하위 view가 즉시 나타나지 않는 문제<br>
+문제 상황 <br>
 <img width="677" alt="image" src="https://user-images.githubusercontent.com/126672733/228141408-0e1791f4-eff3-4858-a5cf-774749dce8e4.png">
 
-* 파악 과정 : contentView의 색이 표시되는 것을 보아, tableView위에 셀을 띄우는 것이 아닌, 셀 subView의 오토레이아웃을 잡는 시점이 잘못되었다는 것을 인지했습니다. View의 drawing cycle에 대한 이해도가 부족함을 인지하고 해당 관련 문서를 찾아보았습니다. <br> 그 결과, 셀의 크기를 고정적으로 유지할 것임에도 불구하고, update cycle이 실행되는 시점에 셀 subView의 오토레이아웃을 잡은 것이 문제인 것을 깨닫게 되었습니다. update cycle 안에 호출되는 메서드로 오토레이아웃을 잡게 되면 해당 사이클이 메인 런루프의 마지막 단계에 해당 메서드가 호출되므로, subView의 오토레이아웃이 즉시 잡히지 않음을 알게 되었습니다.<br>
-덕분에 애니메이션 효과처럼 기존의 view에 ***변화를 즉각적***으로 주고 싶을 때 updateConstraintsIfNeeded(), layoutIfNeeded()와 같은 메서드를 실행하면 ***update cycle과 관계없이 즉각적으로 layoutSubviews()와 같은 함수들이 실행되기 때문에 view의 변화가 바로 반영***이 되는 점까지 알 수 있었습니다.
+파악 과정 : 
+1. contentView의 색이 표시되는 것을 보고, tableView위에 셀을 띄우는 것이 아닌, 셀 subView의 오토레이아웃을 잡는 시점이 잘못되었다는 것을 인지했습니다. 
+2. View의 drawing cycle에 대한 문서를 찾아보았습니다. <br> 그 결과, 셀의 크기를 고정적으로 유지할 것임에도 불구하고, update cycle이 실행되는 시점에 셀 subView의 오토레이아웃을 잡은 것이 문제인 것을 깨닫게 되었습니다. 
+3. update cycle 안에 호출되는 메서드로 오토레이아웃을 잡게 되면 해당 사이클이 메인 런루프의 마지막 단계에 해당 메서드가 호출되므로, subView의 오토레이아웃이 즉시 잡히지 않음을 알게 되었습니다.<br>
++ 덕분에 애니메이션 효과처럼 기존의 view에 ***변화를 즉각적***으로 주고 싶을 때 updateConstraintsIfNeeded(), layoutIfNeeded()와 같은 메서드를 실행하면 ***update cycle과 관계없이 즉각적으로 layoutSubviews()와 같은 함수들이 실행되기 때문에 view의 변화가 바로 반영***이 되는 점까지 배울 수 있었습니다. <br>
 
-* 해결 방법 : 셀의 생성자 함수 안에 오토레이아웃 잡는 함수를 넣어, 셀이 생성되는 시점에 셀 안의 sub view들의 오토레이아웃이 잡히도록 코드를 수정하여 문제를 해결할 수 있었습니다.<br> 번외) 이 과정 덕에 mainView의 현재 기온과 미세먼지를 알려주는 view의 애니메이션 효과를 줄 때 layoutIfNeeded()를 적절하게 사용 할 수 있었습니다!
+해결 방법 : 
+* 셀의 생성자 함수 안에 오토레이아웃 잡는 함수를 넣어, 셀이 생성되는 시점에 셀 안의 sub view들의 오토레이아웃이 잡히도록 코드를 수정하여 문제를 해결할 수 있었습니다.<br> + 번외) 이 과정 덕에 mainView의 현재 기온과 미세먼지를 알려주는 view의 애니메이션 효과를 줄 때 layoutIfNeeded()를 적절하게 사용 할 수 있었습니다!
 <img width="674" alt="image" src="https://user-images.githubusercontent.com/126672733/228148510-e5f22a40-ba94-4087-8589-af152ea60fb0.png">
 [MainView의 애니메이션 효과 주는 코드]
 <img width="874" alt="image" src="https://user-images.githubusercontent.com/126672733/228148266-700714f0-fe2d-46cf-b81f-a0153aa108c0.png">
+<br>
+<br>
+
+#### 2. User 정보가 존재하지 않는 경우에만 StartView를 띄우는 방법
+해결 방법 : 
+1. User정보만 저장하는 CoreData entity를 따로 생성했습니다. 
+2. StartView가 사라지지 않은 채로 다른 view를 띄우지 않기 위해, navigation바의 루트 뷰로 설정했습니다.
+3. User정보가 있는 경우와 없는 경우를 분기처리한 함수를 만들었습니다.<br>
+<img width="779" alt="image" src="https://user-images.githubusercontent.com/126672733/228158289-656386a7-9c90-4ead-a3f7-152e520963b8.png">
+4. 해당 메서드를 viewWillAppear()에 호출하여, StartView를 user가 옆으로 스와이프해도 계속해서 유저 정보를 요청할 수 있도록 만들었습니다.
+
+<br>
+<br>
+<br>
+
+
+#### 3. DateFormatter를 자주 사용해서 메서드가 자주 비대해짐
+* 파악 과정 : 코드를 되돌아보는 도중, 날짜와 시간을 사용할 때마다 DateFormatter를 번번이 작성하는 것을 깨닫게 되어 코드 낭비라는 생각이 들었습니다.
+
+* 해결 방법 : DateHelper라는 구조체 모델을 하나 생성하여 dateFormatter가 필요할 때마다 해당 모델을 변수에 담아 사용하여 코드 낭비를 방지했습니다.
+<br>
+<br>
+
 
  
 ### 배운 점
@@ -85,7 +112,6 @@ https://apps.apple.com/kr/app/clamate-%ED%81%B4%EB%9D%BC%EB%A9%94%EC%9D%B4%ED%8A
 
 ### 심사 과정
 ---
-Reject없이 통과 되었습니다. (하단 이미지 참고)
 <img width="1064" alt="image" src="https://user-images.githubusercontent.com/126672733/227861133-5deee717-aa3e-48b1-9154-e688892991aa.png">
 <br>  
 

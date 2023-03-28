@@ -4,6 +4,7 @@
 <br>
 <br>
 
+
 ### 계기 및 배경
 ---
 알레르기성 비염이 있어 외출하기 전, 온도와 미세먼지를 항상 검색하는 편 입니다.
@@ -11,6 +12,11 @@
 불편함을 해소하기 위해 온도와 미세먼지 정보를 알려주는 ToDo 앱을 만들어보았습니다.
 ***Swift를 공부한 후, 처음으로 만든 개인 프로젝트***입니다.
 <br>
+<br>
+![Simulator Screen Recording - iPhone 14 - 2023-03-28 at 18 36 06](https://user-images.githubusercontent.com/126672733/228194873-5b8871d9-be13-4267-b2fa-8db57c93c9bd.gif)
+![Simulator Screen Recording - iPhone 14 - 2023-03-28 at 18 44 54](https://user-images.githubusercontent.com/126672733/228197269-8572f8d4-1b98-4f39-b64b-a00ddd1de671.gif)
+![Simulator Screen Recording - iPhone 14 - 2023-03-28 at 18 46 50](https://user-images.githubusercontent.com/126672733/228197884-b3fb1ea4-33d5-460d-b18f-8074ff232991.gif)
+
 <br>
 <br>
 

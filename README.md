@@ -102,14 +102,14 @@
 ### 배운 점
 ---
 1. CoreData를 CRUD하는 법을 배웠습니다.
-2. REST API를 통해 JSON 형식의 데이터를 받아 원하는 모델로 Decoding하여 처리하는 것을 배웠습니다.
-3. @escaping 키워드의 존재 이유와 GCD의 역할을 보다 더 이해할 수 있게 되었습니다.
-3. View의 life cycle에 대해 배웠습니다.
-4. didSet 속성감시자를 활용하여 view를 그리는 법을 배웠습니다.
+2. REST API를 통해 JSON 형식의 데이터를 받아 원하는 모델로 Decoding하여 처리하는 것에 익숙해질 수 있었습니다.
+3. @escaping 키워드의 존재 이유와 GCD의 역할을 보다 더 이해할 수 있었습니다.
+3. View의 life cycle에 대해 경험하며 배울 수 있었습니다.
+4. didSet 속성감시자를 활용하여 데이터를 주고받으며 view를 그릴 수 .
 5. TableView에 swipe action을 추가하는 법을 배웠습니다.
 6. 외부 변수를 캡처하는 클로저의 캡처리스트에 weak 키워드를 사용하여 RC를 관리하는 법을 배웠습니다.
-7. WWDC22에 출시된 UICalendarView를 사용하는 법을 배웠습니다.
-7. 다크모드를 구현하는 법을 배웠습니다.  
+7. WWDC22에 출시된 UICalendarView를 사용하는 법을 배울 수 있었습니다.
+7. 다크모드를 구현하는 법을 학습했습니다.  
 <br>
 <br>
 <br>

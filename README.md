@@ -59,7 +59,7 @@ https://apps.apple.com/kr/app/clamate-%ED%81%B4%EB%9D%BC%EB%A9%94%EC%9D%B4%ED%8A
 [문제 상황 코드]<br>
 <img width="677" alt="image" src="https://user-images.githubusercontent.com/126672733/228141408-0e1791f4-eff3-4858-a5cf-774749dce8e4.png">
 
-* 파악 과정 : contentView의 색이 표시되는 것을 보아, tableView위에 셀을 띄우는 것이 아닌, 셀 subView의 오토레이아웃을 잡는 시점이 잘못되었다는 것을 인지했습니다. View의 drawing cycle에 대한 이해도가 부족함을 인지하고 해당 관련 문서를 찾아보았습니다. <br> 그 결과, 셀의 크기를 고정적으로 유지할 것임에도 불구하고, updateConstraints()가 실행되는 시점에 셀 subView의 오토레이아웃을 잡은 것이 문제인 것을 깨닫게 되었습니다. update cycle 안에 호출되는 메서드로 오토레이아웃을 잡게 되면 해당 사이클이 메인 런루프의 마지막 단계에 해당 메서드가 호출되므로, subView의 오토레이아웃이 즉시 잡히지 않음을 알게 되었습니다.<br>
+* 파악 과정 : contentView의 색이 표시되는 것을 보아, tableView위에 셀을 띄우는 것이 아닌, 셀 subView의 오토레이아웃을 잡는 시점이 잘못되었다는 것을 인지했습니다. View의 drawing cycle에 대한 이해도가 부족함을 인지하고 해당 관련 문서를 찾아보았습니다. <br> 그 결과, 셀의 크기를 고정적으로 유지할 것임에도 불구하고, update cycle이 실행되는 시점에 셀 subView의 오토레이아웃을 잡은 것이 문제인 것을 깨닫게 되었습니다. update cycle 안에 호출되는 메서드로 오토레이아웃을 잡게 되면 해당 사이클이 메인 런루프의 마지막 단계에 해당 메서드가 호출되므로, subView의 오토레이아웃이 즉시 잡히지 않음을 알게 되었습니다.<br>
 덕분에 애니메이션 효과처럼 기존의 view에 ***변화를 즉각적***으로 주고 싶을 때 updateConstraintsIfNeeded(), layoutIfNeeded()와 같은 메서드를 실행하면 ***update cycle과 관계없이 즉각적으로 layoutSubviews()와 같은 함수들이 실행되기 때문에 view의 변화가 바로 반영***이 되는 점까지 알 수 있었습니다.
 
 * 해결 방법 : 셀의 생성자 함수 안에 오토레이아웃 잡는 함수를 넣어, 셀이 생성되는 시점에 셀 안의 sub view들의 오토레이아웃이 잡히도록 코드를 수정하여 문제를 해결할 수 있었습니다.<br> 번외) 이 과정 덕에 mainView의 현재 기온과 미세먼지를 알려주는 view의 애니메이션 효과를 줄 때 layoutIfNeeded()를 적절하게 사용 할 수 있었습니다!

@@ -24,12 +24,6 @@ final class MainView: UIView {
         }
     }
     
-    var moistResult: Int? {
-        didSet {
-
-        }
-    }
-
     var userData: UserData? {
         didSet {
             setUserData()

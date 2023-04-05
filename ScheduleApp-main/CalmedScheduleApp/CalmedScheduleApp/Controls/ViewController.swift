@@ -15,7 +15,6 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
     
     override func loadView() {
         view = mainView
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

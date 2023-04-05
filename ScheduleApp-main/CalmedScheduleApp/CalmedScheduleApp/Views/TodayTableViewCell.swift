@@ -82,7 +82,6 @@ final class TodayTableViewCell: UITableViewCell {
         
     
     // MARK: - initializer
-    // 생성 시점에 뷰 위에 객체들 올리기
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         contentView.layer.cornerRadius = 5

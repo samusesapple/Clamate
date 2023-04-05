@@ -41,7 +41,7 @@ final class StartViewController: UIViewController {
     @objc func selectCity() {
         print(#function)
         let pickerView = UIPickerView()
-        let alert = UIAlertController(title: "지역 선택", message: "\n\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "\n\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "확인", style: .cancel) { [weak self] _ in
             self?.selectedRow = self!.focusedRow

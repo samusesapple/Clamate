@@ -27,7 +27,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarVC.setViewControllers([vc1, vc2, vc3], animated: false)
         
         let appearance = UITabBarAppearance()
-        appearance.configureWithTransparentBackground()
         appearance.backgroundColor = ColorHelper().backgroundColor
         appearance.configureWithTransparentBackground()
         tabBarVC.tabBar.standardAppearance = appearance

@@ -47,7 +47,3 @@ extension TodoData {
     }
 }
 
-
-extension TodoData : Identifiable {
-
-}

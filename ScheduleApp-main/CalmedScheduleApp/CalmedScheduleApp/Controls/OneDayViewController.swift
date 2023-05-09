@@ -193,10 +193,7 @@ extension OneDayViewController: UITableViewDataSource {
         }
         
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
 
-    }
 }
 
 extension OneDayViewController: UITableViewDelegate {
@@ -234,6 +231,7 @@ extension OneDayViewController: UITableViewDelegate {
                 case 0:
                     let data = self?.toDoManager.getNotFinishedDateToDo(date: Date())
                     self?.toDoManager.deleteToDo(data: data![indexPath.row]) {
+                        print("section: \(indexPath.section), row: \(data![indexPath.row])")
                         tableView.reloadData()
                     }
                 case 1:
@@ -245,8 +243,7 @@ extension OneDayViewController: UITableViewDelegate {
                     break
                 }
             }
-            let no = UIAlertAction(title: "아니오", style: .cancel) { action in
-            }
+            let no = UIAlertAction(title: "아니오", style: .cancel)
             alert.addAction(yes)
             alert.addAction(no)
             self.present(alert, animated: true, completion: nil)

@@ -63,4 +63,25 @@ struct LocalNotificationManager {
         addNotification(title: title, body: body)
         scheduleNotifications(duration, repeats: repeats, userInfo: userInfo)
     }
+    
+    /// Notification Center에 등록된 알림 다 지우고 새로 세팅하기
+    static func setPushNotification() {
+        cancelNotifications()
+        
+        let datas = CoreDataManager.shared.getDataToSetOnNotificationCenter()
+        
+        for data in datas {
+            guard let date = data.todoDate,
+                  let time = data.todoTime,
+                  let title = data.todoTitle,
+                  let combinedDate = Date.combine(date: date, time: time) else { return }
+            
+            LocalNotificationManager.setNotification(Int(combinedDate.timeIntervalSinceNow),
+                                                     repeats: false,
+                                                     title: title,
+                                                     body: nil,
+                                                     userInfo: ["aps" : ["user" : "info"]])
+            print("알림 세팅 완료: \(title)")
+        }
+    }
 }

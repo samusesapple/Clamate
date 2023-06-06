@@ -76,8 +76,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-        let datas = getDataToSetOnNotificationCenter()
-        setPushNotification(with: datas)
+        LocalNotificationManager.setPushNotification()
     }
     
     func sceneWillResignActive(_ scene: UIScene) {
@@ -100,41 +99,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
-    
-    /// 1. 완료되지 않은 Todo Data들을 얻기
-    func getDataToSetOnNotificationCenter() -> [TodoData] {
-        let todoData = CoreDataManager.shared.getToDoListFromCoreData()
-        var filteredData: [TodoData] = []
-        for data in todoData {
-            guard let date = data.todoDate,
-                  let time = data.todoTime,
-                  let combinedDate = Date.combine(date: date, time: time),
-                  combinedDate.timeIntervalSinceNow >= 0,
-                  data.done == false else { continue } // 현재 시간 이후의 완료되지 않은 일정의 데이터만 받아오기
-            filteredData.append(data)
-        }
-        print(filteredData.count)
-        return filteredData
-    }
-    
-    /// 2.  UserNotificationCenter에 알림 등록하기
-    func setPushNotification(with datas: [TodoData]) {
-        LocalNotificationManager.cancelNotifications()
-        
-        for data in datas {
-            guard let date = data.todoDate,
-                  let time = data.todoTime,
-                  let title = data.todoTitle,
-                  let combinedDate = Date.combine(date: date, time: time) else { return }
-            
-            LocalNotificationManager.setNotification(Int(combinedDate.timeIntervalSinceNow),
-                                                     repeats: false,
-                                                     title: title,
-                                                     body: nil,
-                                                     userInfo: ["aps" : ["hello" : "world"]])
-            print("알림 세팅 완료: \(title)")
-        }
-    }
 
 }
 

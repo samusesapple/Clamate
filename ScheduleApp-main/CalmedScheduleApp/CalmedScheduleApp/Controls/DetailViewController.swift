@@ -35,7 +35,6 @@ final class DetailViewController: UIViewController {
         
         detailView.dateSelectButton.addTarget(self, action: #selector(dateSelectButtonTapped), for: .touchUpInside)
         detailView.timeSelectButton.addTarget(self, action: #selector(timeSelectButtonTapped), for: .touchUpInside)
-        
     }
     
     @objc private func dateSelectButtonTapped() {
@@ -108,6 +107,8 @@ final class DetailViewController: UIViewController {
             detailView.toDoData?.todoTitle = detailView.titleTextField.text
             detailView.toDoData?.todoDetailText = detailView.detailTextView.text
             todoManager.updateToDo(newToDoData: detailView.toDoData!) {  [weak self] in
+                
+                LocalNotificationManager.setPushNotification()
                 self?.navigationController?.popViewController(animated: true)
             }
         }

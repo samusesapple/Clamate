@@ -247,6 +247,21 @@ final class CoreDataManager {
         }
     }
     
+    /// Notification Center에 등록할 데이터 가져오기
+    func getDataToSetOnNotificationCenter() -> [TodoData] {
+        let todoData = getToDoListFromCoreData()
+        var filteredData: [TodoData] = []
+        for data in todoData {
+            guard let date = data.todoDate,
+                  let time = data.todoTime,
+                  let combinedDate = Date.combine(date: date, time: time),
+                  combinedDate.timeIntervalSinceNow >= 0,
+                  data.done == false else { continue } // 현재 시간 이후의 완료되지 않은 일정의 데이터만 받아오기
+            filteredData.append(data)
+        }
+        print(filteredData.count)
+        return filteredData
+    }
 
     
 }

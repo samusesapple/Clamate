@@ -12,9 +12,8 @@ final class AddViewController: UIViewController {
     private let dateHelper = DateHelper()
     
     private let addView = AddView()
-    var selectedDate: Date? 
+    var selectedDate: Date?
     private var selectedTime: Date?
-    private var toDoManager = CoreDataManager.shared
     
     override func loadView() {
         view = addView
@@ -22,29 +21,25 @@ final class AddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        addView.titleTextField.delegate = self
+        addView.detailTextView.delegate = self
         
+        configureUI()
+        setActions()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
-        print("Add View 나타남")
         tabBarController?.tabBar.isHidden = true
         setUIwithDate()
     }
-    
-    private func setup() {
-        addView.titleTextField.delegate = self
-        addView.detailTextView.delegate = self
-        setActions()
-        setUI()
-    }
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
     
-    // MARK: - set UI
-    private func setUI() {
+    // MARK: - Helpers
+    
+    private func configureUI() {
         addView.dateSelectLabel.textColor = colorHelper.cancelBackgroundColor
         addView.dateSelectLabel.text = "날짜를 선택해주세요."
         addView.timeSelectLabel.textColor = colorHelper.cancelBackgroundColor
@@ -57,8 +52,6 @@ final class AddViewController: UIViewController {
         addView.dateSelectLabel.text = dateHelper.shortDateString(date: selectedDate)
     }
     
-
-    // MARK: - set Actions
     private func setActions() {
         addView.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         addView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
@@ -69,8 +62,24 @@ final class AddViewController: UIViewController {
         addView.timeSelectButton.addTarget(self, action: #selector(timeSelectButtonTapped), for: .touchUpInside)
     }
     
-    // MARK: - @objc funcs
-
+    // MARK: - Set Push Notifications
+    
+   private func setPushNotification(date: Date?, time: Date?, title: String?) {
+        guard let date = date,
+                let time = time,
+                let title = title,
+                let combinedDate = Date.combine(date: date, time: time) else { return }
+        
+        LocalNotificationManager.setNotification(Int(combinedDate.timeIntervalSinceNow),
+                                                 repeats: false,
+                                                 title: title,
+                                                 body: nil,
+                                                 userInfo: ["aps" : ["user" : "info"]])
+        print("알림 세팅 완료: \(title)")
+    }
+    
+    // MARK: - Actions
+    
     @objc private func dateSelectButtonTapped() {
         let alert = UIAlertController(title: "날짜 설정", message: "추가할 일정의 날짜를 선택해주세요.", preferredStyle: .actionSheet)
         let datePicker = UIDatePicker()
@@ -107,8 +116,10 @@ final class AddViewController: UIViewController {
         let timePicker = UIDatePicker()
         let todayDateString = dateHelper.nowDateString
         timePicker.datePickerMode = .time
+        timePicker.minuteInterval = 5
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.locale = Locale(identifier: "ko_KR")
+        
         if addView.dateSelectLabel.text == todayDateString {
             timePicker.minimumDate = .now
         } else if addView.dateSelectLabel.text == "날짜를 선택해주세요." {
@@ -141,9 +152,14 @@ final class AddViewController: UIViewController {
         let detailText = addView.detailTextView.text
         let todoDate = self.selectedDate
         let todoTime = self.selectedTime
-        guard let text = titleText, !text.isEmpty && text != " ", todoDate != nil, todoTime != nil
+        
+        guard let text = titleText,
+              let todoTime = todoTime,
+                !text.isEmpty && text != " ",
+                todoDate != nil,
+              todoTime.timeIntervalSinceNow > 0
         else {
-            let failureAlert = UIAlertController(title: "추가 실패", message: "일정의 정보를 기입해주세요.", preferredStyle: .alert)
+            let failureAlert = UIAlertController(title: "추가 실패", message: "정보를 다시 확인해주세요.", preferredStyle: .alert)
             
             let failure = UIAlertAction(title: "돌아가기", style: .cancel) {  [weak self] action in
                 self?.addView.addButton.backgroundColor = self?.colorHelper.yesButtonColor
@@ -152,16 +168,24 @@ final class AddViewController: UIViewController {
             }
             failureAlert.addAction(failure)
             present(failureAlert, animated: true, completion: nil)
-            
             return
         }
-        self.toDoManager.saveToDoData(todoDate: todoDate, todoTime: todoTime, todoTitle: titleText, todoDetail: detailText, todoDone: false, completion: {  [weak self] in
+        
+        CoreDataManager.shared.saveToDoData(todoDate: todoDate,
+                                      todoTime: todoTime,
+                                      todoTitle: titleText,
+                                      todoDetail: detailText,
+                                      todoDone: false, completion: {  [weak self] in
+            // 푸시 알림 설정하기
+            self?.setPushNotification(date: todoDate,
+                                      time: todoTime,
+                                      title: titleText)
             self?.navigationController?.popViewController(animated: true)
         })
     }
-        
-                                          
-
+    
+    
+    
     @objc private func cancelButtonTapped() {
         navigationController?.popViewController(animated: true)
         addView.cancelButton.layer.shadowOpacity = 0
@@ -175,6 +199,8 @@ final class AddViewController: UIViewController {
     
 }
 
+// MARK: - UITextFieldDelegate
+
 extension AddViewController: UITextFieldDelegate {
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         if textField.text?.count == 1 {
@@ -183,7 +209,7 @@ extension AddViewController: UITextFieldDelegate {
                 return
             }
         } else {
-
+            
         }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -192,6 +218,8 @@ extension AddViewController: UITextFieldDelegate {
         return true
     }
 }
+
+// MARK: - UITextViewDelegate
 
 extension AddViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -213,7 +241,7 @@ extension AddViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text?.count == 1 {     
+        if textView.text?.count == 1 {
             if textView.text?.first == " " {
                 textView.text = ""
                 return

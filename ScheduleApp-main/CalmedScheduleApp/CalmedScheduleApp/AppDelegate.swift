@@ -12,10 +12,8 @@ import UserNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        registerForPushNotifications()
         return true
     }
 
@@ -80,7 +78,57 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// MARK: - AppDelegate Extension to check Notification Register Conditions
 
+extension AppDelegate {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data -> String in
+            return String(format: "%02.2hhx", data)
+        }
+        let token = tokenParts.joined()
+        print("디바이스 토큰 : \(token)")
+        let bundleId = Bundle.main.bundleIdentifier
+        print("번들 ID: \(token) \(String(describing: bundleId))")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("노티피케이션 등록 실패 : \(error.localizedDescription)")
+    }
+}
+
+// MARK: - UNUserNotificationCenterDelegate
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
+    private func registerForPushNotifications() {
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
+            (success, error) in
+            // 1. Check to see if permission is granted
+            guard success else { return }
+            // 2. Attempt registration for remote notifications on the main thread
+            print("APNS 등록 성공")
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .badge, .sound])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        defer { completionHandler() }
+        guard response.actionIdentifier == UNNotificationDefaultActionIdentifier else { return }
+        
+        let content = response.notification.request.content
+        print("제목: \(content.title)")
+        print("내용: \(content.body)")
+        
+        if let userInfo = content.userInfo as? [String: Any],
+           let aps = userInfo["aps"] as? [String: Any] {
+            print("aps: \(aps)")
+        }
+    }
 }

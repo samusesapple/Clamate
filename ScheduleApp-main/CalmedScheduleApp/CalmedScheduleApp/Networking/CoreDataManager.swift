@@ -182,11 +182,7 @@ final class CoreDataManager {
                 }
             }
         }
-        completion()
     }
-    
-
-    
     
     func deleteToDo(data: TodoData, completion: @escaping () -> Void) {
         guard let date = data.todoDate

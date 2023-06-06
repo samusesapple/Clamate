@@ -41,7 +41,6 @@ final class MonthlyView: UIView {
     // MARK: - set Constraints
     
     func setConstriaints() {
-        
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         calendarView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         calendarView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true

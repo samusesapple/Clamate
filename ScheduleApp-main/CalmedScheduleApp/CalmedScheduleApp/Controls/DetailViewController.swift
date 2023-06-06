@@ -73,6 +73,7 @@ final class DetailViewController: UIViewController {
         let timePicker = UIDatePicker()
         
         timePicker.datePickerMode = .time
+        timePicker.minuteInterval = 5
         timePicker.preferredDatePickerStyle = .wheels
         timePicker.locale = Locale(identifier: "ko_KR")
         if detailView.dateSelectLabel.text == dateHelper.nowDateString {

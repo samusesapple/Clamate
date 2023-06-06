@@ -13,7 +13,7 @@
 		F106F72D29C98BFB007BCF0B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72C29C98BFB007BCF0B /* NetworkManager.swift */; };
 		F1198A9929B9DBB4009E23AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9829B9DBB4009E23AD /* AppDelegate.swift */; };
 		F1198A9B29B9DBB4009E23AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9A29B9DBB4009E23AD /* SceneDelegate.swift */; };
-		F1198A9D29B9DBB4009E23AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9C29B9DBB4009E23AD /* ViewController.swift */; };
+		F1198A9D29B9DBB4009E23AD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198A9C29B9DBB4009E23AD /* MainViewController.swift */; };
 		F1198AA329B9DBB4009E23AD /* CalmedScheduleApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1198AA129B9DBB4009E23AD /* CalmedScheduleApp.xcdatamodeld */; };
 		F1198AA529B9DBB4009E23AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1198AA429B9DBB4009E23AD /* Assets.xcassets */; };
 		F1198AA829B9DBB4009E23AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1198AA629B9DBB4009E23AD /* LaunchScreen.storyboard */; };
@@ -32,6 +32,9 @@
 		F131848D29CB0DDF00C7F4D3 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848C29CB0DDF00C7F4D3 /* DateHelper.swift */; };
 		F131848F29CC010300C7F4D3 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848E29CC010300C7F4D3 /* StartView.swift */; };
 		F131849129CC01EA00C7F4D3 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131849029CC01EA00C7F4D3 /* StartViewController.swift */; };
+		F15A4F7A2A2F11AF00793806 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A4F792A2F11AF00793806 /* NotificationModel.swift */; };
+		F15A4F7C2A2F11E900793806 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A4F7B2A2F11E900793806 /* LocalNotificationManager.swift */; };
+		F15A4F7F2A2F1BD400793806 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A4F7E2A2F1BD400793806 /* Date+Extension.swift */; };
 		F1DECA5629CDB74A001C758F /* UserData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DECA5429CDB74A001C758F /* UserData+CoreDataClass.swift */; };
 		F1DECA5729CDB74A001C758F /* UserData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DECA5529CDB74A001C758F /* UserData+CoreDataProperties.swift */; };
 		F1DECA5929CEF203001C758F /* CertainDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DECA5829CEF203001C758F /* CertainDayViewController.swift */; };
@@ -45,7 +48,7 @@
 		F1198A9529B9DBB4009E23AD /* Clamate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clamate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1198A9829B9DBB4009E23AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1198A9A29B9DBB4009E23AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F1198A9C29B9DBB4009E23AD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F1198A9C29B9DBB4009E23AD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F1198AA229B9DBB4009E23AD /* CalmedScheduleApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CalmedScheduleApp.xcdatamodel; sourceTree = "<group>"; };
 		F1198AA429B9DBB4009E23AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1198AA729B9DBB4009E23AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -65,6 +68,10 @@
 		F131848C29CB0DDF00C7F4D3 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		F131848E29CC010300C7F4D3 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		F131849029CC01EA00C7F4D3 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		F15A4F742A2EBECF00793806 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		F15A4F792A2F11AF00793806 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		F15A4F7B2A2F11E900793806 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
+		F15A4F7E2A2F1BD400793806 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		F1DECA5429CDB74A001C758F /* UserData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F1DECA5529CDB74A001C758F /* UserData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F1DECA5829CEF203001C758F /* CertainDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertainDayViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +126,7 @@
 				F1198AB129B9DC75009E23AD /* Models */,
 				F1198AB029B9DC6A009E23AD /* Views */,
 				F1198AAF29B9DC61009E23AD /* Controls */,
+				F15A4F7D2A2F1BB300793806 /* Utilties */,
 				F1198AA429B9DBB4009E23AD /* Assets.xcassets */,
 				F1198AA629B9DBB4009E23AD /* LaunchScreen.storyboard */,
 				F1198AA929B9DBB4009E23AD /* Info.plist */,
@@ -131,7 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				F131849029CC01EA00C7F4D3 /* StartViewController.swift */,
-				F1198A9C29B9DBB4009E23AD /* ViewController.swift */,
+				F1198A9C29B9DBB4009E23AD /* MainViewController.swift */,
 				F1198AB929BADBB2009E23AD /* OneDayViewController.swift */,
 				F1DECA5829CEF203001C758F /* CertainDayViewController.swift */,
 				F1198AD829BC63AC009E23AD /* AddViewController.swift */,
@@ -162,6 +170,7 @@
 				F1198AE429C08B42009E23AD /* TodoData+CoreDataClass.swift */,
 				F1198AE529C08B42009E23AD /* TodoData+CoreDataProperties.swift */,
 				F131848A29C99E4D00C7F4D3 /* NetworkingModel.swift */,
+				F15A4F792A2F11AF00793806 /* NotificationModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -171,8 +180,17 @@
 			children = (
 				F1198AB529B9DCBF009E23AD /* ColorHelper.swift */,
 				F131848C29CB0DDF00C7F4D3 /* DateHelper.swift */,
+				F15A4F7B2A2F11E900793806 /* LocalNotificationManager.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F15A4F7D2A2F1BB300793806 /* Utilties */ = {
+			isa = PBXGroup;
+			children = (
+				F15A4F7E2A2F1BD400793806 /* Date+Extension.swift */,
+			);
+			path = Utilties;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,11 +230,11 @@
 			};
 			buildConfigurationList = F1198A9029B9DBB4009E23AD /* Build configuration list for PBXProject "CalmedScheduleApp" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ko,
 			);
 			mainGroup = F1198A8C29B9DBB4009E23AD;
 			productRefGroup = F1198A9629B9DBB4009E23AD /* Products */;
@@ -250,7 +268,7 @@
 				F131848F29CC010300C7F4D3 /* StartView.swift in Sources */,
 				F131849129CC01EA00C7F4D3 /* StartViewController.swift in Sources */,
 				F1198AEB29C1C6E5009E23AD /* DetailViewController.swift in Sources */,
-				F1198A9D29B9DBB4009E23AD /* ViewController.swift in Sources */,
+				F1198A9D29B9DBB4009E23AD /* MainViewController.swift in Sources */,
 				F1198AE929C08B42009E23AD /* TodoData+CoreDataProperties.swift in Sources */,
 				F1DECA5729CDB74A001C758F /* UserData+CoreDataProperties.swift in Sources */,
 				F106F72729C47EEA007BCF0B /* MonthlyView.swift in Sources */,
@@ -259,10 +277,13 @@
 				F1198ADF29BC8072009E23AD /* CoreDataManager.swift in Sources */,
 				F1198AD929BC63AC009E23AD /* AddViewController.swift in Sources */,
 				F106F72529C4476E007BCF0B /* WeatherDataManager.swift in Sources */,
+				F15A4F7C2A2F11E900793806 /* LocalNotificationManager.swift in Sources */,
 				F1DECA5629CDB74A001C758F /* UserData+CoreDataClass.swift in Sources */,
+				F15A4F7F2A2F1BD400793806 /* Date+Extension.swift in Sources */,
 				F1198AA329B9DBB4009E23AD /* CalmedScheduleApp.xcdatamodeld in Sources */,
 				F1198ABA29BADBB2009E23AD /* OneDayViewController.swift in Sources */,
 				F131848D29CB0DDF00C7F4D3 /* DateHelper.swift in Sources */,
+				F15A4F7A2A2F11AF00793806 /* NotificationModel.swift in Sources */,
 				F1198AB329B9DC96009E23AD /* MainView.swift in Sources */,
 				F1198AE829C08B42009E23AD /* TodoData+CoreDataClass.swift in Sources */,
 				F1198A9B29B9DBB4009E23AD /* SceneDelegate.swift in Sources */,
@@ -281,6 +302,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				F1198AA729B9DBB4009E23AD /* Base */,
+				F15A4F742A2EBECF00793806 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -292,6 +314,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -354,6 +377,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import UserNotifications
 
-final class ViewController: UIViewController, UITabBarDelegate, UINavigationControllerDelegate {
+final class MainViewController: UIViewController, UITabBarDelegate, UINavigationControllerDelegate {
     private let colorHelper = ColorHelper()
     private var mainView = MainView()
     private let coreDataManager = CoreDataManager.shared
@@ -16,7 +17,7 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
     override func loadView() {
         view = mainView
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         setUpUserData()
         setUpTodaySchedule()
@@ -62,7 +63,6 @@ final class ViewController: UIViewController, UITabBarDelegate, UINavigationCont
             }
         }
     }
-    
 }
 
 

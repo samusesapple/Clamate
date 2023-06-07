@@ -156,8 +156,7 @@ final class AddViewController: UIViewController {
         guard let text = titleText,
               let todoTime = todoTime,
                 !text.isEmpty && text != " ",
-                todoDate != nil,
-              todoTime.timeIntervalSinceNow > 0
+              let todoDate = todoDate
         else {
             let failureAlert = UIAlertController(title: "추가 실패", message: "정보를 다시 확인해주세요.", preferredStyle: .alert)
             

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class StartViewController: UIViewController {
     
@@ -31,24 +32,23 @@ final class StartViewController: UIViewController {
         setActions()
     }
     
-    func setActions() {
+    private func setActions() {
         startView.nameTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         startView.cityTextField.addTarget(self, action: #selector(selectCity), for: .allTouchEvents)
         startView.okButton.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
         
     }
     
-    @objc func selectCity() {
-        print(#function)
+    @objc private func selectCity() {
         let pickerView = UIPickerView()
-        let alert = UIAlertController(title: nil, message: "\n\n\n\n\n\n\n\n", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "\n\n\n\n\n\n", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "확인", style: .cancel) { [weak self] _ in
             self?.selectedRow = self!.focusedRow
     
         })
         
-        pickerView.frame = CGRect(x: 50, y: 50, width: 270, height: 130)
+        pickerView.frame = CGRect(x: 50, y: 0, width: 270, height: 130)
         pickerView.delegate = self
         pickerView.dataSource = self
         
@@ -58,7 +58,6 @@ final class StartViewController: UIViewController {
     
     
     @objc private func okButtonTapped() {
-        print(#function)
         startView.okButton.layer.shadowOpacity = 0
         startView.okButton.layer.shadowColor = .none
         startView.okButton.backgroundColor = .lightGray
@@ -82,6 +81,7 @@ final class StartViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             return
         }
+        
         let ok = UIAlertAction(title: "저장", style: .default) { [weak self] action in
             self?.startView.okButton.backgroundColor = self?.colorHelper.yesButtonColor
             self?.startView.okButton.layer.shadowColor = UIColor.black.cgColor
@@ -99,10 +99,8 @@ final class StartViewController: UIViewController {
         }
         alert.addAction(ok)
         alert.addAction(cancel)
+        
         self.present(alert, animated: true, completion: nil)
-        return
-        
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -160,8 +158,7 @@ extension StartViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        focusedRow = row
-        startView.cityTextField.text = location[focusedRow]
+        startView.cityTextField.text = location[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat
@@ -169,4 +166,21 @@ extension StartViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return 30
     }
     
+}
+
+struct StartViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        return StartViewController_SwiftUI()
+    }
+}
+
+struct StartViewController_SwiftUI: UIViewControllerRepresentable {
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        
+    }
+    
+    func makeUIViewController(context: Context) -> some StartViewController {
+        return StartViewController()
+    }
 }

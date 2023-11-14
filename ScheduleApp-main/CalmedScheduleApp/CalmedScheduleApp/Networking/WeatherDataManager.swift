@@ -18,41 +18,39 @@ final class WeatherDataManager {
     
     var tempResult: Double?
     var dustResult: Int?
-
+    
     func getTodayTemp(completion: @escaping () -> Void) {
-        if userDataManager.getUserInfoFromCoreData().count > 0 {
-            let userCity = userDataManager.getUserInfoFromCoreData()[0].userCity
-            networkManager.fetchTemp(city: userCity ?? "Seoul") { result in
-                switch result {
-                case .success(let result):
-                    self.tempResult = result as? Double
-                    completion()
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    completion()
-                }
+        guard let userData = userDataManager.getUserInfoFromCoreData() else {
+            return
+        }
+        let userCity = userData.userCity
+        
+        networkManager.fetchTemp(city: userCity ?? "Seoul") { result in
+            switch result {
+            case .success(let result):
+                self.tempResult = result as? Double
+                completion()
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion()
             }
-        } else {
         }
     }
     
     func getTodayDust(completion: @escaping () -> Void) {
-        if userDataManager.getUserInfoFromCoreData().count > 0 {
-            let userCity = userDataManager.getUserInfoFromCoreData()[0].userCity
-            networkManager.fetchDust(city: userCity ?? "Seoul") { result in
-                switch result {
-                case .success(let result):
-                    self.dustResult = result as? Int
-                    completion()
-                case .failure(let error):
-                    print(error)
-                    completion()
-                }
+        guard let userData = userDataManager.getUserInfoFromCoreData() else {
+            return
+        }
+        let userCity = userData.userCity
+        networkManager.fetchDust(city: userCity ?? "Seoul") { result in
+            switch result {
+            case .success(let result):
+                self.dustResult = result as? Int
+                completion()
+            case .failure(let error):
+                print(error)
+                completion()
             }
-        } else {
         }
     }
-    
-
-    
 }

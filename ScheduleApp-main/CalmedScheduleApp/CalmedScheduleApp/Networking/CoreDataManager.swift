@@ -27,13 +27,13 @@ final class CoreDataManager {
     private let todoModelName: String = "TodoData"
 
     
-    func getUserInfoFromCoreData() -> [UserData] {
-        var userData: [UserData] = []
+    func getUserInfoFromCoreData() -> UserData? {
+        var userData: UserData?
         if let context = context {
             let request = NSFetchRequest<NSManagedObject>(entityName: self.userModelName)
             do {
                 if let fetchedUserData = try context.fetch(request) as? [UserData] {
-                    userData = fetchedUserData
+                    userData = fetchedUserData[0]
                 }
             } catch {
             }

@@ -11,7 +11,11 @@ final class StartView: UIView {
 
     private let colorHelper = ColorHelper()
     
-
+    var shouldEnableButton: Bool {
+        return nameTextField.text != nil && nameTextField.text?.first != " " && cityTextField.text != nil
+        
+    }
+    
     lazy var greetingLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .clear
@@ -155,8 +159,6 @@ final class StartView: UIView {
         label.font = .boldSystemFont(ofSize: 17)
         return label
     }()
-    
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

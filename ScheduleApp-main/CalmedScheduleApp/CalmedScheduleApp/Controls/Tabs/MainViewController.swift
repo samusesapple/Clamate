@@ -17,25 +17,26 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
     override func loadView() {
         view = mainView
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         setUpUserData()
         setUpTodaySchedule()
     }
-
+    
     
     private func setUpUserData() {
-        if coreDataManager.getUserInfoFromCoreData().count > 0 {
-            mainView.userData = coreDataManager.getUserInfoFromCoreData()[0]
-            tabBarController?.tabBar.isHidden = false
-            navigationController?.navigationBar.isHidden = false
-            setUpWeatherData()
-        } else {
+        guard let userData = coreDataManager.getUserInfoFromCoreData() else {
             navigationController?.pushViewController(StartViewController(), animated: true)
             tabBarController?.tabBar.isHidden = true
             navigationController?.navigationBar.isHidden = true
+            return
         }
+        mainView.userData = userData
+        tabBarController?.tabBar.isHidden = false
+        navigationController?.navigationBar.isHidden = false
+        setUpWeatherData()
     }
+    
     
     private func setUpTodaySchedule() {
         mainView.dateLabel.text = DateHelper().nowDateString

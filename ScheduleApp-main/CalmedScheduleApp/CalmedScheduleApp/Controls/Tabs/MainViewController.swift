@@ -22,7 +22,23 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
         setUpUserData()
         setUpWeatherData()
         setUpTodaySchedule()
+        
+        addTapGestureForUserNameEdit()
     }
+    
+    // MARK: - Actions
+    
+    private func addTapGestureForUserNameEdit() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(makeUserChangeName))
+        
+        mainView.greetingLabel.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func makeUserChangeName(_ sender: UITapGestureRecognizer? = nil) {
+        // TODO: - 이름 변경하는 얼럿창 띄워야함
+        showEditNameAlert()
+    }
+    
     
     // MARK: - Helpers
     
@@ -67,6 +83,31 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
             }
         }
     }
+    
+    private func showEditNameAlert() {
+        let alert = UIAlertController(title: "닉네임 변경", message: "2~8글자 내로 닉네임을 입력해주세요.", preferredStyle: .alert)
+        
+        alert.addTextField { textField in
+            textField.placeholder = self.mainView.userData?.userName ?? "User"
+            textField.delegate = self
+        }
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .destructive))
+        
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { [weak self] _ in
+            let textField = alert.textFields![0]
+            
+            self?.coreDataManager.saveUserData(userName: textField.text,
+                                              userCity: nil) {
+                self?.viewWillAppear(false)
+            }
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
-
+// MARK: - 유저 이름 변경 얼럿창의 UITextFieldDelegate
+extension MainViewController: UITextFieldDelegate {
+    // TODO: - 첫 입력 Spacebar 막기, 최대 글자 수 8개까지로 제한하기
+}

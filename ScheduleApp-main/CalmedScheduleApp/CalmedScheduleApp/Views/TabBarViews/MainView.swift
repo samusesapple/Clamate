@@ -42,6 +42,7 @@ final class MainView: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 28)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 2
+        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -187,19 +188,19 @@ final class MainView: UIView {
     }
     
     private func setUserData() {
-        weatherLabel.text = "📍\(userData?.userCity! ?? "Seoul")"
+        weatherLabel.text = "📍\(userData?.userCity ?? "Seoul")"
         let hour = Calendar.current.component(.hour, from: Date())
         switch hour {
             case 1...6:
-            greetingLabel.text = "\(userData?.userName! ?? "User")님, \n편안한 새벽 되세요 :)"
+            greetingLabel.text = "\(userData?.userName ?? "User")님, \n편안한 새벽 되세요 :)"
             case 7...11:
-            greetingLabel.text = "\(userData?.userName! ?? "User")님, \n오늘 하루도 응원해요!"
+            greetingLabel.text = "\(userData?.userName ?? "User")님, \n오늘 하루도 응원해요!"
             case 12...18:
-            greetingLabel.text = "\(userData?.userName! ?? "User")님, \n오후 시간도 화이팅!"
+            greetingLabel.text = "\(userData?.userName ?? "User")님, \n오후 시간도 화이팅!"
             case 19...21:
-            greetingLabel.text = "\(userData?.userName! ?? "User")님, \n행복한 저녁 되세요 :)"
+            greetingLabel.text = "\(userData?.userName ?? "User")님, \n행복한 저녁 되세요 :)"
             default:
-            greetingLabel.text = "\(userData?.userName! ?? "User")님, \n오늘도 수고했어요 :)"
+            greetingLabel.text = "\(userData?.userName ?? "User")님, \n오늘도 수고했어요 :)"
          }
     }
     

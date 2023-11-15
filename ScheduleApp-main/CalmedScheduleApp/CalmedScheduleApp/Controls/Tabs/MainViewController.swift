@@ -23,12 +23,15 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
         setUpTodaySchedule()
     }
     
+    // MARK: - Helpers
+    
+    private func setEmptyUserDataForNewUser() {
+        mainView.userData = nil
+    }
     
     private func setUpUserData() {
         guard let userData = coreDataManager.getUserInfoFromCoreData() else {
-            navigationController?.pushViewController(StartViewController(), animated: true)
-            tabBarController?.tabBar.isHidden = true
-            navigationController?.navigationBar.isHidden = true
+            setEmptyUserDataForNewUser()
             return
         }
         mainView.userData = userData

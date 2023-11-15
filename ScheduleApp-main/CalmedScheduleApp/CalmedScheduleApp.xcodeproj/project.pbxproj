@@ -32,8 +32,6 @@
 		F1198AEB29C1C6E5009E23AD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */; };
 		F131848B29C99E4D00C7F4D3 /* NetworkingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848A29C99E4D00C7F4D3 /* NetworkingModel.swift */; };
 		F131848D29CB0DDF00C7F4D3 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848C29CB0DDF00C7F4D3 /* DateHelper.swift */; };
-		F131848F29CC010300C7F4D3 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848E29CC010300C7F4D3 /* StartView.swift */; };
-		F131849129CC01EA00C7F4D3 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131849029CC01EA00C7F4D3 /* StartViewController.swift */; };
 		F15A4F7A2A2F11AF00793806 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A4F792A2F11AF00793806 /* NotificationModel.swift */; };
 		F15A4F7C2A2F11E900793806 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A4F7B2A2F11E900793806 /* LocalNotificationManager.swift */; };
 		F15A4F7F2A2F1BD400793806 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A4F7E2A2F1BD400793806 /* Date+Extension.swift */; };
@@ -70,8 +68,6 @@
 		F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F131848A29C99E4D00C7F4D3 /* NetworkingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingModel.swift; sourceTree = "<group>"; };
 		F131848C29CB0DDF00C7F4D3 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
-		F131848E29CC010300C7F4D3 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
-		F131849029CC01EA00C7F4D3 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		F15A4F742A2EBECF00793806 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F15A4F792A2F11AF00793806 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		F15A4F7B2A2F11E900793806 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
@@ -164,7 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				91CA64132B03390A0046BBB6 /* Tabs */,
-				F131849029CC01EA00C7F4D3 /* StartViewController.swift */,
 				F1DECA5829CEF203001C758F /* CertainDayViewController.swift */,
 				F1198AD829BC63AC009E23AD /* AddViewController.swift */,
 				F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */,
@@ -176,7 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				91CA64162B033B380046BBB6 /* TabBarViews */,
-				F131848E29CC010300C7F4D3 /* StartView.swift */,
 				F1198AD629BC37E9009E23AD /* AddView.swift */,
 				F1198ADC29BC6622009E23AD /* DetailView.swift */,
 				91CA64172B033B7C0046BBB6 /* SettingView.swift */,
@@ -191,8 +185,8 @@
 				F1DECA5529CDB74A001C758F /* UserData+CoreDataProperties.swift */,
 				F1198AE429C08B42009E23AD /* TodoData+CoreDataClass.swift */,
 				F1198AE529C08B42009E23AD /* TodoData+CoreDataProperties.swift */,
-				F131848A29C99E4D00C7F4D3 /* NetworkingModel.swift */,
 				F15A4F792A2F11AF00793806 /* NotificationModel.swift */,
+				F131848A29C99E4D00C7F4D3 /* NetworkingModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -287,8 +281,6 @@
 			files = (
 				F1DECA5929CEF203001C758F /* CertainDayViewController.swift in Sources */,
 				F1198ADD29BC6622009E23AD /* DetailView.swift in Sources */,
-				F131848F29CC010300C7F4D3 /* StartView.swift in Sources */,
-				F131849129CC01EA00C7F4D3 /* StartViewController.swift in Sources */,
 				91CA64182B033B7C0046BBB6 /* SettingView.swift in Sources */,
 				F1198AEB29C1C6E5009E23AD /* DetailViewController.swift in Sources */,
 				91CA64152B0339480046BBB6 /* SettingViewController.swift in Sources */,

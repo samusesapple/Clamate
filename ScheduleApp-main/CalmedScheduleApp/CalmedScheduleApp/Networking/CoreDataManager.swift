@@ -33,9 +33,14 @@ final class CoreDataManager {
             let request = NSFetchRequest<NSManagedObject>(entityName: self.userModelName)
             do {
                 if let fetchedUserData = try context.fetch(request) as? [UserData] {
-                    userData = fetchedUserData[0]
+                    if !fetchedUserData.isEmpty {
+                        userData = fetchedUserData[0]
+                    } else {
+                        userData = nil
+                    }
                 }
             } catch {
+                print(error.localizedDescription)
             }
         }
         
@@ -72,6 +77,7 @@ final class CoreDataManager {
                     toDoList = fetchedToDoList
                 }
             } catch {
+                print(error.localizedDescription)
             }
         }
         
@@ -96,6 +102,7 @@ final class CoreDataManager {
                     toDoList = fetchedToDoList
                 }
             } catch {
+                print(error.localizedDescription)
             }
         }
         return toDoList.filter { data in
@@ -122,6 +129,7 @@ final class CoreDataManager {
                     toDoList = fetchedToDoList
                 }
             } catch {
+                print(error.localizedDescription)
             }
         }
         return toDoList.filter { data in
@@ -149,6 +157,7 @@ final class CoreDataManager {
                     toDoList = fetchedToDoList
                 }
             } catch {
+                print(error.localizedDescription)
             }
         }
         return toDoList.filter { data in

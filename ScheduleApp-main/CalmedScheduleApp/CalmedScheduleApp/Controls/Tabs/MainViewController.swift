@@ -35,7 +35,6 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
     }
     
     @objc private func makeUserChangeName(_ sender: UITapGestureRecognizer? = nil) {
-        // TODO: - 이름 변경하는 얼럿창 띄워야함
         showEditNameAlert()
     }
     
@@ -85,11 +84,12 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
     }
     
     private func showEditNameAlert() {
-        let alert = UIAlertController(title: "닉네임 변경", message: "2~8글자 내로 닉네임을 입력해주세요.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "닉네임 변경", message: "1~7글자 내로 닉네임을 입력해주세요.", preferredStyle: .alert)
         
         alert.addTextField { textField in
             textField.placeholder = self.mainView.userData?.userName ?? "User"
             textField.delegate = self
+            textField.addTarget(self, action: #selector(self.textFieldEditingChanged), for: .editingChanged)
         }
         
         alert.addAction(UIAlertAction(title: "취소", style: .destructive))
@@ -97,10 +97,17 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { [weak self] _ in
             let textField = alert.textFields![0]
             
-            self?.coreDataManager.saveUserData(userName: textField.text,
-                                              userCity: nil) {
-                self?.viewWillAppear(false)
+            guard let userName = self?.mainView.userData?.userName else {
+                self?.coreDataManager.saveUserData(userName: textField.text,
+                                                   userCity: nil) {
+                    self?.viewWillAppear(false)
+                }
+                return
             }
+
+            self?.coreDataManager.updateUserName(userName, into: textField.text, completion: {
+                self?.viewWillAppear(false)
+            })
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -110,4 +117,27 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
 // MARK: - 유저 이름 변경 얼럿창의 UITextFieldDelegate
 extension MainViewController: UITextFieldDelegate {
     // TODO: - 첫 입력 Spacebar 막기, 최대 글자 수 8개까지로 제한하기
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if textField.text?.count == 1 {        // 첫글자가 공백인지 확인
+            if textField.text?.first == " " {
+                textField.text = ""
+                return
+            }
+        }
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let textFieldText = textField.text,
+              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+            return false
+        }
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 7
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
 }

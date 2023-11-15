@@ -22,9 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let vc1 = UINavigationController(rootViewController: MainViewController())
         let vc2 = UINavigationController(rootViewController: OneDayViewController())
         let vc3 = UINavigationController(rootViewController: MonthlyViewController())
-        let vc4 = UINavigationController(rootViewController: SettingViewController())
 
-        tabBarVC.setViewControllers([vc1, vc2, vc3, vc4], animated: false)
+        tabBarVC.setViewControllers([vc1, vc2, vc3], animated: false)
         
         let appearance = UITabBarAppearance()
         appearance.backgroundColor = ColorHelper().backgroundColor
@@ -59,10 +58,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let monthlyScheduleTab = items[2]
         monthlyScheduleTab.image = UIImage(systemName: "calendar.circle")
         monthlyScheduleTab.selectedImage = UIImage(systemName: "calendar.circle.fill")
-        
-        let userSettingTab = items[3]
-        userSettingTab.image = UIImage(systemName: "person")
-        userSettingTab.selectedImage = UIImage(systemName: "person.fill")
         
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()

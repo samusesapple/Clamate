@@ -40,7 +40,6 @@ final class MainView: UIView {
         label.textAlignment = .left
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 28)
-        label.text = "유저 정보가 없습니다."
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 2
         return label
@@ -52,7 +51,6 @@ final class MainView: UIView {
         label.textAlignment = .right
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "날짜 표시 안됨"
         return label
     }()
     
@@ -71,7 +69,7 @@ final class MainView: UIView {
         label.textAlignment = .left
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = "일정이 없습니다."
+        label.text = "남은 일정이 없습니다."
         return label
     }()
     
@@ -81,7 +79,7 @@ final class MainView: UIView {
         label.textAlignment = .left
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "Weather"
+        label.text = "Seoul"
         label.isUserInteractionEnabled = true
         return label
     }()
@@ -114,7 +112,6 @@ final class MainView: UIView {
         label.textAlignment = .center
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = "적음"
         return label
     }()
     
@@ -147,7 +144,6 @@ final class MainView: UIView {
         label.textAlignment = .center
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = "적음"
         return label
     }()
     

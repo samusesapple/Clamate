@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		91CA64152B0339480046BBB6 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CA64142B0339480046BBB6 /* SettingViewController.swift */; };
-		91CA64182B033B7C0046BBB6 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CA64172B033B7C0046BBB6 /* SettingView.swift */; };
 		F106F72529C4476E007BCF0B /* WeatherDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72429C4476E007BCF0B /* WeatherDataManager.swift */; };
 		F106F72729C47EEA007BCF0B /* MonthlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72629C47EEA007BCF0B /* MonthlyView.swift */; };
 		F106F72929C47EFE007BCF0B /* MonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106F72829C47EFE007BCF0B /* MonthlyViewController.swift */; };
@@ -41,8 +39,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		91CA64142B0339480046BBB6 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		91CA64172B033B7C0046BBB6 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		F106F72429C4476E007BCF0B /* WeatherDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataManager.swift; sourceTree = "<group>"; };
 		F106F72629C47EEA007BCF0B /* MonthlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyView.swift; sourceTree = "<group>"; };
 		F106F72829C47EFE007BCF0B /* MonthlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyViewController.swift; sourceTree = "<group>"; };
@@ -95,7 +91,6 @@
 				F1198A9C29B9DBB4009E23AD /* MainViewController.swift */,
 				F1198AB929BADBB2009E23AD /* OneDayViewController.swift */,
 				F106F72829C47EFE007BCF0B /* MonthlyViewController.swift */,
-				91CA64142B0339480046BBB6 /* SettingViewController.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -173,7 +168,6 @@
 				91CA64162B033B380046BBB6 /* TabBarViews */,
 				F1198AD629BC37E9009E23AD /* AddView.swift */,
 				F1198ADC29BC6622009E23AD /* DetailView.swift */,
-				91CA64172B033B7C0046BBB6 /* SettingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -281,9 +275,7 @@
 			files = (
 				F1DECA5929CEF203001C758F /* CertainDayViewController.swift in Sources */,
 				F1198ADD29BC6622009E23AD /* DetailView.swift in Sources */,
-				91CA64182B033B7C0046BBB6 /* SettingView.swift in Sources */,
 				F1198AEB29C1C6E5009E23AD /* DetailViewController.swift in Sources */,
-				91CA64152B0339480046BBB6 /* SettingViewController.swift in Sources */,
 				F1198A9D29B9DBB4009E23AD /* MainViewController.swift in Sources */,
 				F1198AE929C08B42009E23AD /* TodoData+CoreDataProperties.swift in Sources */,
 				F1DECA5729CDB74A001C758F /* UserData+CoreDataProperties.swift in Sources */,

@@ -7,6 +7,14 @@
 
 import Foundation
 
+// MARK: - WeatherDataError
+enum WeatherDataError: Error {
+    case failToGetTemperatureData(String)
+    case failToGetDustData(String)
+}
+
+// MARK: - WeatherDataManager
+
 final class WeatherDataManager {
     
     static let shared = WeatherDataManager()
@@ -20,36 +28,29 @@ final class WeatherDataManager {
     var dustResult: Int?
     
     func getTodayTemp(completion: @escaping () -> Void) {
-        guard let userData = userDataManager.getUserInfoFromCoreData() else {
-            return
-        }
-        let userCity = userData.userCity
+        var userCity = userDataManager.getUserInfoFromCoreData()?.userCity ?? "Seoul"
         
-        networkManager.fetchTemp(city: userCity ?? "Seoul") { result in
+        networkManager.fetchTemp(city: userCity) { result in
             switch result {
             case .success(let result):
                 self.tempResult = result as? Double
                 completion()
             case .failure(let error):
-                print(error.localizedDescription)
-                completion()
+                print(WeatherDataError.failToGetTemperatureData(error.localizedDescription))
             }
         }
     }
     
     func getTodayDust(completion: @escaping () -> Void) {
-        guard let userData = userDataManager.getUserInfoFromCoreData() else {
-            return
-        }
-        let userCity = userData.userCity
-        networkManager.fetchDust(city: userCity ?? "Seoul") { result in
+        var userCity = userDataManager.getUserInfoFromCoreData()?.userCity ?? "Seoul"
+        
+        networkManager.fetchDust(city: userCity) { result in
             switch result {
             case .success(let result):
                 self.dustResult = result as? Int
                 completion()
             case .failure(let error):
-                print(error)
-                completion()
+                print(WeatherDataError.failToGetDustData(error.localizedDescription))
             }
         }
     }

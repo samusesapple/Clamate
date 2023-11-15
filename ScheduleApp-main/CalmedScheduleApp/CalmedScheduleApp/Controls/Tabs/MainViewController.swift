@@ -20,6 +20,7 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
     
     override func viewWillAppear(_ animated: Bool) {
         setUpUserData()
+        setUpWeatherData()
         setUpTodaySchedule()
     }
     
@@ -35,9 +36,6 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
             return
         }
         mainView.userData = userData
-        tabBarController?.tabBar.isHidden = false
-        navigationController?.navigationBar.isHidden = false
-        setUpWeatherData()
     }
     
     
@@ -56,7 +54,9 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
     private func setUpWeatherData() {
         weatherDataManager.getTodayTemp {
             DispatchQueue.main.async { [weak self] in
-                guard let tempResult = self?.weatherDataManager.tempResult else { return }
+                guard let tempResult = self?.weatherDataManager.tempResult else {
+                    return
+                }
                 self?.mainView.tempResult = round(tempResult * 10) / 10
             }
         }

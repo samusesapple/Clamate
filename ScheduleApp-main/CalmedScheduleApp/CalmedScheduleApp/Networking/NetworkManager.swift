@@ -7,14 +7,13 @@
 
 import Foundation
 
-//MARK: - error
+//MARK: - NetworkError
 
 enum NetworkError: Error {
     case networkingError
     case dataError
     case parseError
 }
-
 
 
 final class NetworkManager {
@@ -74,7 +73,6 @@ final class NetworkManager {
     
     func fetchDust(city: String, completion: @escaping NetworkCompletion) {
         let urlString = "https://api.waqi.info/feed/\(city)/?token=\(dustServiceKey)"
-        print(urlString)
         dustPerformRequest(with: urlString) { result in
             completion(result)
         }

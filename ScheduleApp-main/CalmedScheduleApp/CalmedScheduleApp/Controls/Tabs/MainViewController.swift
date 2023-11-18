@@ -38,6 +38,7 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
         showEditNameAlert()
     }
     
+    // TODO: - 위치 버튼에 대한 액션 (위치 새로 받기) 세팅 필요
     
     // MARK: - Helpers
     
@@ -52,7 +53,6 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
         }
         mainView.userData = userData
     }
-    
     
     private func setUpTodaySchedule() {
         mainView.dateLabel.text = DateHelper().nowDateString
@@ -116,7 +116,7 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
 
 // MARK: - 유저 이름 변경 얼럿창의 UITextFieldDelegate
 extension MainViewController: UITextFieldDelegate {
-    // TODO: - 첫 입력 Spacebar 막기, 최대 글자 수 8개까지로 제한하기
+    
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         if textField.text?.count == 1 {        // 첫글자가 공백인지 확인
             if textField.text?.first == " " {
@@ -125,6 +125,7 @@ extension MainViewController: UITextFieldDelegate {
             }
         }
     }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let textFieldText = textField.text,
               let rangeOfTextToReplace = Range(range, in: textFieldText) else {

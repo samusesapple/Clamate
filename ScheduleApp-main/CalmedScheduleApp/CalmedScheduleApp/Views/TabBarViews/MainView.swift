@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 final class MainView: UIView {
     
     private let colorHelper = ColorHelper()
@@ -30,9 +29,7 @@ final class MainView: UIView {
         }
     }
     
-    
-    
-    // MARK: - configure UI
+    // MARK: - Components
     
     lazy var greetingLabel: UILabel = {
         var label = UILabel()
@@ -74,6 +71,15 @@ final class MainView: UIView {
         return label
     }()
     
+    lazy var resetWeatherButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "location.circle.fill")?.withRenderingMode(.alwaysOriginal),
+                        for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.tintColor = .orange
+        return button
+    }()
+    
     lazy var weatherLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .clear
@@ -83,6 +89,13 @@ final class MainView: UIView {
         label.text = "Seoul"
         label.isUserInteractionEnabled = true
         return label
+    }()
+    
+    private lazy var weatherLabelStack: UIStackView = {
+        var sv = UIStackView(arrangedSubviews: [resetWeatherButton, weatherLabel])
+        sv.alignment = .leading
+        sv.spacing = 1
+        return sv
     }()
     
     lazy var tempView: UIView = {
@@ -167,6 +180,8 @@ final class MainView: UIView {
         return view
     }()
     
+    // MARK: - Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -176,11 +191,13 @@ final class MainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Helpers
+    
     private func configureUI() {
         self.backgroundColor = colorHelper.backgroundColor
         addSubview(labelStack)
         addSubview(scheduleView)
-        addSubview(weatherLabel)
+        addSubview(weatherLabelStack)
         addSubview(weatherView)
         labelAutolayout()
         scheduleViewAutolayout()
@@ -188,7 +205,7 @@ final class MainView: UIView {
     }
     
     private func setUserData() {
-        weatherLabel.text = "📍\(userData?.userCity ?? "Seoul")"
+        weatherLabel.text = "\(userData?.userCity ?? "Seoul")"
         let hour = Calendar.current.component(.hour, from: Date())
         switch hour {
             case 1...6:
@@ -277,9 +294,11 @@ final class MainView: UIView {
     }
     
     private func weatherAutolayout() {
-        weatherLabel.translatesAutoresizingMaskIntoConstraints = false
-        weatherLabel.topAnchor.constraint(equalTo: scheduleView.bottomAnchor, constant: 45).isActive = true
-        weatherLabel.leadingAnchor.constraint(equalTo: scheduleView.leadingAnchor).isActive = true
+        weatherLabelStack.translatesAutoresizingMaskIntoConstraints = false
+        weatherLabelStack.topAnchor.constraint(equalTo: scheduleView.bottomAnchor, constant: 15).isActive = true
+        weatherLabelStack.leadingAnchor.constraint(equalTo: scheduleView.leadingAnchor).isActive = true
+        weatherLabelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        weatherLabelStack.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         
         weatherView.translatesAutoresizingMaskIntoConstraints = false

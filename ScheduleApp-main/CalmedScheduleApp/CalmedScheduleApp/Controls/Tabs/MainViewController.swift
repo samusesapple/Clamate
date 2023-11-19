@@ -11,14 +11,24 @@ import UserNotifications
 final class MainViewController: UIViewController, UITabBarDelegate, UINavigationControllerDelegate {
     private let colorHelper = ColorHelper()
     private var mainView = MainView()
-    private let coreDataManager = CoreDataManager.shared
+
     private let weatherDataManager = WeatherDataManager.shared
+    
+    private let cities = ["Seoul", "Incheon", "Seongnam", "Suwon", "Osan", "Ansan", "Seosan",  "Cheonan", "Cheongju", "Chuncheon", "Gangneung", "Sokcho", "Yeosu", "Daejeon", "Daegu", "Busan", "Ulsan", "Jeonju", "Gwangju", "Changwon", "Jeju"]
+    
+    private let userData = CoreDataManager.shared.getUserInfoFromCoreData() ?? nil
+    
+    private var selectedCity: String?
+    
+    // MARK: - Lifecycle
     
     override func loadView() {
         view = mainView
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setButtonActions()
+        
         setUpUserData()
         setUpWeatherData()
         setUpTodaySchedule()
@@ -39,6 +49,32 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
     }
     
     // TODO: - 위치 버튼에 대한 액션 (위치 새로 받기) 세팅 필요
+    @objc private func showSelectCityAlert() {
+        let pickerView = UIPickerView()
+        let alert = UIAlertController(title: nil, message: "\n\n\n\n\n\n", preferredStyle: .actionSheet)
+
+        pickerView.frame = CGRect(x: 50, y: 0, width: 270, height: 130)
+        pickerView.delegate = self
+        pickerView.dataSource = self
+
+        alert.addAction(UIAlertAction(title: "확인", style: .cancel) { [weak self] _ in
+            guard let userCity = self?.userData?.userCity else {
+                CoreDataManager.shared.saveUserData(userName: self?.userData?.userName,
+                                                    userCity: self?.selectedCity) {
+                    self?.viewWillAppear(false)
+                }
+                return
+            }
+            CoreDataManager.shared.updateUserCity(userCity,
+                                                  into: self?.selectedCity,
+                                                 completion: {
+                self?.viewWillAppear(false)
+            })
+        })
+        
+        alert.view.addSubview(pickerView)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     // MARK: - Helpers
     
@@ -47,16 +83,20 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
     }
     
     private func setUpUserData() {
-        guard let userData = coreDataManager.getUserInfoFromCoreData() else {
+        guard let userData = userData else {
             setEmptyUserDataForNewUser()
             return
         }
         mainView.userData = userData
     }
     
+    private func setButtonActions() {
+        mainView.resetWeatherButton.addTarget(self, action: #selector(showSelectCityAlert), for: .touchUpInside)
+    }
+    
     private func setUpTodaySchedule() {
         mainView.dateLabel.text = DateHelper().nowDateString
-        let firstTodo = coreDataManager.getNotFinishedDateToDo(date: Date()).first
+        let firstTodo = CoreDataManager.shared.getNotFinishedDateToDo(date: Date()).first
         if firstTodo != nil {
             mainView.scheduleLabel.textColor = colorHelper.fontColor
             mainView.scheduleLabel.text = firstTodo?.todoTitle
@@ -98,14 +138,14 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
             let textField = alert.textFields![0]
             
             guard let userName = self?.mainView.userData?.userName else {
-                self?.coreDataManager.saveUserData(userName: textField.text,
+                CoreDataManager.shared.saveUserData(userName: textField.text,
                                                    userCity: nil) {
                     self?.viewWillAppear(false)
                 }
                 return
             }
 
-            self?.coreDataManager.updateUserName(userName, into: textField.text, completion: {
+            CoreDataManager.shared.updateUserName(userName, into: textField.text, completion: {
                 self?.viewWillAppear(false)
             })
         }))
@@ -141,4 +181,27 @@ extension MainViewController: UITextFieldDelegate {
         return true
     }
 
+}
+
+// MARK: - UIPickerViewDelegate
+extension MainViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return cities.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return cities[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.selectedCity = cities[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 30
+    }
 }

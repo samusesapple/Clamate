@@ -80,7 +80,7 @@ final class MainView: UIView {
         return button
     }()
     
-    lazy var weatherLabel: UILabel = {
+    lazy var cityNameLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .clear
         label.textAlignment = .left
@@ -92,7 +92,7 @@ final class MainView: UIView {
     }()
     
     private lazy var weatherLabelStack: UIStackView = {
-        var sv = UIStackView(arrangedSubviews: [resetWeatherButton, weatherLabel])
+        var sv = UIStackView(arrangedSubviews: [resetWeatherButton, cityNameLabel])
         sv.alignment = .leading
         sv.spacing = 1
         return sv
@@ -205,7 +205,7 @@ final class MainView: UIView {
     }
     
     private func setUserData() {
-        weatherLabel.text = "\(userData?.userCity ?? "Seoul")"
+        cityNameLabel.text = "\(userData?.userCity ?? "Seoul")"
         let hour = Calendar.current.component(.hour, from: Date())
         switch hour {
             case 1...6:
@@ -302,7 +302,7 @@ final class MainView: UIView {
         
         
         weatherView.translatesAutoresizingMaskIntoConstraints = false
-        weatherView.topAnchor.constraint(equalTo: weatherLabel.bottomAnchor, constant: 8).isActive = true
+        weatherView.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 8).isActive = true
         weatherView.leadingAnchor.constraint(equalTo: labelStack.leadingAnchor).isActive = true
         weatherView.trailingAnchor.constraint(equalTo: labelStack.trailingAnchor).isActive = true
         weatherView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -45).isActive = true

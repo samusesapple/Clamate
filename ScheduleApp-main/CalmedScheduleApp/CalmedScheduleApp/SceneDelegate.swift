@@ -48,8 +48,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
         guard let items = tabBarVC.tabBar.items else { return }
         let homeTab = items[0]
-        homeTab.image = UIImage(systemName: "house")
-        homeTab.selectedImage = UIImage(systemName: "house.fill")
+        homeTab.image = UIImage(systemName: "house.circle")
+        homeTab.selectedImage = UIImage(systemName: "house.circle.fill")
         
         let oneDayScheduleTab = items[1]
         oneDayScheduleTab.image = UIImage(systemName: "1.circle")

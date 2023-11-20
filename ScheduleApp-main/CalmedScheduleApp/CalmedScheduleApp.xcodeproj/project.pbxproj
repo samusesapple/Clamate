@@ -142,7 +142,7 @@
 				F1198AB129B9DC75009E23AD /* Models */,
 				F1198AB029B9DC6A009E23AD /* Views */,
 				F1198AAF29B9DC61009E23AD /* Controls */,
-				F15A4F7D2A2F1BB300793806 /* Utilties */,
+				F15A4F7D2A2F1BB300793806 /* Extensions */,
 				F1198AA429B9DBB4009E23AD /* Assets.xcassets */,
 				F1198AA629B9DBB4009E23AD /* LaunchScreen.storyboard */,
 				F1198AA929B9DBB4009E23AD /* Info.plist */,
@@ -195,12 +195,12 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		F15A4F7D2A2F1BB300793806 /* Utilties */ = {
+		F15A4F7D2A2F1BB300793806 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				F15A4F7E2A2F1BD400793806 /* Date+Extension.swift */,
 			);
-			path = Utilties;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

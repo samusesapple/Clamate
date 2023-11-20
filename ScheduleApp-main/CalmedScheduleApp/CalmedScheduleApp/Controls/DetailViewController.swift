@@ -99,11 +99,12 @@ final class DetailViewController: UIViewController {
     
     @objc private func okButtonTapped() {
         detailView.okButton.backgroundColor = .lightGray
-        if detailView.okLabel.text == "OK" {
+        if detailView.okButton.titleLabel?.text == "OK" {
             navigationController?.popViewController(animated: true)
             return
         }
-        if detailView.okLabel.text == "SAVE" {
+        
+        if detailView.okButton.titleLabel?.text == "SAVE" {
             detailView.toDoData?.todoTitle = detailView.titleTextField.text
             detailView.toDoData?.todoDetailText = detailView.detailTextView.text
             todoManager.updateToDo(newToDoData: detailView.toDoData!) {  [weak self] in
@@ -115,40 +116,25 @@ final class DetailViewController: UIViewController {
     }
     
     @objc private func editButtonTapped() {
-        detailView.editButton.backgroundColor = .lightGray
-        func setOriginalButtonColor() { self.detailView.editButton.backgroundColor = colorHelper.cancelBackgroundColor }
         let alert = UIAlertController(title: "일정 편집", message: "일정을 편집 하시겠습니까?", preferredStyle: .alert)
         
-        if detailView.editLabel.text == "EDIT" {
-            print("detailVC - edit button")
-            let success = UIAlertAction(title: "예", style: .default) {  [weak self] action in
-                self?.detailView.editStatus = true
-                self?.detailView.okLabel.text = "SAVE"
-                self?.detailView.editLabel.text = "CANCEL"
-                setOriginalButtonColor()
-            }
+        if detailView.editButton.titleLabel?.text == "EDIT" {
+            self.detailView.editStatus = true
+            self.detailView.okButton.setTitle("SAVE", for: .normal)
+            self.detailView.editButton.setTitle("CANCEL", for: .normal)
             
-            let cancel = UIAlertAction(title: "아니오", style: .cancel) {  action in
-                setOriginalButtonColor()
-            }
-            alert.addAction(success)
-            alert.addAction(cancel)
-            
-            self.present(alert, animated: true, completion: nil)
             return
         }
-        else if detailView.editLabel.text == "CANCEL" {
+        else if detailView.editButton.titleLabel?.text == "CANCEL" {
             alert.title = "편집 취소"
             alert.message = "편집을 취소 하시겠습니까?"
             
             let success = UIAlertAction(title: "예", style: .default) { action in
                 self.navigationController?.popViewController(animated: true)
-                setOriginalButtonColor()
             }
             
-            let cancel = UIAlertAction(title: "아니오", style: .cancel) { action in
-                setOriginalButtonColor()
-            }
+            let cancel = UIAlertAction(title: "아니오", style: .cancel)
+            
             alert.addAction(success)
             alert.addAction(cancel)
             
@@ -172,7 +158,7 @@ extension DetailViewController: UITextFieldDelegate {
     }
     
     private func textFieldEditingChanged(_ textField: UITextField) {
-        if textField.text?.count == 1 {       
+        if textField.text?.count == 1 {
             if textField.text?.first == " " {
                 textField.text = ""
                 return

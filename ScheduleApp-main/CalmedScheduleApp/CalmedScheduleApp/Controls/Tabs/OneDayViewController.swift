@@ -144,36 +144,20 @@ extension OneDayViewController: UITableViewDataSource {
     }
     
     @objc func cellButtonPressed(_ target: UIButton) {
-        func unpressedButtonSetting() {
-            target.backgroundColor = colorHelper.buttonColor
-            target.layer.shadowColor = UIColor.black.cgColor
-            target.layer.shadowOpacity = 0.3
-        }
-        
-        func changeTodoStatus() {
-            if target.titleLabel?.text == "Done" {
-                let targetTodo = (toDoManager.getNotFinishedDateToDo(date: Date())[target.tag])
-                targetTodo.done = true
-                toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
-                    self?.tableView.reloadData()
-                }
-            } else {
-                let targetTodo = (toDoManager.getFinishedDateToDo(date: Date())[target.tag])
-                targetTodo.done = false
-                toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
-                    self?.tableView.reloadData()
-                }
+        if target.titleLabel?.text == "Done" {
+            let targetTodo = (toDoManager.getNotFinishedDateToDo(date: Date())[target.tag])
+            targetTodo.done = true
+            toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
+                self?.tableView.reloadData()
+            }
+        } else {
+            let targetTodo = (toDoManager.getFinishedDateToDo(date: Date())[target.tag])
+            targetTodo.done = false
+            toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
+                self?.tableView.reloadData()
             }
         }
-
-        target.layer.shadowOpacity = 0
-        target.layer.shadowColor = .none
-        target.backgroundColor = .gray
-        
-        changeTodoStatus()
-        unpressedButtonSetting()
     }
-    
 }
 
 extension OneDayViewController: UITableViewDelegate {

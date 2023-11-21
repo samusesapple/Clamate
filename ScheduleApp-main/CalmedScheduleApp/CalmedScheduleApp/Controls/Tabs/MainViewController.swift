@@ -58,14 +58,14 @@ final class MainViewController: UIViewController, UITabBarDelegate, UINavigation
         pickerView.dataSource = self
 
         alert.addAction(UIAlertAction(title: "확인", style: .cancel) { [weak self] _ in
-            guard let userCity = self?.userData?.userCity else {
+            guard let userData = self?.userData else {
                 CoreDataManager.shared.saveUserData(userName: self?.userData?.userName,
                                                     userCity: self?.selectedCity) {
                     self?.viewWillAppear(false)
                 }
                 return
             }
-            CoreDataManager.shared.updateUserCity(userCity,
+            CoreDataManager.shared.updateUserCity(userData.userCity ?? "Seoul",
                                                   into: self?.selectedCity,
                                                  completion: {
                 self?.viewWillAppear(false)

@@ -57,11 +57,11 @@ final class TodayTableViewCell: UITableViewCell {
     }()
     
     lazy var doneButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle("Done", for: .normal)
         button.backgroundColor = colorHelper.buttonColor
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.titleLabel?.textColor = colorHelper.fontColor
+        button.titleLabel?.tintColor = #colorLiteral(red: 0.9607843137, green: 0.9647058824, blue: 0.9803921569, alpha: 1)
         button.titleLabel?.textAlignment = .center
         
         button.layer.cornerRadius = 5

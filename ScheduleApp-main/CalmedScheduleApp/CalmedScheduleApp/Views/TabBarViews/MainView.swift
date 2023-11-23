@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 final class MainView: UIView {
     
     private let colorHelper = ColorHelper()
@@ -30,9 +29,7 @@ final class MainView: UIView {
         }
     }
     
-    
-    
-    // MARK: - configure UI
+    // MARK: - Components
     
     lazy var greetingLabel: UILabel = {
         var label = UILabel()
@@ -40,9 +37,9 @@ final class MainView: UIView {
         label.textAlignment = .left
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 28)
-        label.text = "유저 정보가 없습니다."
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 2
+        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -52,7 +49,6 @@ final class MainView: UIView {
         label.textAlignment = .right
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "날짜 표시 안됨"
         return label
     }()
     
@@ -71,19 +67,35 @@ final class MainView: UIView {
         label.textAlignment = .left
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = "일정이 없습니다."
+        label.text = "남은 일정이 없습니다."
         return label
     }()
     
-    lazy var weatherLabel: UILabel = {
+    lazy var resetWeatherButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "location.circle.fill")?.withRenderingMode(.alwaysOriginal),
+                        for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.tintColor = .orange
+        return button
+    }()
+    
+    lazy var cityNameLabel: UILabel = {
         var label = UILabel()
         label.backgroundColor = .clear
         label.textAlignment = .left
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "Weather"
+        label.text = "Seoul"
         label.isUserInteractionEnabled = true
         return label
+    }()
+    
+    private lazy var weatherLabelStack: UIStackView = {
+        var sv = UIStackView(arrangedSubviews: [resetWeatherButton, cityNameLabel])
+        sv.alignment = .leading
+        sv.spacing = 1
+        return sv
     }()
     
     lazy var tempView: UIView = {
@@ -114,7 +126,6 @@ final class MainView: UIView {
         label.textAlignment = .center
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = "적음"
         return label
     }()
     
@@ -147,7 +158,6 @@ final class MainView: UIView {
         label.textAlignment = .center
         label.textColor = colorHelper.fontColor
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = "적음"
         return label
     }()
     
@@ -170,6 +180,8 @@ final class MainView: UIView {
         return view
     }()
     
+    // MARK: - Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -179,11 +191,13 @@ final class MainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Helpers
+    
     private func configureUI() {
         self.backgroundColor = colorHelper.backgroundColor
         addSubview(labelStack)
         addSubview(scheduleView)
-        addSubview(weatherLabel)
+        addSubview(weatherLabelStack)
         addSubview(weatherView)
         labelAutolayout()
         scheduleViewAutolayout()
@@ -191,19 +205,19 @@ final class MainView: UIView {
     }
     
     private func setUserData() {
-        weatherLabel.text = "📍\(userData?.userCity! ?? "Weather")"
+        cityNameLabel.text = "\(userData?.userCity ?? "Seoul")"
         let hour = Calendar.current.component(.hour, from: Date())
         switch hour {
             case 1...6:
-            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n편안한 새벽 되세요 :)"
+            greetingLabel.text = "\(userData?.userName ?? "User")님, \n편안한 새벽 되세요 :)"
             case 7...11:
-            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘 하루도 응원해요!"
+            greetingLabel.text = "\(userData?.userName ?? "User")님, \n오늘 하루도 응원해요!"
             case 12...18:
-            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오후 시간도 화이팅!"
+            greetingLabel.text = "\(userData?.userName ?? "User")님, \n오후 시간도 화이팅!"
             case 19...21:
-            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n행복한 저녁 되세요 :)"
+            greetingLabel.text = "\(userData?.userName ?? "User")님, \n행복한 저녁 되세요 :)"
             default:
-            greetingLabel.text = "\(userData?.userName! ?? "유저")님, \n오늘도 수고했어요 :)"
+            greetingLabel.text = "\(userData?.userName ?? "User")님, \n오늘도 수고했어요 :)"
          }
     }
     
@@ -280,13 +294,15 @@ final class MainView: UIView {
     }
     
     private func weatherAutolayout() {
-        weatherLabel.translatesAutoresizingMaskIntoConstraints = false
-        weatherLabel.topAnchor.constraint(equalTo: scheduleView.bottomAnchor, constant: 45).isActive = true
-        weatherLabel.leadingAnchor.constraint(equalTo: scheduleView.leadingAnchor).isActive = true
+        weatherLabelStack.translatesAutoresizingMaskIntoConstraints = false
+        weatherLabelStack.topAnchor.constraint(equalTo: scheduleView.bottomAnchor, constant: 15).isActive = true
+        weatherLabelStack.leadingAnchor.constraint(equalTo: scheduleView.leadingAnchor).isActive = true
+        weatherLabelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        weatherLabelStack.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         
         weatherView.translatesAutoresizingMaskIntoConstraints = false
-        weatherView.topAnchor.constraint(equalTo: weatherLabel.bottomAnchor, constant: 8).isActive = true
+        weatherView.topAnchor.constraint(equalTo: cityNameLabel.bottomAnchor, constant: 8).isActive = true
         weatherView.leadingAnchor.constraint(equalTo: labelStack.leadingAnchor).isActive = true
         weatherView.trailingAnchor.constraint(equalTo: labelStack.trailingAnchor).isActive = true
         weatherView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -45).isActive = true

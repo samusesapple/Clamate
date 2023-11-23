@@ -16,13 +16,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
-        
+
         let tabBarVC = UITabBarController()
         
         let vc1 = UINavigationController(rootViewController: MainViewController())
         let vc2 = UINavigationController(rootViewController: OneDayViewController())
         let vc3 = UINavigationController(rootViewController: MonthlyViewController())
-        _ = UINavigationController(rootViewController: DetailViewController())
 
         tabBarVC.setViewControllers([vc1, vc2, vc3], animated: false)
         
@@ -48,18 +47,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarVC.tabBar.tintColor = ColorHelper().cancelBackgroundColor
   
         guard let items = tabBarVC.tabBar.items else { return }
-        let item1 = items[0]
-        item1.image = UIImage(systemName: "circle")
-        item1.selectedImage = UIImage(systemName: "circle.circle.fill")
+        let homeTab = items[0]
+        homeTab.image = UIImage(systemName: "house.circle")
+        homeTab.selectedImage = UIImage(systemName: "house.circle.fill")
         
-        let item2 = items[1]
-        item2.image = UIImage(systemName: "circle")
-        item2.selectedImage = UIImage(systemName: "circle.circle.fill")
+        let oneDayScheduleTab = items[1]
+        oneDayScheduleTab.image = UIImage(systemName: "1.circle")
+        oneDayScheduleTab.selectedImage = UIImage(systemName: "1.circle.fill")
         
-        let item3 = items[2]
-        item3.image = UIImage(systemName: "circle")
-        item3.selectedImage = UIImage(systemName: "circle.circle.fill")
-        
+        let monthlyScheduleTab = items[2]
+        monthlyScheduleTab.image = UIImage(systemName: "calendar.circle")
+        monthlyScheduleTab.selectedImage = UIImage(systemName: "calendar.circle.fill")
         
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()

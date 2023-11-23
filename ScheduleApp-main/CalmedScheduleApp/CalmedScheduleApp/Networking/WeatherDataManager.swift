@@ -7,6 +7,14 @@
 
 import Foundation
 
+// MARK: - WeatherDataError
+enum WeatherDataError: Error {
+    case failToGetTemperatureData(String)
+    case failToGetDustData(String)
+}
+
+// MARK: - WeatherDataManager
+
 final class WeatherDataManager {
     
     static let shared = WeatherDataManager()
@@ -18,41 +26,32 @@ final class WeatherDataManager {
     
     var tempResult: Double?
     var dustResult: Int?
-
+    
     func getTodayTemp(completion: @escaping () -> Void) {
-        if userDataManager.getUserInfoFromCoreData().count > 0 {
-            let userCity = userDataManager.getUserInfoFromCoreData()[0].userCity
-            networkManager.fetchTemp(city: userCity ?? "Seoul") { result in
-                switch result {
-                case .success(let result):
-                    self.tempResult = result as? Double
-                    completion()
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    completion()
-                }
+        var userCity = userDataManager.getUserInfoFromCoreData()?.userCity ?? "Seoul"
+        
+        networkManager.fetchTemp(city: userCity) { result in
+            switch result {
+            case .success(let result):
+                self.tempResult = result as? Double
+                completion()
+            case .failure(let error):
+                print(WeatherDataError.failToGetTemperatureData(error.localizedDescription))
             }
-        } else {
         }
     }
     
     func getTodayDust(completion: @escaping () -> Void) {
-        if userDataManager.getUserInfoFromCoreData().count > 0 {
-            let userCity = userDataManager.getUserInfoFromCoreData()[0].userCity
-            networkManager.fetchDust(city: userCity ?? "Seoul") { result in
-                switch result {
-                case .success(let result):
-                    self.dustResult = result as? Int
-                    completion()
-                case .failure(let error):
-                    print(error)
-                    completion()
-                }
+        var userCity = userDataManager.getUserInfoFromCoreData()?.userCity ?? "Seoul"
+        
+        networkManager.fetchDust(city: userCity) { result in
+            switch result {
+            case .success(let result):
+                self.dustResult = result as? Int
+                completion()
+            case .failure(let error):
+                print(WeatherDataError.failToGetDustData(error.localizedDescription))
             }
-        } else {
         }
     }
-    
-
-    
 }

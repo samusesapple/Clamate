@@ -26,7 +26,7 @@ final class OneDayViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
-
+    
     private func setupNaviBar() {
         navigationItem.title = "Today"
         let appearance = UINavigationBarAppearance()
@@ -54,7 +54,7 @@ final class OneDayViewController: UIViewController {
         tableView.rowHeight = 100
         tableView.layer.cornerRadius = 5
         setupTableViewConstraints()
-
+        
         tableView.register(TodayTableViewCell.self, forCellReuseIdentifier: "TodoCell")
     }
     
@@ -141,59 +141,23 @@ extension OneDayViewController: UITableViewDataSource {
         default:
             return cell
         }
-        
-        
     }
     
     @objc func cellButtonPressed(_ target: UIButton) {
-        func unpressedButtonSetting() {
-            target.backgroundColor = colorHelper.buttonColor
-            target.layer.shadowColor = UIColor.black.cgColor
-            target.layer.shadowOpacity = 0.3
-        }
-        
-        target.layer.shadowOpacity = 0
-        target.layer.shadowColor = .none
-        target.backgroundColor = .gray
-        // 얼럿창 생성
-        let alert = UIAlertController(title: "일정을 완료 하시겠습니까?", message: "", preferredStyle: .actionSheet)
-        if target.titleLabel?.text == "Undo" {
-            alert.title = "일정을 미완료 상태로 변경 하시겠습니까?"
-        }
-        // 얼럿창의 액션 선택지 생성
-        let success = UIAlertAction(title: "예", style: .default) { action in
-            changeTodoStatus()
-            unpressedButtonSetting()
-        }
-        let cancel = UIAlertAction(title: "아니오", style: .cancel) { action in
-            unpressedButtonSetting()
-        }
-        alert.addAction(success)
-        alert.addAction(cancel)
-        
-        self.present(alert, animated: true, completion: nil)
-        return
-        
-        func changeTodoStatus() {
-            if target.titleLabel?.text == "Done" {
-                let targetTodo = (toDoManager.getNotFinishedDateToDo(date: Date())[target.tag])
-                targetTodo.done = true
-                toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
-                    self?.tableView.reloadData()
-                }
-            } else {
-                let targetTodo = (toDoManager.getFinishedDateToDo(date: Date())[target.tag])
-                targetTodo.done = false
-                toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
-                    self?.tableView.reloadData()
-                }
-                
+        if target.titleLabel?.text == "Done" {
+            let targetTodo = (toDoManager.getNotFinishedDateToDo(date: Date())[target.tag])
+            targetTodo.done = true
+            toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
+                self?.tableView.reloadData()
             }
-            
+        } else {
+            let targetTodo = (toDoManager.getFinishedDateToDo(date: Date())[target.tag])
+            targetTodo.done = false
+            toDoManager.updateToDo(newToDoData: targetTodo) { [weak self] in
+                self?.tableView.reloadData()
+            }
         }
-        
     }
-
 }
 
 extension OneDayViewController: UITableViewDelegate {
@@ -221,35 +185,22 @@ extension OneDayViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "Delete", handler: { action, view, completionHandler in
-            
-            let alert = UIAlertController(title: "일정을 삭제 하시겠습니까?", message: "", preferredStyle: .alert)
-            
-            // 삭제 실행
-            let yes = UIAlertAction(title: "예", style: .default) { [weak self] action in
-                switch indexPath.section {
-                case 0:
-                    let data = self?.toDoManager.getNotFinishedDateToDo(date: Date())
-                    self?.toDoManager.deleteToDo(data: data![indexPath.row]) {
-                        print("section: \(indexPath.section), row: \(data![indexPath.row])")
-                        tableView.reloadData()
-                    }
-                case 1:
-                    let data = self?.toDoManager.getFinishedDateToDo(date: Date())
-                    self?.toDoManager.deleteToDo(data: data![indexPath.row]) {
-                        tableView.reloadData()
-                    }
-                default:
-                    break
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete", handler: { [weak self] action, view, completionHandler in
+            switch indexPath.section {
+            case 0:
+                let data = self?.toDoManager.getNotFinishedDateToDo(date: Date())
+                self?.toDoManager.deleteToDo(data: data![indexPath.row]) {
+                    print("section: \(indexPath.section), row: \(data![indexPath.row])")
+                    tableView.reloadData()
                 }
+            case 1:
+                let data = self?.toDoManager.getFinishedDateToDo(date: Date())
+                self?.toDoManager.deleteToDo(data: data![indexPath.row]) {
+                    tableView.reloadData()
+                }
+            default:
+                break
             }
-            let no = UIAlertAction(title: "아니오", style: .cancel)
-            alert.addAction(yes)
-            alert.addAction(no)
-            self.present(alert, animated: true, completion: nil)
-            
-            completionHandler(true)
-            
         })
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }

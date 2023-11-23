@@ -111,13 +111,13 @@ final class AddView: UIView {
     }()
     
     lazy var dateStackView: UIStackView = {
-            let stView = UIStackView(arrangedSubviews: [dateView, dateSelectButton])
-            stView.axis = .horizontal
-            stView.spacing = 11
-            stView.alignment = .fill
-            stView.distribution = .fill
-            return stView
-        }()
+        let stView = UIStackView(arrangedSubviews: [dateView, dateSelectButton])
+        stView.axis = .horizontal
+        stView.spacing = 11
+        stView.alignment = .fill
+        stView.distribution = .fill
+        return stView
+    }()
     
     lazy var timeView: UIView = {
         let view = UIView()
@@ -167,15 +167,13 @@ final class AddView: UIView {
     }()
     
     lazy var timeStackView: UIStackView = {
-            let stView = UIStackView(arrangedSubviews: [timeView, timeSelectButton])
-            stView.axis = .horizontal
-            stView.spacing = 11
-            stView.alignment = .fill
-            stView.distribution = .fill
-            return stView
-        }()
-    
-    
+        let stView = UIStackView(arrangedSubviews: [timeView, timeSelectButton])
+        stView.axis = .horizontal
+        stView.spacing = 11
+        stView.alignment = .fill
+        stView.distribution = .fill
+        return stView
+    }()
     
     // detail
     lazy var detailFieldView: UIView = {
@@ -191,7 +189,7 @@ final class AddView: UIView {
     }()
     
     lazy var detailTextView: UITextView = {
-       let tv = UITextView()
+        let tv = UITextView()
         tv.font = UIFont(descriptor: .preferredFontDescriptor(withTextStyle: .title3), size: 17)
         tv.textAlignment = .left
         tv.backgroundColor = .clear
@@ -210,29 +208,21 @@ final class AddView: UIView {
     
     // buttons
     lazy var addButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.backgroundColor = colorHelper.yesButtonColor
         button.layer.cornerRadius = 5
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         button.layer.shadowOpacity = 0.5
         button.layer.shadowRadius = 2.5
-        button.addSubview(addLabel)
+        button.setTitle("ADD", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        button.titleLabel?.tintColor = colorHelper.fontColor
         return button
     }()
     
-    lazy var addLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.textAlignment = .center
-        label.text = "ADD"
-        label.textColor = colorHelper.fontColor
-        label.font = .boldSystemFont(ofSize: 17)
-        return label
-    }()
-    
     lazy var cancelButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.backgroundColor = colorHelper.cancelBackgroundColor
         button.layer.cornerRadius = 5
         button.frame.size = CGSize(width: 100, height: 48)
@@ -240,30 +230,23 @@ final class AddView: UIView {
         button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         button.layer.shadowOpacity = 0.5
         button.layer.shadowRadius = 2.5
-        button.addSubview(cancelLabel)
+        button.setTitle("CANCEL", for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        button.titleLabel?.tintColor = colorHelper.cancelTextColor
         return button
-    }()
-    
-    lazy var cancelLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.textAlignment = .center
-        label.text = "CANCEL"
-        label.textColor = colorHelper.cancelTextColor
-        label.font = .boldSystemFont(ofSize: 17)
-        return label
     }()
 
     lazy var buttonStackView: UIStackView = {
-            let stView = UIStackView(arrangedSubviews: [cancelButton, addButton])
-            stView.axis = .horizontal
-            stView.spacing = 26
-            stView.alignment = .fill
-            stView.distribution = .fill
-            return stView
-        }()
+        let stView = UIStackView(arrangedSubviews: [cancelButton, addButton])
+        stView.axis = .horizontal
+        stView.spacing = 26
+        stView.alignment = .fill
+        stView.distribution = .fill
+        return stView
+    }()
     
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -353,19 +336,11 @@ final class AddView: UIView {
         timeSelectLabel.translatesAutoresizingMaskIntoConstraints = false
         timeSelectLabel.centerXAnchor.constraint(equalTo: timeSelectButton.centerXAnchor).isActive = true
         timeSelectLabel.centerYAnchor.constraint(equalTo: timeSelectButton.centerYAnchor)
-        .isActive = true
+            .isActive = true
         timeSelectLabel.widthAnchor.constraint(equalToConstant: 210).isActive = true
     }
     
     private func buttonAutolayout() {
-        addLabel.translatesAutoresizingMaskIntoConstraints = false
-        addLabel.centerXAnchor.constraint(equalTo: addButton.centerXAnchor, constant: 0).isActive = true
-        addLabel.centerYAnchor.constraint(equalTo: addButton.centerYAnchor, constant: 0).isActive = true
-        
-        cancelLabel.translatesAutoresizingMaskIntoConstraints = false
-        cancelLabel.centerXAnchor.constraint(equalTo: cancelButton.centerXAnchor, constant: 0).isActive = true
-        cancelLabel.centerYAnchor.constraint(equalTo: cancelButton.centerYAnchor, constant: 0).isActive = true
-        
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
@@ -390,7 +365,7 @@ final class AddView: UIView {
         detailTextView.bottomAnchor.constraint(equalTo: detailFieldView.bottomAnchor, constant: -6).isActive = true
     }
     
-
+    
     
     
 }

@@ -30,8 +30,6 @@
 		F1198AEB29C1C6E5009E23AD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */; };
 		F131848B29C99E4D00C7F4D3 /* NetworkingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848A29C99E4D00C7F4D3 /* NetworkingModel.swift */; };
 		F131848D29CB0DDF00C7F4D3 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848C29CB0DDF00C7F4D3 /* DateHelper.swift */; };
-		F131848F29CC010300C7F4D3 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131848E29CC010300C7F4D3 /* StartView.swift */; };
-		F131849129CC01EA00C7F4D3 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131849029CC01EA00C7F4D3 /* StartViewController.swift */; };
 		F15A4F7A2A2F11AF00793806 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A4F792A2F11AF00793806 /* NotificationModel.swift */; };
 		F15A4F7C2A2F11E900793806 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A4F7B2A2F11E900793806 /* LocalNotificationManager.swift */; };
 		F15A4F7F2A2F1BD400793806 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15A4F7E2A2F1BD400793806 /* Date+Extension.swift */; };
@@ -66,8 +64,6 @@
 		F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F131848A29C99E4D00C7F4D3 /* NetworkingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingModel.swift; sourceTree = "<group>"; };
 		F131848C29CB0DDF00C7F4D3 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
-		F131848E29CC010300C7F4D3 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
-		F131849029CC01EA00C7F4D3 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		F15A4F742A2EBECF00793806 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F15A4F792A2F11AF00793806 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		F15A4F7B2A2F11E900793806 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
@@ -89,6 +85,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		91CA64132B03390A0046BBB6 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				F1198A9C29B9DBB4009E23AD /* MainViewController.swift */,
+				F1198AB929BADBB2009E23AD /* OneDayViewController.swift */,
+				F106F72829C47EFE007BCF0B /* MonthlyViewController.swift */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		91CA64162B033B380046BBB6 /* TabBarViews */ = {
+			isa = PBXGroup;
+			children = (
+				F1198AB229B9DC96009E23AD /* MainView.swift */,
+				F1198ABC29BB0217009E23AD /* TodayTableViewCell.swift */,
+				F106F72629C47EEA007BCF0B /* MonthlyView.swift */,
+			);
+			path = TabBarViews;
+			sourceTree = "<group>";
+		};
 		F106F72B29C98BE7007BCF0B /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,7 +142,7 @@
 				F1198AB129B9DC75009E23AD /* Models */,
 				F1198AB029B9DC6A009E23AD /* Views */,
 				F1198AAF29B9DC61009E23AD /* Controls */,
-				F15A4F7D2A2F1BB300793806 /* Utilties */,
+				F15A4F7D2A2F1BB300793806 /* Extensions */,
 				F1198AA429B9DBB4009E23AD /* Assets.xcassets */,
 				F1198AA629B9DBB4009E23AD /* LaunchScreen.storyboard */,
 				F1198AA929B9DBB4009E23AD /* Info.plist */,
@@ -138,13 +154,10 @@
 		F1198AAF29B9DC61009E23AD /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				F131849029CC01EA00C7F4D3 /* StartViewController.swift */,
-				F1198A9C29B9DBB4009E23AD /* MainViewController.swift */,
-				F1198AB929BADBB2009E23AD /* OneDayViewController.swift */,
+				91CA64132B03390A0046BBB6 /* Tabs */,
 				F1DECA5829CEF203001C758F /* CertainDayViewController.swift */,
 				F1198AD829BC63AC009E23AD /* AddViewController.swift */,
 				F1198AEA29C1C6E5009E23AD /* DetailViewController.swift */,
-				F106F72829C47EFE007BCF0B /* MonthlyViewController.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -152,12 +165,9 @@
 		F1198AB029B9DC6A009E23AD /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F131848E29CC010300C7F4D3 /* StartView.swift */,
-				F1198AB229B9DC96009E23AD /* MainView.swift */,
+				91CA64162B033B380046BBB6 /* TabBarViews */,
 				F1198AD629BC37E9009E23AD /* AddView.swift */,
 				F1198ADC29BC6622009E23AD /* DetailView.swift */,
-				F106F72629C47EEA007BCF0B /* MonthlyView.swift */,
-				F1198ABC29BB0217009E23AD /* TodayTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -169,8 +179,8 @@
 				F1DECA5529CDB74A001C758F /* UserData+CoreDataProperties.swift */,
 				F1198AE429C08B42009E23AD /* TodoData+CoreDataClass.swift */,
 				F1198AE529C08B42009E23AD /* TodoData+CoreDataProperties.swift */,
-				F131848A29C99E4D00C7F4D3 /* NetworkingModel.swift */,
 				F15A4F792A2F11AF00793806 /* NotificationModel.swift */,
+				F131848A29C99E4D00C7F4D3 /* NetworkingModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -185,12 +195,12 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		F15A4F7D2A2F1BB300793806 /* Utilties */ = {
+		F15A4F7D2A2F1BB300793806 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				F15A4F7E2A2F1BD400793806 /* Date+Extension.swift */,
 			);
-			path = Utilties;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,8 +275,6 @@
 			files = (
 				F1DECA5929CEF203001C758F /* CertainDayViewController.swift in Sources */,
 				F1198ADD29BC6622009E23AD /* DetailView.swift in Sources */,
-				F131848F29CC010300C7F4D3 /* StartView.swift in Sources */,
-				F131849129CC01EA00C7F4D3 /* StartViewController.swift in Sources */,
 				F1198AEB29C1C6E5009E23AD /* DetailViewController.swift in Sources */,
 				F1198A9D29B9DBB4009E23AD /* MainViewController.swift in Sources */,
 				F1198AE929C08B42009E23AD /* TodoData+CoreDataProperties.swift in Sources */,
@@ -452,7 +460,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.samSung.CalmedScheduleApp;
 				PRODUCT_NAME = Clamate;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -485,7 +493,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.samSung.CalmedScheduleApp;
 				PRODUCT_NAME = Clamate;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -507,7 +515,7 @@
 				F1198AAB29B9DBB4009E23AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		F1198AAC29B9DBB4009E23AD /* Build configuration list for PBXNativeTarget "CalmedScheduleApp" */ = {
 			isa = XCConfigurationList;
@@ -516,7 +524,7 @@
 				F1198AAE29B9DBB4009E23AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

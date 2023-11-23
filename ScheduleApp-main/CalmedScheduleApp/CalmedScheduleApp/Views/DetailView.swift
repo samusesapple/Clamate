@@ -254,29 +254,21 @@ final class DetailView: UIView {
     
     
     lazy var okButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.backgroundColor = colorHelper.yesButtonColor
         button.layer.cornerRadius = 5
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         button.layer.shadowOpacity = 0.5
         button.layer.shadowRadius = 2.5
-        button.addSubview(okLabel)
+        button.setTitle("OK", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        button.titleLabel?.tintColor = colorHelper.fontColor
         return button
     }()
     
-    lazy var okLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.textAlignment = .center
-        label.text = "OK"
-        label.textColor = colorHelper.fontColor
-        label.font = .boldSystemFont(ofSize: 17)
-        return label
-    }()
-    
     lazy var editButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.backgroundColor = colorHelper.cancelBackgroundColor
         button.layer.cornerRadius = 5
         button.frame.size = CGSize(width: 100, height: 48)
@@ -284,18 +276,11 @@ final class DetailView: UIView {
         button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         button.layer.shadowOpacity = 0.5
         button.layer.shadowRadius = 2.5
-        button.addSubview(editLabel)
+        button.setTitle("EDIT", for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        button.titleLabel?.tintColor = colorHelper.cancelTextColor
         return button
-    }()
-    
-    lazy var editLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .clear
-        label.textAlignment = .center
-        label.text = "EDIT"
-        label.textColor = colorHelper.cancelTextColor
-        label.font = .boldSystemFont(ofSize: 17)
-        return label
     }()
 
     lazy var buttonStackView: UIStackView = {
@@ -408,14 +393,6 @@ final class DetailView: UIView {
     }
     
     private func buttonAutolayout() {
-        okLabel.translatesAutoresizingMaskIntoConstraints = false
-        okLabel.centerXAnchor.constraint(equalTo: okButton.centerXAnchor, constant: 0).isActive = true
-        okLabel.centerYAnchor.constraint(equalTo: okButton.centerYAnchor, constant: 0).isActive = true
-        
-        editLabel.translatesAutoresizingMaskIntoConstraints = false
-        editLabel.centerXAnchor.constraint(equalTo: editButton.centerXAnchor, constant: 0).isActive = true
-        editLabel.centerYAnchor.constraint(equalTo: editButton.centerYAnchor, constant: 0).isActive = true
-        
         editButton.translatesAutoresizingMaskIntoConstraints = false
         editButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
         

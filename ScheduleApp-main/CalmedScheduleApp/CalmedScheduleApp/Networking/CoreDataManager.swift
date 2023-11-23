@@ -26,16 +26,22 @@ final class CoreDataManager {
     private let userModelName: String = "UserData"
     private let todoModelName: String = "TodoData"
 
+    // MARK: - User
     
-    func getUserInfoFromCoreData() -> [UserData] {
-        var userData: [UserData] = []
+    func getUserInfoFromCoreData() -> UserData? {
+        var userData: UserData?
         if let context = context {
             let request = NSFetchRequest<NSManagedObject>(entityName: self.userModelName)
             do {
                 if let fetchedUserData = try context.fetch(request) as? [UserData] {
-                    userData = fetchedUserData
+                    if !fetchedUserData.isEmpty {
+                        userData = fetchedUserData[0]
+                    } else {
+                        userData = nil
+                    }
                 }
             } catch {
+                print(error.localizedDescription)
             }
         }
         
@@ -57,6 +63,62 @@ final class CoreDataManager {
         completion()
     }
     
+    func updateUserName(_ userName: String, into newName: String?, completion: @escaping () -> Void) {
+        if let context = context {
+            let request = NSFetchRequest<NSManagedObject>(entityName: self.userModelName)
+            
+            do {
+                if let fetchedUserData = try context.fetch(request) as? [UserData] {
+                    // 배열의 첫번째
+                    if let newName = newName {
+                        fetchedUserData[0].userName = newName
+                        if context.hasChanges {
+                            do {
+                                try context.save()
+                                completion()
+                            } catch {
+                                completion()
+                            }
+                        }
+                    }
+                }
+                completion()
+            } catch {
+                completion()
+            }
+        }
+    }
+    
+    func updateUserCity(_ city: String, into newCity: String?, completion: @escaping () -> Void) {
+        if let context = context {
+            let request = NSFetchRequest<NSManagedObject>(entityName: self.userModelName)
+            
+            do {
+                if let fetchedUserData = try context.fetch(request) as? [UserData] {
+                    // 배열의 첫번째
+                    if let newCity = newCity {
+                        fetchedUserData[0].userCity = newCity
+                        if context.hasChanges {
+                            do {
+                                try context.save()
+                                completion()
+                            } catch {
+                                completion()
+                            }
+                        }
+                    }
+                }
+                completion()
+            } catch {
+                completion()
+            }
+        }
+    }
+
+
+    
+    // MARK: - Todo
+    
     func getToDoListFromCoreData() -> [TodoData] {
         var toDoList: [TodoData] = []
         // 임시저장소 있는지 확인
@@ -72,6 +134,7 @@ final class CoreDataManager {
                     toDoList = fetchedToDoList
                 }
             } catch {
+                print(error.localizedDescription)
             }
         }
         
@@ -96,6 +159,7 @@ final class CoreDataManager {
                     toDoList = fetchedToDoList
                 }
             } catch {
+                print(error.localizedDescription)
             }
         }
         return toDoList.filter { data in
@@ -122,6 +186,7 @@ final class CoreDataManager {
                     toDoList = fetchedToDoList
                 }
             } catch {
+                print(error.localizedDescription)
             }
         }
         return toDoList.filter { data in
@@ -149,6 +214,7 @@ final class CoreDataManager {
                     toDoList = fetchedToDoList
                 }
             } catch {
+                print(error.localizedDescription)
             }
         }
         return toDoList.filter { data in
@@ -246,6 +312,8 @@ final class CoreDataManager {
             }
         }
     }
+    
+    // MARK: - Notification
     
     /// Notification Center에 등록할 데이터 가져오기
     func getDataToSetOnNotificationCenter() -> [TodoData] {

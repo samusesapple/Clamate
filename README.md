@@ -145,18 +145,19 @@
 
 ### 업데이트 과정
 ---
-ver. 1.01 ( 23.03.27 )
+ver. 1.01 (23.03.27)
 1. Start View의 alert title 오타를 수정했습니다.
 2. Monthly View의 UICalendarView에 오늘 날짜를 한눈에 볼 수 있도록 decordation을 추가했습니다.
 <br>
 <br>
 
-ver. 1.2 ( 23.06.07 )
+ver. 1.2 (23.06.07)
 1. Push Notification, Background Module 을 사용한 로컬 푸시 알림 구현 
 2. AddVC, DetailVC의 timeFormatter의 분 단위를 수정했습니다. (1분 단위 -> 5분 단위)
 <br>
 <br>
 
-ver 1.3 (진행 중)
+ver 1.3 (23.11.22)
 1. 유저 닉네임 및 날씨 미세먼지 정보 받을 지역 수정 기능 추가
 2. 하단 탭바의 아이콘 변경
+3. launchScreen 제거 (HIG)
